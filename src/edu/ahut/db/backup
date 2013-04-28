@@ -1,0 +1,2 @@
+mysqldump --default-character-set=gbk --result-file=f:/tmanage.sql  -u root -p  tmanage
+备份一个数据库，详细见mysql-reference
