@@ -1,4 +1,4 @@
-﻿//        <div>
+//        <div>
 //            <input type="text" name="time1" id="time1" onclick="MyCalendar.SetDate(this)" value="2006-8-1" />
 //            <input type="text" name="time2" id="time2" value="2006-8-1" /><input name="" type="button"
 //                onclick="MyCalendar.SetDate(this,document.getElementById('time2'))" value="选择" />

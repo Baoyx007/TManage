@@ -84,8 +84,39 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES ('1','鲍勇翔',NULL,'MALE','123','byx',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `student` VALUES ('1','鲍勇翔',NULL,'MALE','ICy5YqxZB1uWSwcVLSNLcA==','byx',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `subject`
+--
+
+DROP TABLE IF EXISTS `subject`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `subject` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(45) DEFAULT NULL,
+  `description` text,
+  `sid` varchar(45) DEFAULT NULL,
+  `tid` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `tid_FK_idx` (`tid`),
+  KEY `sid_FK_idx` (`sid`),
+  CONSTRAINT `sid_FK` FOREIGN KEY (`sid`) REFERENCES `student` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `tid_FK` FOREIGN KEY (`tid`) REFERENCES `teacher` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `subject`
+--
+
+LOCK TABLES `subject` WRITE;
+/*!40000 ALTER TABLE `subject` DISABLE KEYS */;
+INSERT INTO `subject` VALUES (1,'毕业设计管理系统','我做的','1','1');
+/*!40000 ALTER TABLE `subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -125,6 +156,37 @@ LOCK TABLES `teacher` WRITE;
 INSERT INTO `teacher` VALUES ('1','储岳中',NULL,'MALE','ICy5YqxZB1uWSwcVLSNLcA==','chu',NULL,NULL,NULL,NULL,NULL,NULL,'副教授',NULL,NULL,NULL),('2','陈学进',NULL,'MALE','ICy5YqxZB1uWSwcVLSNLcA==','chen',NULL,NULL,NULL,NULL,NULL,NULL,'副教授',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `teacher` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `thesis`
+--
+
+DROP TABLE IF EXISTS `thesis`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `thesis` (
+  `id` varchar(45) NOT NULL,
+  `real_file_name` varchar(45) DEFAULT NULL,
+  `uuid_file_name` varchar(80) DEFAULT NULL,
+  `submit_date` date DEFAULT NULL,
+  `stu_comment` text,
+  `tea_comment` text,
+  `subject_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sbjid_FK_idx` (`subject_id`),
+  CONSTRAINT `subject_id_FK` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='id,real_file_name,uuid_file_name,submit_date,stu_comment,subject_id,tea_comment';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `thesis`
+--
+
+LOCK TABLES `thesis` WRITE;
+/*!40000 ALTER TABLE `thesis` DISABLE KEYS */;
+INSERT INTO `thesis` VALUES ('a29323e8-2ab1-4678-9db6-f1c59b1f280e','testThesis.doc','a56b8874-f984-464c-8eed-6e1aec091081_testThesis.doc','2013-04-28','这是第一个版本！',NULL,1);
+/*!40000 ALTER TABLE `thesis` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -135,4 +197,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-28 17:32:12
+-- Dump completed on 2013-04-28 23:07:15
