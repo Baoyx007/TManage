@@ -1,2 +1,10 @@
-mysqldump --default-character-set=gbk --result-file=f:/tmanage.sql  -u root -p  tmanage
 备份一个数据库，详细见mysql-reference
+
+//备份数据库
+mysqldump --default-character-set=gbk --result-file=F:/Java/Drill/ThesisManage2/src/edu/ahut/db/tmanage.sql  -u root -p  tmanage
+
+//备份teacher表
+mysqldump --default-character-set=gbk --result-file=f:/tmanage_teacher.sql  -u root -p  tmanage teacher
+
+
+F:/Java/Drill/ThesisManage2/src/edu/ahut/db/xx.sql

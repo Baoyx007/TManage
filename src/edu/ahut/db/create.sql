@@ -1,21 +1,3 @@
-delimiter $$
-
-CREATE TABLE `manager` (
-  `id` varchar(45) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `birthday` date DEFAULT NULL,
-  `gender` enum('MALE','FEMALE') DEFAULT NULL,
-  `password` varchar(45) NOT NULL,
-  `username` varchar(45) NOT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `phone` varchar(45) DEFAULT NULL,
-  `address` varchar(45) DEFAULT NULL,
-  `photo` blob,
-  `comment` text,
-  `role` enum('SUPER','NORMAL') DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
 
 delimiter $$
 
@@ -37,8 +19,6 @@ CREATE TABLE `manager` (
 
 delimiter $$
 use TManage$$
-
-delimiter $$
 
 CREATE TABLE `subject` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -74,3 +54,20 @@ CREATE TABLE `teacher` (
   `degree` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+
+CREATE  TABLE `tmanage`.`thesis` (
+  `id` VARCHAR(45) NOT NULL ,
+  `real_file_name` VARCHAR(45) NULL ,
+  `uuid_file_name` VARCHAR(45) NULL ,
+  `submit_date` DATE NULL ,
+  `stu_comment` TEXT NULL ,
+  `tea_comment` TEXT NULL ,
+  `subject_id` INT(11) NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `sbjid_FK_idx` (`subject_id` ASC) ,
+  CONSTRAINT `subject_id_FK`
+    FOREIGN KEY (`subject_id` )
+    REFERENCES `tmanage`.`subject` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'id,real_file_name,uuid_file_name,submit_date,stu_comment,subject_id,tea_comment';
