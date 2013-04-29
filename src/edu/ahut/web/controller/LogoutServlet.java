@@ -42,7 +42,7 @@ public class LogoutServlet extends HttpServlet {
 	    throws ServletException, IOException {
 	HttpSession session = request.getSession(false);
 	if (session != null)
-	    session.removeAttribute("user");
+	    session.invalidate();
 	request.getSession().setAttribute(
 		"message",
 		"注销成功!3秒后跳转<br/><meta http-equiv='refresh' content='3;url=http://localhost:8080/"

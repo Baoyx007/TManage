@@ -12,7 +12,7 @@
         <form
             action="${pageContext.request.servletContext.contextPath }/servlet/PublishSubjectServlet"
             method="post">
-            <table align="center" border="1">
+            <table align="center" border="1" width="70%">
                 <tr>
                     <td>题目:</td>
                     <td><input type="text" name="title" />
@@ -20,7 +20,7 @@
                 </tr>
                 <tr>
                     <td>描述:</td>
-                    <td><textarea rows="10" cols="50" name="description">输入题目的描述</textarea>
+                    <td><textarea rows="10" cols="100" name="description">输入题目的描述</textarea>
                     </td>
                 </tr>
                 <tr>
