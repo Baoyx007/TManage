@@ -40,6 +40,7 @@ public class SubmitThesisUIServlet extends HttpServlet {
      * @throws IOException
      *             if an error occurred
      */
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	User student = (User) request.getSession(false).getAttribute("user");
@@ -66,6 +67,7 @@ public class SubmitThesisUIServlet extends HttpServlet {
      * @throws IOException
      *             if an error occurred
      */
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 

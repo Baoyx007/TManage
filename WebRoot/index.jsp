@@ -5,6 +5,7 @@
     <head>
         <title>首页</title>
     </head>
+    <!-- 设置服务器context -->
     <c:set var="myContext" value="${pageContext.request.servletContext.contextPath}"/>
 
     <body style="text-align: center;">
@@ -25,11 +26,7 @@
 
         </div>
         <hr>
-        ${role },${user }
-        <br>
-        <a
-            href="${myContext}/servlet/ListSubjectServlet">查看所有论文</a>
-        <br />
+
 
         <!--老师-->
         <c:if test="${user!=null && role=='teacher' }">
@@ -43,6 +40,15 @@
                 href="${myContext}/servlet/SubmitThesisUIServlet">提交论文</a>
         </c:if>
 
-        ${pageContext.request.servletContext.contextPath}
+        <br><br><br>
+        <hr>
+        <hr>测试区<br>
+        role=${role }<br>user=${user }
+        <br>
+        <a
+            href="${myContext}/servlet/ListSubjectServlet">查看所有论文</a>
+        <br />
+        <hr>
+        <hr>
     </body>
 </html>

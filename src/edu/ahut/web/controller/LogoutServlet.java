@@ -37,6 +37,7 @@ public class LogoutServlet extends HttpServlet {
      * @throws IOException
      *             if an error occurred
      */
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	HttpSession session = request.getSession(false);
@@ -44,7 +45,7 @@ public class LogoutServlet extends HttpServlet {
 	    session.removeAttribute("user");
 	request.getSession().setAttribute(
 		"message",
-		"注销成功!3秒后跳转<br/><meta http-equiv='refresh' content='3;url=http://localhost"
+		"注销成功!3秒后跳转<br/><meta http-equiv='refresh' content='3;url=http://localhost:8080/"
 			+ request.getContextPath() + "/'>");
 	response.sendRedirect(request.getContextPath() + "/message.jsp");
     }
