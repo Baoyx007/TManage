@@ -1,15 +1,18 @@
 /**
- * 
+ *
  */
 package edu.ahut.domain;
+
+import java.util.List;
 
 /**
  * @author Haven
  * @date 2013-3-19
- * 
+ *
  */
 public class Student extends User {
     // 学院
+
     private String college;
     // 专业
     private String major;
@@ -21,94 +24,101 @@ public class Student extends User {
     private int enterYear;
     // 学历
     private String degree;
+    //------------
+    private List<Subject> subjects;
+
+    public Student() {
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
+    }
 
     /**
      * @return the college
      */
     public String getCollege() {
-	return college;
+        return college;
     }
 
     /**
-     * @param college
-     *            the college to set
+     * @param college the college to set
      */
     public void setCollege(String college) {
-	this.college = college;
+        this.college = college;
     }
 
     /**
      * @return the major
      */
     public String getMajor() {
-	return major;
+        return major;
     }
 
     /**
-     * @param major
-     *            the major to set
+     * @param major the major to set
      */
     public void setMajor(String major) {
-	this.major = major;
+        this.major = major;
     }
 
     /**
      * @return the stuClass
      */
     public String getStuClass() {
-	return stuClass;
+        return stuClass;
     }
 
     /**
-     * @param stuClass
-     *            the stuClass to set
+     * @param stuClass the stuClass to set
      */
     public void setStuClass(String stuClass) {
-	this.stuClass = stuClass;
+        this.stuClass = stuClass;
     }
 
     /**
      * @return the courseYear
      */
     public int getCourseYear() {
-	return courseYear;
+        return courseYear;
     }
 
     /**
-     * @param courseYear
-     *            the courseYear to set
+     * @param courseYear the courseYear to set
      */
     public void setCourseYear(int courseYear) {
-	this.courseYear = courseYear;
+        this.courseYear = courseYear;
     }
 
     /**
      * @return the enterYear
      */
     public int getEnterYear() {
-	return enterYear;
+        return enterYear;
     }
 
     /**
-     * @param enterYear
-     *            the enterYear to set
+     * @param enterYear the enterYear to set
      */
     public void setEnterYear(int enterYear) {
-	this.enterYear = enterYear;
+        this.enterYear = enterYear;
     }
 
     /**
      * @return the degree
      */
     public String getDegree() {
-	return degree;
+        return degree;
     }
 
     /**
-     * @param degree
-     *            the degree to set
+     * @param degree the degree to set
      */
     public void setDegree(String degree) {
-	this.degree = degree;
+        this.degree = degree;
     }
 }

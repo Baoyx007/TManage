@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package edu.ahut.domain;
 
@@ -8,125 +8,118 @@ import java.util.Date;
 /**
  * @author Haven
  * @date 2013-4-5
- * 
+ *
  */
-
 public class Thesis {
+
     private String id;
     private String realFileName;
     private String uuidFileName;
     private Date submitDate;
-    private Subject subject;
     private String studentComment;
     private String teacherComment;
+    //---------------------
+    private Subject subject;
 
     public Thesis() {
-	super();
+        super();
     }
 
     /**
      * @return the id
      */
     public String getId() {
-	return id;
+        return id;
     }
 
     /**
-     * @param id
-     *            the id to set
+     * @param id the id to set
      */
     public void setId(String id) {
-	this.id = id;
+        this.id = id;
     }
 
     /**
      * @return the realFileName
      */
     public String getRealFileName() {
-	return realFileName;
+        return realFileName;
     }
 
     /**
-     * @param realFileName
-     *            the realFileName to set
+     * @param realFileName the realFileName to set
      */
     public void setRealFileName(String realFileName) {
-	this.realFileName = realFileName;
+        this.realFileName = realFileName;
     }
 
     /**
      * @return the uuidFileName
      */
     public String getUuidFileName() {
-	return uuidFileName;
+        return uuidFileName;
     }
 
     /**
-     * @param uuidFileName
-     *            the uuidFileName to set
+     * @param uuidFileName the uuidFileName to set
      */
     public void setUuidFileName(String uuidFileName) {
-	this.uuidFileName = uuidFileName;
+        this.uuidFileName = uuidFileName;
     }
 
     /**
      * @return the submitDate
      */
     public Date getSubmitDate() {
-	return submitDate;
+        return submitDate;
     }
 
     /**
-     * @param submitDate
-     *            the submitDate to set
+     * @param submitDate the submitDate to set
      */
     public void setSubmitDate(Date submitDate) {
-	this.submitDate = submitDate;
+        this.submitDate = submitDate;
     }
 
     /**
      * @return the subject
      */
     public Subject getSubject() {
-	return subject;
+        return subject;
     }
 
     /**
-     * @param subject
-     *            the subject to set
+     * @param subject the subject to set
      */
     public void setSubject(Subject subject) {
-	this.subject = subject;
+        this.subject = subject;
     }
 
     /**
      * @return the studentComment
      */
     public String getStudentComment() {
-	return studentComment;
+        return studentComment;
     }
 
     /**
-     * @param studentComment
-     *            the studentComment to set
+     * @param studentComment the studentComment to set
      */
     public void setStudentComment(String studentComment) {
-	this.studentComment = studentComment;
+        this.studentComment = studentComment;
     }
 
     /**
      * @return the teacherComment
      */
     public String getTeacherComment() {
-	return teacherComment;
+        return teacherComment;
     }
 
     /**
-     * @param teacherComment
-     *            the teacherComment to set
+     * @param teacherComment the teacherComment to set
      */
     public void setTeacherComment(String teacherComment) {
-	this.teacherComment = teacherComment;
+        this.teacherComment = teacherComment;
     }
-
 }

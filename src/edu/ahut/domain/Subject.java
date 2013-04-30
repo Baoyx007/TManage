@@ -1,97 +1,124 @@
 /**
- * 
+ *
  */
 package edu.ahut.domain;
 
+import java.util.List;
+
 /**
  * 论文选题,包涵题目，老师、学生的ID，对此描述。
- * 
+ *
  * @author Haven
  * @date 2013-4-2
- * 
+ *
  */
 public class Subject {
+
     private String id;
     private String title;
     private String description;
-
     // TODO 这应该是Teacher，Student，这两个类，以后改！！
     private String studentId;
     private String teacherId;
+    //-----------
+    private Student student;
+    private Teacher teacher;
+    private List<Thesis> theses;
+    public Subject() {
+    }
+
+    public List<Thesis> getTheses() {
+        return theses;
+    }
+
+    public void setTheses(List<Thesis> theses) {
+        this.theses = theses;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
 
     /**
      * @return the id
      */
     public String getId() {
-	return id;
+        return id;
     }
 
     /**
-     * @param id
-     *            the id to set
+     * @param id the id to set
      */
     public void setId(String id) {
-	this.id = id;
+        this.id = id;
     }
 
     /**
      * @return the title
      */
     public String getTitle() {
-	return title;
+        return title;
     }
 
     /**
-     * @param title
-     *            the title to set
+     * @param title the title to set
      */
     public void setTitle(String title) {
-	this.title = title;
+        this.title = title;
     }
 
     /**
      * @return the description
      */
     public String getDescription() {
-	return description;
+        return description;
     }
 
     /**
-     * @param description
-     *            the description to set
+     * @param description the description to set
      */
     public void setDescription(String description) {
-	this.description = description;
+        this.description = description;
     }
 
     /**
      * @return the studentId
      */
     public String getStudentId() {
-	return studentId;
+        return studentId;
     }
 
     /**
-     * @param studentId
-     *            the studentId to set
+     * @param studentId the studentId to set
      */
     public void setStudentId(String studentId) {
-	this.studentId = studentId;
+        this.studentId = studentId;
     }
 
     /**
      * @return the teacherId
      */
     public String getTeacherId() {
-	return teacherId;
+        return teacherId;
     }
 
     /**
-     * @param teacherId
-     *            the teacherId to set
+     * @param teacherId the teacherId to set
      */
     public void setTeacherId(String teacherId) {
-	this.teacherId = teacherId;
+        this.teacherId = teacherId;
     }
 
     /*
@@ -101,13 +128,12 @@ public class Subject {
      */
     @Override
     public String toString() {
-	StringBuilder sb = new StringBuilder();
-	sb.append(" id : " + this.id);
-	sb.append(", title : " + this.title);
-	sb.append(", description : " + this.description);
-	sb.append(", studentId : " + this.studentId);
-	sb.append(", teacherId : " + this.teacherId);
-	return sb.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append(" id : ").append(this.id);
+        sb.append(", title : ").append(this.title);
+        sb.append(", description : ").append(this.description);
+        sb.append(", studentId : ").append(this.studentId);
+        sb.append(", teacherId : ").append(this.teacherId);
+        return sb.toString();
     }
-
 }
