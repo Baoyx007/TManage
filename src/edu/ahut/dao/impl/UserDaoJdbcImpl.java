@@ -31,7 +31,7 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public void addUser(User user) {
 	String sql = "insert into manager(id,name,birthday,gender,username,password) values(?,?,?,?,?,?)";
-	QueryRunner runner = new QueryRunner(JdbcUtils.getDateSource());
+	QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
 	try {
 	    runner.update(
 		    sql,
@@ -60,7 +60,7 @@ public class UserDaoJdbcImpl implements UserDao {
 		+ clazz.getSimpleName().toLowerCase()
 		+ " where username=? and password=?";
 
-	QueryRunner runner = new QueryRunner(JdbcUtils.getDateSource());
+	QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
 	try {
 	    T user = runner.query(sql, new BeanHandler<T>(clazz), loginName,
 		    ServiceUtils.md5(password));
@@ -80,7 +80,7 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public Teacher findTeacher(String id) {
 	String sql = "select * from teacher where id=?";
-	QueryRunner runner = new QueryRunner(JdbcUtils.getDateSource());
+	QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
 	try {
 	    return runner.query(sql, new BeanHandler<Teacher>(Teacher.class),
 		    id);
@@ -97,7 +97,7 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public Student findStudent(String id) {
 	String sql = "select * from student where id=?";
-	QueryRunner runner = new QueryRunner(JdbcUtils.getDateSource());
+	QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
 	try {
 	    return runner.query(sql, new BeanHandler<Student>(Student.class),
 		    id);

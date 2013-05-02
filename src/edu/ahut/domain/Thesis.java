@@ -18,11 +18,20 @@ public class Thesis {
     private Date submitDate;
     private String studentComment;
     private String teacherComment;
+    private String subjectId;
     //---------------------
     private Subject subject;
 
     public Thesis() {
         super();
+    }
+
+    public String getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(String subjectId) {
+        this.subjectId = subjectId;
     }
 
     /**

@@ -24,7 +24,7 @@ public class SubjectDaoTest {
 	Subject subject = new Subject();
 	subject.setId(ServiceUtils.generateID());
 	subject.setTitle("test");
-	subject.setDescription("vs而撒的發生的法 圣达菲vbearbgv");
+	subject.setDescription("所得税的发生的水电费");
 	subject.setTeacherId("2");
 	dao.addSubject(subject);
     }

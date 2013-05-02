@@ -1,75 +1,116 @@
 /**
- * 
+ *
  */
 package edu.ahut.utils;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
-import org.apache.commons.dbcp.BasicDataSourceFactory;
 
 /**
  * @author Haven
  * @date 2013-3-19
- * 
+ *
  */
 public final class JdbcUtils {
-    private static DataSource dataSource = null;
 
-    private JdbcUtils() {
-    }
+    private static ComboPooledDataSource dataSource;
+    // 这个就是连接池
+    private static ThreadLocal<Connection> tl = new ThreadLocal<Connection>();
 
     static {
-	try {
-	    Class.forName("com.mysql.jdbc.Driver");
-	    Properties prop = new Properties();
-	    prop.load(JdbcUtils.class.getClassLoader().getResourceAsStream(
-		    "dbcpconfig.properties"));
-	    dataSource = BasicDataSourceFactory.createDataSource(prop);
-	} catch (Exception e) {
-	    throw new ExceptionInInitializerError(e);
-	}
+        dataSource = new ComboPooledDataSource();
     }
 
-    public static Connection getConnection() throws SQLException {
-	// return DriverManager.getConnection(url, user, password);
-	return dataSource.getConnection();
+    // 取得数据源
+    public static ComboPooledDataSource getDataSource() {
+        return dataSource;
     }
 
-    public static DataSource getDateSource() {
-	return dataSource;
+    // 取得连接
+    public static Connection getMySqlConnection() throws SQLException {
+        Connection conn = tl.get();
+        if (conn == null) {
+            conn = dataSource.getConnection();
+            tl.set(conn);
+        }
+        return conn;
+    }
+
+    public static void closeConnection() throws SQLException {
+        Connection conn = getMySqlConnection();
+        close(conn);
+        tl.remove();
+    }
+
+    public static void begin() throws SQLException {
+        Connection conn = getMySqlConnection();
+        conn.setAutoCommit(false);
+    }
+
+    public static void commit() throws SQLException {
+        Connection conn = getMySqlConnection();
+        conn.commit();
+    }
+
+    public static void rollback() throws SQLException {
+        Connection conn = getMySqlConnection();
+        conn.rollback();
+    }
+
+    public static void end() throws SQLException {
+        Connection conn = getMySqlConnection();
+        conn.setAutoCommit(true);
     }
 
     public static void free(ResultSet rs, Statement st, Connection conn) {
-	try {
-	    if (rs != null)
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+        } catch (SQLException e) {
 
-		rs.close();
-	} catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (st != null) {
+                    st.close();
+                }
+            } catch (SQLException e) {
 
-	    e.printStackTrace();
-	} finally {
-	    try {
-		if (st != null)
-		    st.close();
-	    } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (conn != null) {
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
 
-		e.printStackTrace();
-	    } finally {
-		if (conn != null) {
-		    try {
-			conn.close();
-		    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+    // 关闭连接
 
-			e.printStackTrace();
-		    }
-		}
-	    }
-	}
+    public static void close(Connection conn) throws SQLException {
+        if (conn != null) {
+            conn.close();
+        }
+    }
+
+    public static void close(PreparedStatement pstmt) throws SQLException {
+        if (pstmt != null) {
+            pstmt.close();
+        }
+    }
+
+    public static void close(ResultSet rs) throws SQLException {
+        if (rs != null) {
+            rs.close();
+        }
     }
 }

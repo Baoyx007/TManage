@@ -233,12 +233,12 @@ public abstract class User {
     @Override
     public String toString() {
 	StringBuilder sb = new StringBuilder();
-	sb.append("id:" + this.getId() + "\n");
-	sb.append("name:" + this.getName() + "\n");
-	sb.append("birthday:" + this.getBirthday() + "\n");
-	sb.append("gender:" + this.getGender() + "\n");
-	sb.append("password:" + this.getPassword() + "\n");
-	sb.append("username:" + this.getUsername() + "\n");
+	sb.append("id:").append(this.getId()).append("\n");
+	sb.append("name:").append(this.getName()).append("\n");
+	sb.append("birthday:").append(this.getBirthday()).append("\n");
+	sb.append("gender:").append(this.getGender()).append("\n");
+	sb.append("password:").append(this.getPassword()).append("\n");
+	sb.append("username:").append(this.getUsername()).append("\n");
 	return sb.toString();
     }
 

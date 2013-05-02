@@ -54,14 +54,14 @@ public final class UploadUtil {
 	SubmitForm submitForm = new SubmitForm();
 
 	// 真实临时路径
-	String tempPath = request.getSession().getServletContext()
+	String realTempPath = request.getSession().getServletContext()
 		.getRealPath(UploadUtil.tempPath);
 
 	// Create a factory for disk-based file items
 	// 缓冲区大小，位置
 	DiskFileItemFactory factory = new DiskFileItemFactory();
 	factory.setSizeThreshold(100 * 1024);
-	factory.setRepository(new File(tempPath));
+	factory.setRepository(new File(realTempPath));
 
 	// Create a new file upload handler
 	ServletFileUpload upload = new ServletFileUpload(factory);
@@ -132,7 +132,7 @@ public final class UploadUtil {
 	    out = new FileOutputStream(uuidFilePath + "/" + uuidFileName);
 
 	    byte[] buf = new byte[1024];
-	    int len = -1;
+	    int len=-1;
 	    while ((len = in.read(buf)) > 0) {
 		out.write(buf, 0, len);
 	    }

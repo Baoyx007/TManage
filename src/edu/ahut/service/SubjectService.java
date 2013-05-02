@@ -3,10 +3,10 @@
  */
 package edu.ahut.service;
 
-import java.util.Map;
 
 import edu.ahut.domain.Subject;
 import edu.ahut.domain.User;
+import java.util.List;
 
 /**
  * @author Haven
@@ -18,7 +18,7 @@ public interface SubjectService {
     public void addSubject(String title, String description, String sId);
 
     // 察看所有论文题目和对应个老师名
-    public Map<Subject, String> listAllSubject();
+    public List<Subject> listAllSubject();
 
     // 学生选择题目
     public void selectSubject(String subjectId, User user);

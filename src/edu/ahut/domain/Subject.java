@@ -17,13 +17,15 @@ public class Subject {
     private String id;
     private String title;
     private String description;
-    // TODO 这应该是Teacher，Student，这两个类，以后改！！
+    // 这应该是Teacher，Student，这两个类，以后改！！
+    //保留，id用于在其他表查找
     private String studentId;
     private String teacherId;
     //-----------
     private Student student;
     private Teacher teacher;
     private List<Thesis> theses;
+
     public Subject() {
     }
 
@@ -134,6 +136,9 @@ public class Subject {
         sb.append(", description : ").append(this.description);
         sb.append(", studentId : ").append(this.studentId);
         sb.append(", teacherId : ").append(this.teacherId);
+        sb.append(",student:").append(this.student);
+        sb.append(",teacher:").append(this.teacher);
+        sb.append(",theses:").append(this.theses);
         return sb.toString();
     }
 }

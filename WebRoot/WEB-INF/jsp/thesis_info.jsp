@@ -8,6 +8,9 @@
 </head>
 <body>
 	<h1>论文详细信息</h1>
+       <br>subject包涵下面所有的信息！！
+        <br>
+        
 	subject：题目，描述
 	<br />teacher：姓名，电话，职称
 	<br />student：姓名，邮箱，照片

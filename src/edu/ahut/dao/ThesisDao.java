@@ -23,8 +23,9 @@ public interface ThesisDao {
 
     /**
      * 根据subjectID得到thesis
+     * 获取数据库所有列
+     * @param sbId subjectId
      * 
-     * @param sbId
      * @return
      */
     List<Thesis> getThesesBySbId(String sbId);

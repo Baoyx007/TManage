@@ -1,18 +1,18 @@
 /**
- * 
+ *
  */
 package edu.ahut.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import edu.ahut.dao.SubjectDao;
+import edu.ahut.dao.ThesisDao;
 import edu.ahut.dao.UserDao;
 import edu.ahut.dao.impl.DaoFactory;
 import edu.ahut.dao.impl.SubjectDaoImpl;
-import edu.ahut.dao.impl.UserDaoJdbcImpl;
+import edu.ahut.domain.Student;
 import edu.ahut.domain.Subject;
+import edu.ahut.domain.Teacher;
 import edu.ahut.domain.User;
 import edu.ahut.service.SubjectService;
 import edu.ahut.utils.ServiceUtils;
@@ -20,18 +20,19 @@ import edu.ahut.utils.ServiceUtils;
 /**
  * @author Haven
  * @date 2013-4-2
- * 
+ *
  */
 public class SubjectServiceImpl implements SubjectService {
 
+    @Override
     public void addSubject(String title, String description, String sId) {
-	SubjectDao dao = new SubjectDaoImpl();
-	Subject subject = new Subject();
-	subject.setId(ServiceUtils.generateID());
-	subject.setTitle(title);
-	subject.setDescription(description);
-	subject.setTeacherId(sId);
-	dao.addSubject(subject);
+        SubjectDao dao = new SubjectDaoImpl();
+        Subject subject = new Subject();
+        subject.setId(ServiceUtils.generateID());
+        subject.setTitle(title);
+        subject.setDescription(description);
+        subject.setTeacherId(sId);
+        dao.addSubject(subject);
     }
 
     /*
@@ -41,17 +42,24 @@ public class SubjectServiceImpl implements SubjectService {
      * @see edu.ahut.service.SubjectService#listAllSubject()
      */
     @Override
-    public Map<Subject, String> listAllSubject() {
-	SubjectDao subjectdao = new SubjectDaoImpl();
-	UserDao useDao = new UserDaoJdbcImpl();
-	List<Subject> subjects = subjectdao.getAllSubject();
-	Map<Subject, String> map = new HashMap<Subject, String>();
-	for (Subject subject : subjects) {
-	    User teacher = useDao.findTeacher(subject.getTeacherId());
-	    map.put(subject, teacher.getName());
-	}
+    public List<Subject> listAllSubject() {
+        //要map干嘛？？
+        //操作3个表，这个对象应该缓存
+        SubjectDao subjectdao = DaoFactory.getSubjectDao();
+        UserDao useDao = DaoFactory.getUserDao();
+        ThesisDao thesisDao = DaoFactory.getThesisDao();
 
-	return map;
+        //其中包含的对象还没赋值
+        List<Subject> subjects = subjectdao.getAllSubject();
+
+        for (Subject subject : subjects) {
+            Teacher teacher = useDao.findTeacher(subject.getTeacherId());
+            Student findStudent = useDao.findStudent(subject.getStudentId());
+            subject.setTeacher(teacher);
+            subject.setStudent(findStudent);
+            subject.setTheses(thesisDao.getThesesBySbId(subject.getId()));
+        }
+        return subjects;
     }
 
     /*
@@ -62,7 +70,7 @@ public class SubjectServiceImpl implements SubjectService {
      */
     @Override
     public void selectSubject(String subjectId, User user) {
-	new SubjectDaoImpl().selectSubject(subjectId, user.getId());
+        new SubjectDaoImpl().selectSubject(subjectId, user.getId());
     }
 
 
@@ -73,7 +81,7 @@ public class SubjectServiceImpl implements SubjectService {
      */
     @Override
     public Subject getSubject(String subjectId) {
-	SubjectDao subjectDao = DaoFactory.getSubjectDao();
-	return subjectDao.getSubjectByid(subjectId);
+        SubjectDao subjectDao = DaoFactory.getSubjectDao();
+        return subjectDao.getSubjectByid(subjectId);
     }
 }

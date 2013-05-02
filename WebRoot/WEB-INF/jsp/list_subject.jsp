@@ -13,19 +13,26 @@
             <tr>
                 <th>论文名</th>
                 <th>发布者</th>
+                <th>状态</th>
                 <th>操作</th>
             </tr>
-            <c:forEach items="${requestScope.subjects }" var="entry">
+            <c:forEach items="${requestScope.subjects }" var="subject">
                 <tr>
                     <td><a
-                            href="${pageContext.request.contextPath }/servlet/ShowThesisInfoServlet?subjectId=${entry.key.id}">${entry.key.title
+                            href="${pageContext.request.servletContext.contextPath }/servlet/ShowThesisInfoServlet?subjectId=${subject.id}">${subject.title
                             }</a>
                     </td>
-                    <td><a href="#">${ entry.value}</a></td>
+                    <td><a href="#">${ subject.teacher.name}</a></td>
+                    <td><c:choose>  
+                            <c:when test="${subject.student==null}">尚未有学生选择</c:when>  
+                            <c:otherwise><a href="#">${ subject.student.name}</a>   同学选择了此题</c:otherwise>
+                        </c:choose>
+                    </td>
                     <td><c:url var="myURL" value="/servlet/SelectSubjectServlet">
-                            <c:param name="subjectId" value="${entry.key.id }">
+                            <c:param name="subjectId" value="${subject.id }">
                             </c:param>
                         </c:url> <a href="${myURL}" style="display:${role=='student'?'':'none' } ">选此论文题目</a>
+                        <a href="${myURL}" style="display:${role=='teacher'?'':'none' } ">下载已提交的论文</a>
                     </td>
                 </tr>
             </c:forEach>

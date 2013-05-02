@@ -30,7 +30,7 @@ public class SubjectDaoImpl implements SubjectDao {
     @Override
     public void addSubject(Subject subject) {
 	String sql = "insert into subject(id,title,description,tid) values(?,?,?,?)";
-	QueryRunner runner = new QueryRunner(JdbcUtils.getDateSource());
+	QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
 	try {
 	    runner.update(
 		    sql,
@@ -51,7 +51,7 @@ public class SubjectDaoImpl implements SubjectDao {
     @Override
     public List<Subject> getAllSubject() {
 	String sql = "select id,title,description,sid as studentId,tid as teacherId from subject";
-	QueryRunner runner = new QueryRunner(JdbcUtils.getDateSource());
+	QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
 	try {
 	    return runner.query(sql,
 		    new BeanListHandler<Subject>(Subject.class));
@@ -70,7 +70,7 @@ public class SubjectDaoImpl implements SubjectDao {
     @Override
     public void selectSubject(String subjectId, String studentId) {
 	String sql = "update subject set sid=? where id=?";
-	QueryRunner runner = new QueryRunner(JdbcUtils.getDateSource());
+	QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
 	try {
 	    runner.update(sql, new Object[] { studentId, subjectId });
 	} catch (SQLException e) {
@@ -88,7 +88,7 @@ public class SubjectDaoImpl implements SubjectDao {
     @Override
     public Subject findSubjectBySid(String sid) {
 	String sql = "select id,title,description,sid as studentId,tid as teacherId from subject where sid=?";
-	QueryRunner runner = new QueryRunner(JdbcUtils.getDateSource());
+	QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
 	try {
 	    return runner.query(sql, new BeanHandler<Subject>(Subject.class),
 		    sid);
@@ -107,7 +107,7 @@ public class SubjectDaoImpl implements SubjectDao {
     @Override
     public Subject getSubjectByid(String id) {
 	String sql = "select id,title,description,sid as studentId,tid as teacherId from subject where id=?";
-	QueryRunner runner = new QueryRunner(JdbcUtils.getDateSource());
+	QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
 	try {
 	    return runner.query(sql, new BeanHandler<Subject>(Subject.class),
 		    id);
