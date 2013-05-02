@@ -41,7 +41,7 @@ public class GeneralFilter implements Filter {
         // ÇëÇó±àÂëÉèÖÃ
         request.setCharacterEncoding(encoding);
         // ÏìÓ¦±àÂëÉèÖÃ
-        response.setContentType("text/html;charset=" + encoding);
+        response.setCharacterEncoding(encoding);
         chain.doFilter(request, response);
     }
 
