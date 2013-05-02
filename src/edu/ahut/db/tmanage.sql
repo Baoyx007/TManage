@@ -84,7 +84,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES ('1','鲍勇翔',NULL,'MALE','ICy5YqxZB1uWSwcVLSNLcA==','byx',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('2','sdfasdf',NULL,NULL,'ICy5YqxZB1uWSwcVLSNLcA==','zxc',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `student` VALUES ('1','鲍勇翔',NULL,'MALE','ICy5YqxZB1uWSwcVLSNLcA==','byx',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('2','sdfasdf',NULL,'FEMALE','ICy5YqxZB1uWSwcVLSNLcA==','zxc',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +115,7 @@ CREATE TABLE `subject` (
 
 LOCK TABLES `subject` WRITE;
 /*!40000 ALTER TABLE `subject` DISABLE KEYS */;
-INSERT INTO `subject` VALUES ('1','毕业设计管理系统','我做的','2','1'),('89941ebe-4dfc-4b9f-9f47-ba82d8bee447','sdfsdfasdf','马刺横扫湖人晋级第二轮今日数据：科里再开杀戒\r\n加索尔流泪：可能是我在湖人最后一战|科比现场观战，安慰加索尔\r\n霍华德2次技术犯规被驱逐出场|雷吉-米勒：霍华德现在不值得顶薪\r\n湖人今年季后赛回顾：绝望的四战全败|德安东尼：湖人队是最好的\r\n贾米森：我们从未有化学反应|魔兽：本赛季就像一场醒不来的噩梦\r\n4-0！热火横扫雄鹿晋级第二轮凯尔特人拒绝被横扫\r\n好久不见！麦迪今日代表马刺出场||麦迪首秀婉拒采访：以后再说\r\n热火三巨头组合首次横扫对手晋级|詹姆斯：我的队友专为季后赛而生\r\n魔术师：湖人赛季结束了，好开心|波波维奇：和湖人的系列赛不公平\r\n 韦德：其实哥是内涵帝！|输球懊恼，法里德在墙上踢了个洞！','1','1');
+INSERT INTO `subject` VALUES ('1','毕业设计管理系统','我做的','1','1'),('2','所得税的','sdsdsdsds发的郭德纲','1','2'),('89941ebe-4dfc-4b9f-9f47-ba82d8bee447','sdfsdfasdf','马刺横扫湖人晋级第二轮今日数据：科里再开杀戒\r\n加索尔流泪：可能是我在湖人最后一战|科比现场观战，安慰加索尔\r\n霍华德2次技术犯规被驱逐出场|雷吉-米勒：霍华德现在不值得顶薪\r\n湖人今年季后赛回顾：绝望的四战全败|德安东尼：湖人队是最好的\r\n贾米森：我们从未有化学反应|魔兽：本赛季就像一场醒不来的噩梦\r\n4-0！热火横扫雄鹿晋级第二轮凯尔特人拒绝被横扫\r\n好久不见！麦迪今日代表马刺出场||麦迪首秀婉拒采访：以后再说\r\n热火三巨头组合首次横扫对手晋级|詹姆斯：我的队友专为季后赛而生\r\n魔术师：湖人赛季结束了，好开心|波波维奇：和湖人的系列赛不公平\r\n 韦德：其实哥是内涵帝！|输球懊恼，法里德在墙上踢了个洞！','1','1');
 /*!40000 ALTER TABLE `subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -168,7 +168,7 @@ CREATE TABLE `thesis` (
   `id` varchar(45) NOT NULL,
   `real_file_name` varchar(45) DEFAULT NULL,
   `uuid_file_name` varchar(80) DEFAULT NULL,
-  `submit_date` date DEFAULT NULL,
+  `submit_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `stu_comment` text,
   `tea_comment` text,
   `subject_id` varchar(45) DEFAULT NULL,
@@ -184,7 +184,7 @@ CREATE TABLE `thesis` (
 
 LOCK TABLES `thesis` WRITE;
 /*!40000 ALTER TABLE `thesis` DISABLE KEYS */;
-INSERT INTO `thesis` VALUES ('dde80c20-cc7b-4056-9b49-963b615c4f4d','testThesis.doc','38da5a5f-27f5-4b07-831a-06f8296684c1_testThesis.doc','2013-04-29','qq',NULL,'89941ebe-4dfc-4b9f-9f47-ba82d8bee447'),('f944c0f6-e830-46e1-b30a-24b38cc9caca','testThesis.doc','22e893b4-bbd3-4343-842d-61a2c35bfa44_testThesis.doc','2013-04-29','haha',NULL,'1');
+INSERT INTO `thesis` VALUES ('2b344a24-71ae-4a72-a4e2-45038be4735c','testThesis.doc','fb6bd6e1-8267-48f3-8fad-a86f8a5f1481_testThesis.doc','2013-05-02 16:04:37','dfvasdfafvadsfsdf',NULL,'1'),('a89082e0-ddb9-4bec-bb28-9aa9e0ec3e46','sd','sd','2013-05-02 15:39:06','sd',NULL,'2'),('dde80c20-cc7b-4056-9b49-963b615c4f4d','testThesis.doc','38da5a5f-27f5-4b07-831a-06f8296684c1_testThesis.doc','2013-04-28 16:00:00','qq',NULL,'89941ebe-4dfc-4b9f-9f47-ba82d8bee447'),('f944c0f6-e830-46e1-b30a-24b38cc9caca','testThesis.doc','22e893b4-bbd3-4343-842d-61a2c35bfa44_testThesis.doc','2013-04-28 16:00:00','haha',NULL,'1');
 /*!40000 ALTER TABLE `thesis` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -197,4 +197,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-05-02 22:06:56
+-- Dump completed on 2013-05-03  0:10:01
