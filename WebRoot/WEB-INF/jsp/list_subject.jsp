@@ -28,11 +28,11 @@
                             <c:otherwise><a href="#">${ subject.student.name}</a>   同学选择了此题</c:otherwise>
                         </c:choose>
                     </td>
-                    <td><c:url var="myURL" value="/servlet/SelectSubjectServlet">
+                    <td><c:url var="urlForStu" value="/servlet/SelectSubjectServlet">
                             <c:param name="subjectId" value="${subject.id }">
                             </c:param>
-                        </c:url> <a href="${myURL}" style="display:${role=='student'?'':'none' } ">选此论文题目</a>
-                        <a href="${myURL}" style="display:${role=='teacher'?'':'none' } ">下载已提交的论文</a>
+                        </c:url> <a href="${urlForStu}" style="display:${role=='student'?'':'none' } ">选此论文题目</a>
+                        <a href="${pageContext.request.servletContext.contextPath }/servlet/ShowThesisInfoServlet?subjectId=${subject.id}" style="display:${role=='teacher'?'':'none' } ">下载已提交的论文</a>
                     </td>
                 </tr>
             </c:forEach>

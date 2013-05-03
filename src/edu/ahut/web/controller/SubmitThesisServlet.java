@@ -15,7 +15,6 @@ import edu.ahut.domain.User;
 import edu.ahut.exceptions.NoUpfileException;
 import edu.ahut.exceptions.UpfileSizeException;
 import edu.ahut.exceptions.UpfileTypeException;
-import edu.ahut.service.ThesisService;
 import edu.ahut.service.impl.ThesisServiceImpl;
 import edu.ahut.utils.JdbcUtils;
 import edu.ahut.utils.UploadUtil;
@@ -89,6 +88,7 @@ public class SubmitThesisServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             try {
+                //数据库回滚
                 JdbcUtils.rollback();
             } catch (SQLException ex) {
                 Logger.getLogger(SubmitThesisServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,6 +98,7 @@ public class SubmitThesisServlet extends HttpServlet {
                     response);
         } finally {
             try {
+                //关闭事务
                 JdbcUtils.end();
             } catch (SQLException ex) {
                 Logger.getLogger(SubmitThesisServlet.class.getName()).log(Level.SEVERE, null, ex);

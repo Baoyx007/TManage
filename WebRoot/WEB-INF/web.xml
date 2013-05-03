@@ -61,6 +61,10 @@
         <servlet-name>ShowThesisInfoServlet</servlet-name>
         <servlet-class>edu.ahut.web.controller.ShowThesisInfoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DownloadThesisServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.DownloadThesisServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/servlet/LoginServlet</url-pattern>
@@ -108,6 +112,10 @@
     <servlet-mapping>
         <servlet-name>ShowThesisInfoServlet</servlet-name>
         <url-pattern>/servlet/ShowThesisInfoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DownloadThesisServlet</servlet-name>
+        <url-pattern>/DownloadThesisServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

@@ -18,4 +18,5 @@ public interface ThesisService {
     public void addThesis(Thesis thesis, User user);
 
     public List<Thesis> getThesesBySbId(String sbId);
+
 }

@@ -1,7 +1,9 @@
 /**
  * 
  */
-package edu.ahut.domain;
+package junit.test.junit.test;
+
+import edu.ahut.domain.Role;
 
 /**
  * @author Haven

@@ -13,7 +13,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 /**
- * 1.res,req编码设置
+ * 1.res,req编码设置<br>
+ * 2.对所有的servlet过滤<br>
+ * 3.处于chain 的第一个
  *
  * @author Haven
  */

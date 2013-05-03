@@ -65,6 +65,7 @@ public class LogoutServlet extends HttpServlet {
      * @throws IOException
      *             if an error occurred
      */
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 

@@ -24,6 +24,10 @@ import edu.ahut.utils.ServiceUtils;
  */
 public class SubjectServiceImpl implements SubjectService {
 
+    SubjectDao subjectdao = DaoFactory.getSubjectDao();
+    UserDao useDao = DaoFactory.getUserDao();
+    ThesisDao thesisDao = DaoFactory.getThesisDao();
+
     @Override
     public void addSubject(String title, String description, String sId) {
         SubjectDao dao = new SubjectDaoImpl();
@@ -43,11 +47,7 @@ public class SubjectServiceImpl implements SubjectService {
      */
     @Override
     public List<Subject> listAllSubject() {
-        //要map干嘛？？
         //操作3个表，这个对象应该缓存
-        SubjectDao subjectdao = DaoFactory.getSubjectDao();
-        UserDao useDao = DaoFactory.getUserDao();
-        ThesisDao thesisDao = DaoFactory.getThesisDao();
 
         //其中包含的对象还没赋值
         List<Subject> subjects = subjectdao.getAllSubject();
@@ -81,7 +81,12 @@ public class SubjectServiceImpl implements SubjectService {
      */
     @Override
     public Subject getSubject(String subjectId) {
-        SubjectDao subjectDao = DaoFactory.getSubjectDao();
-        return subjectDao.getSubjectByid(subjectId);
+        Subject subject = subjectdao.getSubjectByid(subjectId);
+
+        subject.setTeacher(useDao.findTeacher(subject.getTeacherId()));
+        subject.setStudent(useDao.findStudent(subject.getStudentId()));
+        subject.setTheses(thesisDao.getThesesBySbId(subject.getId()));
+
+        return subject;
     }
 }
