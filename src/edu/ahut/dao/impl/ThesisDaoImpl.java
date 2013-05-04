@@ -60,7 +60,9 @@ public class ThesisDaoImpl implements ThesisDao {
      */
     @Override
     public List<Thesis> getThesesBySbId(String sbId) {
-        String sql = "select id,real_file_name as realFileName,uuid_file_name as uuidFileName,submit_date as submitDate,stu_comment as studentComment,tea_comment as teacherComment,subject_id as subjectId from thesis where subject_id=?";
+        String sql = "select id,real_file_name as realFileName,uuid_file_name as uuidFileName,"
+                + "submit_date as submitDate,stu_comment as studentComment,"
+                + "tea_comment as teacherComment,subject_id as subjectId from thesis where subject_id=? order by submit_date desc";
         QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
         try {
             return runner.query(sql, new BeanListHandler<Thesis>(Thesis.class),

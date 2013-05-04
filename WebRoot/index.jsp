@@ -13,7 +13,7 @@
         <br>
         <div style="text-align:right;">
             <c:choose>
-                <c:when test="${user !=null}">欢迎你：${user.name }。<a
+                <c:when test="${user !=null}">欢迎你：${user.name }。|<a>设置</a>|<a
                         href="${myContext}/servlet/LogoutServlet">注销</a>
                 </c:when>
                 <c:otherwise>

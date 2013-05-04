@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.ahut.domain.Manager;
 import edu.ahut.domain.User;
 import edu.ahut.service.impl.UserServiceImpl;
 import edu.ahut.utils.ServiceUtils;
@@ -56,7 +55,7 @@ public class RegisterServlet extends HttpServlet {
 
         // 3.success->service
         UserServiceImpl service = new UserServiceImpl();
-        User user = new Manager();
+        User user = new User();
         WebUtils.copyBean(form, user);
         user.setId(ServiceUtils.generateID());
         try {
@@ -67,10 +66,11 @@ public class RegisterServlet extends HttpServlet {
             //自动登录，转到首页
             request.getSession().setAttribute("user", user);
             //TODO 先设置成student，以后改
-            request.getSession().setAttribute("role", "student");
+//            request.getSession().setAttribute("role", "student");
 
             //TODO 显示继续注册OR回到首页
             //因为注册是给管理员注册的！不是给用户注册的
+            //应该提供从其他数据库导入数据
             request.setAttribute("message", "注册成功");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
