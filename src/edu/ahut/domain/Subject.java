@@ -17,13 +17,12 @@ public class Subject {
     private String id;
     private String title;
     private String description;
-    // 这应该是Teacher，Student，这两个类，以后改！！
     //保留，id用于在其他表查找
     private String studentId;
     private String teacherId;
     //-----------
-    private Student student;
-    private Teacher teacher;
+    private User student;
+    private User teacher;
     private List<Thesis> theses;
 
     public Subject() {
@@ -37,19 +36,19 @@ public class Subject {
         this.theses = theses;
     }
 
-    public Student getStudent() {
+    public User getStudent() {
         return student;
     }
 
-    public void setStudent(Student student) {
+    public void setStudent(User student) {
         this.student = student;
     }
 
-    public Teacher getTeacher() {
+    public User getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(Teacher teacher) {
+    public void setTeacher(User teacher) {
         this.teacher = teacher;
     }
 
