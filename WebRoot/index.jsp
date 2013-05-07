@@ -29,13 +29,13 @@
 
 
         <!--老师-->
-        <c:if test="${user!=null && role=='teacher' }">
+        <c:if test="${user!=null && user.role=='teacher' }">
             <a
                 href="${myContext}/servlet/PublishSubjectUIServlet">发布论文题目</a>
         </c:if>
 
         <!--学生-->
-        <c:if test="${user!=null && role=='student' }">
+        <c:if test="${user!=null && user.role=='student' }">
             <a
                 href="${myContext}/servlet/SubmitThesisUIServlet">提交论文</a>
         </c:if>

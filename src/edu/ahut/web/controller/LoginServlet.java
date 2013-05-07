@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ahut.domain.User;
 import edu.ahut.service.UserService;
+import edu.ahut.service.impl.ServiceFactory;
 import edu.ahut.service.impl.UserServiceImpl;
 
 /**
@@ -39,19 +40,18 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //获取3个传进来的参数
+        //获取2个传进来的参数
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String role = request.getParameter("role");
 
-        UserService service = new UserServiceImpl();
-        User user = service.login(username, password, role);
+        //TODO 占时只能用户登录
+        UserService service = ServiceFactory.getUserService();
+        User user = service.login(username, password);
         if (user != null) {
             //登录成功
-            //2个session
+            //1个session
             request.getSession().setAttribute("user", user);
-            request.getSession().setAttribute("role", role);
-            
+
             response.sendRedirect(request.getContextPath() + "/index.jsp");
         } else {
             request.setAttribute("message", "用户名或密码错误");

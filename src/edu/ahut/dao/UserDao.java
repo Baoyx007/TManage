@@ -1,24 +1,26 @@
 /**
- * 
+ *
  */
 package edu.ahut.dao;
 
-import edu.ahut.domain.Student;
-import edu.ahut.domain.Teacher;
+import edu.ahut.domain.Admin;
 import edu.ahut.domain.User;
+import java.util.Map;
 
 /**
  * @author Haven
  * @date 2013-3-20
- * 
+ *
  */
 public interface UserDao {
+
+    public void addAdmin(Admin admin);
+
     public void addUser(User user);
 
-    public <T extends User> User findUser(String loginName, String password,
-	    Class<T> clazz);
+    public User findUser(String loginName, String password);
 
-    public Teacher findTeacher(String id);
-
-    public Student findStudent(String id);
+    //第一个key是teacher，
+    //第二个key是student
+    public Map<String, User> findUserBySubjectId(String id);
 }

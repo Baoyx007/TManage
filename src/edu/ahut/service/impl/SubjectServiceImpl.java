@@ -10,12 +10,11 @@ import edu.ahut.dao.ThesisDao;
 import edu.ahut.dao.UserDao;
 import edu.ahut.dao.impl.DaoFactory;
 import edu.ahut.dao.impl.SubjectDaoImpl;
-import edu.ahut.domain.Student;
 import edu.ahut.domain.Subject;
-import edu.ahut.domain.Teacher;
 import edu.ahut.domain.User;
 import edu.ahut.service.SubjectService;
 import edu.ahut.utils.ServiceUtils;
+import java.util.Map;
 
 /**
  * @author Haven
@@ -25,7 +24,7 @@ import edu.ahut.utils.ServiceUtils;
 public class SubjectServiceImpl implements SubjectService {
 
     SubjectDao subjectdao = DaoFactory.getSubjectDao();
-    UserDao useDao = DaoFactory.getUserDao();
+    UserDao userDao = DaoFactory.getUserDao();
     ThesisDao thesisDao = DaoFactory.getThesisDao();
 
     @Override
@@ -35,13 +34,14 @@ public class SubjectServiceImpl implements SubjectService {
         subject.setId(ServiceUtils.generateID());
         subject.setTitle(title);
         subject.setDescription(description);
-        subject.setTeacherId(sId);
+        subject.setTeacher(new User());
+        subject.getTeacher().setId(sId);
         dao.addSubject(subject);
     }
 
     /*
      * 
-     * (non-Javadoc)
+     * 完全的subject，所有对象都包涵
      * 
      * @see edu.ahut.service.SubjectService#listAllSubject()
      */
@@ -53,10 +53,9 @@ public class SubjectServiceImpl implements SubjectService {
         List<Subject> subjects = subjectdao.getAllSubject();
 
         for (Subject subject : subjects) {
-            Teacher teacher = useDao.findTeacher(subject.getTeacherId());
-            Student findStudent = useDao.findStudent(subject.getStudentId());
-            subject.setTeacher(teacher);
-            subject.setStudent(findStudent);
+            Map<String, User> users = userDao.findUserBySubjectId(subject.getId());
+            subject.setTeacher(users.get("teacher"));
+            subject.setStudent(users.get("student"));
             subject.setTheses(thesisDao.getThesesBySbId(subject.getId()));
         }
         return subjects;
@@ -82,9 +81,9 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public Subject getSubject(String subjectId) {
         Subject subject = subjectdao.getSubjectByid(subjectId);
-
-        subject.setTeacher(useDao.findTeacher(subject.getTeacherId()));
-        subject.setStudent(useDao.findStudent(subject.getStudentId()));
+        Map<String, User> users = userDao.findUserBySubjectId(subject.getId());
+        subject.setTeacher(users.get("teacher"));
+        subject.setStudent(users.get("student"));
         subject.setTheses(thesisDao.getThesesBySbId(subject.getId()));
 
         return subject;

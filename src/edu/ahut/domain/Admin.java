@@ -28,6 +28,15 @@ public class Admin {
     public Admin() {
     }
 
+    public Admin(String id) {
+        this.id = id;
+    }
+
+    public Admin(String id, Role role) {
+        this.id = id;
+        this.role = role;
+    }
+
     public String getId() {
         return id;
     }
@@ -90,19 +99,5 @@ public class Admin {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public void setRole(String role) {
-        if (role.equalsIgnoreCase(Role.MANAGER.toString())) {
-            this.role = Role.MANAGER;
-        } else if (role.equalsIgnoreCase(Role.STUDENT.toString())) {
-            this.role = Role.STUDENT;
-        } else if (role.equalsIgnoreCase(Role.TEACHER.toString())) {
-            this.role = Role.TEACHER;
-        } else if (role.equalsIgnoreCase(Role.SUPER.toString())) {
-            this.role = Role.SUPER;
-        } else {
-            throw new IllegalArgumentException("role is wrong!!" + role);
-        }
     }
 }

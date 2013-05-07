@@ -17,9 +17,6 @@ public class Subject {
     private String id;
     private String title;
     private String description;
-    //保留，id用于在其他表查找
-    private String studentId;
-    private String teacherId;
     //-----------
     private User student;
     private User teacher;
@@ -94,34 +91,6 @@ public class Subject {
         this.description = description;
     }
 
-    /**
-     * @return the studentId
-     */
-    public String getStudentId() {
-        return studentId;
-    }
-
-    /**
-     * @param studentId the studentId to set
-     */
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    /**
-     * @return the teacherId
-     */
-    public String getTeacherId() {
-        return teacherId;
-    }
-
-    /**
-     * @param teacherId the teacherId to set
-     */
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -133,8 +102,6 @@ public class Subject {
         sb.append(" id : ").append(this.id);
         sb.append(", title : ").append(this.title);
         sb.append(", description : ").append(this.description);
-        sb.append(", studentId : ").append(this.studentId);
-        sb.append(", teacherId : ").append(this.teacherId);
         sb.append(",student:").append(this.student);
         sb.append(",teacher:").append(this.teacher);
         sb.append(",theses:").append(this.theses);

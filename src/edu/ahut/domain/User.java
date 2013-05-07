@@ -32,6 +32,14 @@ public class User extends Admin {
     public User() {
     }
 
+    public User(String id) {
+        super(id);
+    }
+
+    public User(String id, Role role) {
+        super(id, role);
+    }
+
     public String getSchoolNumber() {
         return schoolNumber;
     }
@@ -54,14 +62,6 @@ public class User extends Admin {
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    public void setGender(String gender) {
-        if (gender.equalsIgnoreCase("MALE")) {
-            this.gender = Gender.MALE;
-        } else {
-            this.gender = Gender.FEMALE;
-        }
     }
 
     public String getAddress() {

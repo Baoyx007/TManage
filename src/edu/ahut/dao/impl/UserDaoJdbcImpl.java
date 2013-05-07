@@ -3,18 +3,18 @@
  */
 package edu.ahut.dao.impl;
 
-import java.sql.SQLException;
-
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
-
 import edu.ahut.dao.UserDao;
-import edu.ahut.domain.Student;
-import edu.ahut.domain.Teacher;
+import edu.ahut.domain.Admin;
 import edu.ahut.domain.User;
 import edu.ahut.exceptions.DaoException;
 import edu.ahut.utils.JdbcUtils;
-import edu.ahut.utils.ServiceUtils;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 
 /**
  * @author Haven
@@ -24,84 +24,73 @@ import edu.ahut.utils.ServiceUtils;
 public class UserDaoJdbcImpl implements UserDao {
 
     /*
-     * (non-Javadoc)
      * 
      * @see edu.ahut.dao.UserDao#addUser(edu.ahut.domain.User)
      */
     @Override
     public void addUser(User user) {
-        String sql = "insert into manager(id,name,birthday,gender,username,password) values(?,?,?,?,?,?)";
+        String sql = "insert into user(id,school_number,name,birthday,gender,username,password,"
+                + "email,phone,address,photo,comment,title,role,unit_id,qualification_id) "
+                + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
         try {
             runner.update(
-                    sql,
-                    new Object[]{user.getId(), user.getName(),
-                new java.sql.Date(user.getBirthday().getTime()),
-                user.getGender(), user.getUsername(),
-                ServiceUtils.md5(user.getPassword())});
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-            throw new DaoException(e);
-        }
-
-    }
-
-    /*
-     * //TODO 增加了复用性，却减少了可扩展性！！
-     * 
-     * @see edu.ahut.dao.UserDao#findUser(java.lang.String, java.lang.String,
-     * java.lang.Class)
-     */
-    @Override
-    public <T extends User> User findUser(String loginName, String password,
-            Class<T> clazz) {
-        String sql = "select id,name,birthday,gender,username,password from "
-                + clazz.getSimpleName().toLowerCase()
-                + " where username=? and password=?";
-
-        QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
-        try {
-            T user = runner.query(sql, new BeanHandler<T>(clazz), loginName,
-                    ServiceUtils.md5(password));
-            return user;
+                    sql, user.getId(), user.getSchoolNumber(), user.getName(),
+                    new java.sql.Date(user.getBirthday().getTime()),
+                    user.getGender().toString(), user.getUsername(), user.getPassword(), user.getEmail(), user.getPhone(), user.getAddress(), user.getPhoto(), user.getComment(), user.getTitle(), user.getRole().toString(), user.getUnit().getId(), user.getQualification().getId());
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DaoException(e);
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.ahut.dao.UserDao#findTeacher(java.lang.String)
-     */
     @Override
-    public Teacher findTeacher(String id) {
-        String sql = "select * from teacher where id=?";
+    public void addAdmin(Admin admin) {
+        String sql = "insert into admin(id,name,username,password,email,phone,comment,role) values(?,?,?,?,?,?,?,?)";
         QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
         try {
-            return runner.query(sql, new BeanHandler<Teacher>(Teacher.class),
-                    id);
+            runner.update(sql, admin.getId(), admin.getName(),
+                    admin.getUsername(), admin.getPassword(), admin.getEmail(),
+                    admin.getPhone(), admin.getComment(), admin.getRole().toString());
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DaoException(e);
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see edu.ahut.dao.UserDao#findStudent(java.lang.String)
-     */
     @Override
-    public Student findStudent(String id) {
-        String sql = "select * from student where id=?";
+    public User findUser(String loginName, String password) {
+        String sql = "select id,school_number as schoolNumber,name,birthday,gender,username,password"
+                + ",email,phone,address,photo,comment,title,role from user where username=? and password=?";
         QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
         try {
-            return runner.query(sql, new BeanHandler<Student>(Student.class),
-                    id);
+            return runner.query(sql, new BeanHandler<User>(User.class), loginName, password);
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DaoException(e);
         }
+    }
+
+    @Override
+    public Map<String, User> findUserBySubjectId(String id) {
+        HashMap<String, User> users = new HashMap<String, User>();
+        //student
+        String sql = "select id,school_number as schoolNumber,name,birthday,gender,username,password"
+                + ",email,phone,address,photo,comment,title,role from user where "
+                + "id = (SELECT teacher_id FROM subject where id=?)";
+        QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
+
+        try {
+            users.put("teacher", runner.query(sql, new BeanHandler<User>(User.class), id));
+            //teacher
+            sql = "select id,school_number as schoolNumber,name,birthday,gender,username,password"
+                    + ",email,phone,address,photo,comment,title,role from user where "
+                    + "id = (SELECT student_id FROM subject where id=?)";
+            users.put("student", runner.query(sql, new BeanHandler<User>(User.class), id));
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDaoJdbcImpl.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DaoException(ex);
+        }
+        return users;
     }
 }
