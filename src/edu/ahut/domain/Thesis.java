@@ -15,6 +15,7 @@ public class Thesis {
     private String id;
     private String realFileName;
     private String uuidFileName;
+    private String uuidFilePath;
     private Date submitDate;
     private String studentComment;
     private String teacherComment;
@@ -46,6 +47,14 @@ public class Thesis {
      */
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUuidFilePath() {
+        return uuidFilePath;
+    }
+
+    public void setUuidFilePath(String uuidFilePath) {
+        this.uuidFilePath = uuidFilePath;
     }
 
     /**

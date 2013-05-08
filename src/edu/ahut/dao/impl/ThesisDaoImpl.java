@@ -28,13 +28,12 @@ public class ThesisDaoImpl implements ThesisDao {
      */
     @Override
     public void addThesis(Thesis thesis) {
-        String sql = "INSERT INTO thesis(id,real_file_name,uuid_file_name,submit_date,stu_comment,subject_id) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO thesis(id,real_file_name,uuid_file_name,uuid_file_path,stu_comment,subject_id) VALUES(?,?,?,?,?,?)";
 
         QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
         try {
             runner.update(sql, thesis.getId(), thesis.getRealFileName(), thesis
-                    .getUuidFileName(), new java.sql.Timestamp(thesis
-                    .getSubmitDate().getTime()), thesis.getStudentComment(),
+                    .getUuidFileName(),thesis.getUuidFilePath(), thesis.getStudentComment(),
                     thesis.getSubject().getId());
         } catch (SQLException e) {
 
@@ -61,7 +60,7 @@ public class ThesisDaoImpl implements ThesisDao {
     @Override
     public List<Thesis> getThesesBySbId(String sbId) {
         String sql = "select id,real_file_name as realFileName,uuid_file_name as uuidFileName,"
-                + "submit_date as submitDate,stu_comment as studentComment,"
+                + "uuid_file_path as uuidFilePath,submit_date as submitDate,stu_comment as studentComment,"
                 + "tea_comment as teacherComment,subject_id as subjectId from thesis where subject_id=? order by submit_date desc";
         QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
         try {

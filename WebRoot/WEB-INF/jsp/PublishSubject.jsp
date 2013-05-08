@@ -8,7 +8,6 @@
     </head>
     <body>
         <h1>发布论文题目</h1>
-        ${message }
         <form
             action="${pageContext.request.servletContext.contextPath }/servlet/PublishSubjectServlet"
             method="post">
@@ -20,7 +19,7 @@
                 </tr>
                 <tr>
                     <td>描述:</td>
-                    <td><textarea rows="10" cols="100" name="description">输入题目的描述</textarea>
+                    <td><textarea rows="10" cols="100" name="description">这里的编辑框应该跟多种</textarea>
                     </td>
                 </tr>
                 <tr>

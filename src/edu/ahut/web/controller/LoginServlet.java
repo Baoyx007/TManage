@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ahut.domain.User;
 import edu.ahut.service.UserService;
 import edu.ahut.service.impl.ServiceFactory;
-import edu.ahut.service.impl.UserServiceImpl;
-
 /**
  * @author Haven
  * @date 2013-3-20

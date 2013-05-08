@@ -29,7 +29,13 @@
             学生留言：${thesis.studentComment}<br>
             提交日期： <fmt:formatDate type="both" dateStyle="default" timeStyle="default" 
                             value="${thesis.submitDate}"/><br>
-            <a href="${pageContext.request.servletContext.contextPath}/DownloadThesisServlet?uuidFileName=${thesis.uuidFileName}">下载</a>
+            <c:url var="downloadURL" value="/DownloadThesisServlet">
+                <c:param name="uuidFilePath" value="${thesis.uuidFilePath}">
+                </c:param>
+                <c:param name="uuidFileName" value="${thesis.uuidFileName}">
+                </c:param>
+            </c:url>
+            <a href="${downloadURL}">下载</a>
         </c:forEach>
         <br />
     </body>

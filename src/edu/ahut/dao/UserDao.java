@@ -23,4 +23,8 @@ public interface UserDao {
     //第一个key是teacher，
     //第二个key是student
     public Map<String, User> findUserBySubjectId(String id);
+
+    public User fillUnit(User user);
+
+    public User fillQualification(User user);
 }

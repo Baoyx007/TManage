@@ -31,7 +31,7 @@ public class ThesisServiceImpl implements ThesisService {
     public void addThesis(Thesis thesis, User user) {
 	SubjectDao sDao = new SubjectDaoImpl();
         
-        //TODO 返回的应该是唯一的，所以要求tid!=null!!!
+        //FIXME 返回的应该是唯一的，所以要求tid!=null!!!
 	Subject subject = sDao.findSubjectBySid(user.getId());
 
 	// 感觉有大量的内存浪费，因为很多用不到，每次都是new一个对象

@@ -29,13 +29,13 @@
 
 
         <!--老师-->
-        <c:if test="${user!=null && user.role=='teacher' }">
+        <c:if test="${user!=null && user.role=='TEACHER' }">
             <a
                 href="${myContext}/servlet/PublishSubjectUIServlet">发布论文题目</a>
         </c:if>
 
         <!--学生-->
-        <c:if test="${user!=null && user.role=='student' }">
+        <c:if test="${user!=null && user.role=='STUDENT' }">
             <a
                 href="${myContext}/servlet/SubmitThesisUIServlet">提交论文</a>
         </c:if>
@@ -43,7 +43,7 @@
         <br><br><br>
         <hr>
         <hr>测试区<br>
-        role=${role }<br>user=${user }
+        user=${user }
         <br>
         <a
             href="${myContext}/servlet/ListSubjectServlet">查看所有论文</a>

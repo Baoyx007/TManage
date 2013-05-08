@@ -52,13 +52,13 @@ public class SubmitThesisServlet extends HttpServlet {
         try {
             SubmitForm submitForm = UploadUtil.doUpload(request);
             // 真实上传路径
-            String uploadPath = request.getSession().getServletContext()
+            String realUploadPath = request.getSession().getServletContext()
                     .getRealPath(UploadUtil.uploadPath);
 
             //开始事务
             JdbcUtils.begin();
             // 存到硬盘
-            Thesis thesis = UploadUtil.doSave(uploadPath, submitForm);
+            Thesis thesis = UploadUtil.doSave(realUploadPath, submitForm,student);
             // 存到数据库
             new ThesisServiceImpl().addThesis(thesis, student);
             JdbcUtils.commit();

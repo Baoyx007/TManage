@@ -69,10 +69,10 @@ public class SubjectDaoImpl implements SubjectDao {
      */
     @Override
     public void selectSubject(String subjectId, String studentId) {
-        String sql = "update subject set sid=? where id=?";
+        String sql = "update subject set student_id=? where id=?";
         QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
         try {
-            runner.update(sql, new Object[]{studentId, subjectId});
+            runner.update(sql, studentId, subjectId);
         } catch (SQLException e) {
 
             e.printStackTrace();
@@ -87,7 +87,7 @@ public class SubjectDaoImpl implements SubjectDao {
      */
     @Override
     public Subject findSubjectBySid(String sid) {
-        String sql = "select id,title,description,sid as studentId,tid as teacherId from subject where sid=?";
+        String sql = "select id,title,description from subject where student_id=?";
         QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
         try {
             return runner.query(sql, new BeanHandler<Subject>(Subject.class),
@@ -106,7 +106,7 @@ public class SubjectDaoImpl implements SubjectDao {
      */
     @Override
     public Subject getSubjectByid(String id) {
-        String sql = "select id,title,description,sid as studentId,tid as teacherId from subject where id=?";
+        String sql = "select id,title,description from subject where id=?";
         QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
         try {
             return runner.query(sql, new BeanHandler<Subject>(Subject.class),

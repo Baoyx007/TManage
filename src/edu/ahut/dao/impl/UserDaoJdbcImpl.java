@@ -5,6 +5,7 @@ package edu.ahut.dao.impl;
 
 import edu.ahut.dao.UserDao;
 import edu.ahut.domain.Admin;
+import edu.ahut.domain.Unit;
 import edu.ahut.domain.User;
 import edu.ahut.exceptions.DaoException;
 import edu.ahut.utils.JdbcUtils;
@@ -92,5 +93,25 @@ public class UserDaoJdbcImpl implements UserDao {
             throw new DaoException(ex);
         }
         return users;
+    }
+
+    @Override
+    public User fillUnit(User user) {
+        String sql = "select id as id,school as school,college as college,department as department,class as calss from unit "
+                + " where id=(select unit_id from user where user.id = ?)";
+        QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
+        try {
+            Unit query = runner.query(sql, new BeanHandler<Unit>(Unit.class), user.getId());
+            user.setUnit(query);
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public User fillQualification(User user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

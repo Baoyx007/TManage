@@ -19,4 +19,14 @@ public interface UserService {
     public User findTeacher(String id);
 
     public User findStudent(String id);
+
+    //包括包涵的类
+    public User getUserFullInfo(String studentId);
+
+    //把包含的类补充上
+    public void makeUserInfoComplete(User user);
+
+    public User fillUnit(User user);
+
+    public User fillQualification(User user);
 }

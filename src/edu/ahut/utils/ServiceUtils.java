@@ -33,7 +33,7 @@ public class ServiceUtils {
     }
 
     /**
-     * 验证string不为空
+     * 验证string不为空 return true 是正确
      */
     public static boolean checkStringParam(String... strs) {
         boolean b = true;

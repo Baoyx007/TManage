@@ -43,10 +43,8 @@ public class ShowThesisInfoServlet extends HttpServlet {
         try {
             // 从域中获取数据
             String subjectId = request.getParameter("subjectId");
-            String role = (String) request.getSession(false).getAttribute(
-                    "role");
             User user = (User) request.getSession(false).getAttribute("user");
-            if (role == null || user == null) {
+            if (user == null) {
                 throw new NotLoginException();
             }
             Subject subject = ServiceFactory.getSubjectService().getSubject(subjectId);

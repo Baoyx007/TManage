@@ -82,13 +82,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><select name="role">
-                            <option selected="selected" value="student">学生</option>
-                            <option value="teacher">老师</option>
-                            <option value="teacher">管理员</option>
-
-                        </select>
-                    </td>
                     <td><input class="button" type="submit" value="登陆" /></td>
                 </tr>
             </table>

@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User login(String loginName, String password) {
         if (ServiceUtils.checkStringParam(loginName, password)) {
-            return userDao.findUser(loginName, password);
+            return userDao.findUser(loginName, ServiceUtils.md5(password));
         } else {
             throw new IllegalArgumentException("参数不能为空");
         }
@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(User user) {
         if (user != null) {
+            //FIXME 先判断用户是否已存在
             userDao.addUser(user);
         }
     }
@@ -52,6 +53,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findStudent(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public User getUserFullInfo(String studentId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void makeUserInfoComplete(User user) {
+        userDao.fillUnit(user);
+        userDao.fillQualification(user);
+    }
+
+    @Override
+    public User fillUnit(User user) {
+        return userDao.fillUnit(user);
+    }
+
+    @Override
+    public User fillQualification(User user) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

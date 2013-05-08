@@ -5,11 +5,12 @@
 package edu.ahut.web.controller;
 
 import edu.ahut.exceptions.WrongOperationException;
-import edu.ahut.utils.UploadUtil;
+import edu.ahut.utils.ServiceUtils;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLDecoder;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,16 +36,16 @@ public class DownloadThesisServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         BufferedInputStream in = null;
-        OutputStream out = response.getOutputStream();
+        OutputStream out = null;
         try {
             String uuidFileName = request.getParameter("uuidFileName");
-            if (uuidFileName == null || uuidFileName.trim().length() <= 0) {
+            String uuidFilePath=new String(request.getParameter("uuidFilePath").getBytes("iso-8859-1"),"UTF-8");
+            if (!ServiceUtils.checkStringParam(uuidFileName, uuidFilePath)) {
                 throw new WrongOperationException();
             }
-
             // 真实上传路径
-            String realPath = UploadUtil.makeUUIDFilePath(request.getSession().getServletContext().getRealPath(UploadUtil.uploadPath), uuidFileName);
-            in = new BufferedInputStream(new FileInputStream(realPath + '/' + uuidFileName));
+            in = new BufferedInputStream(new FileInputStream(uuidFilePath + '/' + uuidFileName));
+            out = response.getOutputStream();
             int len = -1;
             byte[] buf = new byte[1024];
             while ((len = in.read(buf)) > 0) {

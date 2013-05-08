@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ahut.domain.User;
-import edu.ahut.service.impl.UserServiceImpl;
+import edu.ahut.service.UserService;
+import edu.ahut.service.impl.ServiceFactory;
 import edu.ahut.utils.ServiceUtils;
 import edu.ahut.utils.WebUtils;
 import edu.ahut.web.formbean.RegisterForm;
@@ -54,19 +55,17 @@ public class RegisterServlet extends HttpServlet {
         }
 
         // 3.success->service
-        UserServiceImpl service = new UserServiceImpl();
+        UserService service = ServiceFactory.getUserService();
         User user = new User();
         WebUtils.copyBean(form, user);
         user.setId(ServiceUtils.generateID());
         try {
-            //TODO 只能注册manager,占时不能用！
+            //TODO 只能注册user,要添加admin的注册
             service.register(user);
 
             // 不存在此用户success
             //自动登录，转到首页
             request.getSession().setAttribute("user", user);
-            //TODO 先设置成student，以后改
-//            request.getSession().setAttribute("role", "student");
 
             //TODO 显示继续注册OR回到首页
             //因为注册是给管理员注册的！不是给用户注册的
