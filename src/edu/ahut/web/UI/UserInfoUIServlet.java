@@ -43,7 +43,6 @@ public class UserInfoUIServlet extends HttpServlet {
             //要显示的用户
             User thisUser;
             //若与登陆的id相同
-            System.out.println(user.getId()+","+userId);
             if (user.getId().equals(userId)) {
                 thisUser = user;
                 userService.fillAllInfo(user);
