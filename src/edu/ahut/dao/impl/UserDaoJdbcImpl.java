@@ -5,6 +5,7 @@ package edu.ahut.dao.impl;
 
 import edu.ahut.dao.UserDao;
 import edu.ahut.domain.Admin;
+import edu.ahut.domain.Qualification;
 import edu.ahut.domain.Unit;
 import edu.ahut.domain.User;
 import edu.ahut.exceptions.DaoException;
@@ -73,6 +74,19 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     @Override
+    public User findUser(String id) {
+        String sql = "select id,school_number as schoolNumber,name,birthday,gender,username,password"
+                + ",email,phone,address,photo,comment,title,role from user where id=?";
+        QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
+        try {
+            return runner.query(sql, new BeanHandler<User>(User.class), id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
     public Map<String, User> findUserBySubjectId(String id) {
         HashMap<String, User> users = new HashMap<String, User>();
         //student
@@ -112,6 +126,16 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public User fillQualification(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "select id as id,college as college,degree as degree,duration as duration,start_time as year  from qualification "
+                + " where id=(select qualification_id from user where user.id = ?)";
+        QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
+        try {
+            Qualification query = runner.query(sql, new BeanHandler<Qualification>(Qualification.class), user.getId());
+            user.setQualification(query);
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DaoException(e);
+        }
     }
 }

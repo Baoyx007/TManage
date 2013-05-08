@@ -22,10 +22,10 @@
                             href="${pageContext.request.servletContext.contextPath }/servlet/ShowThesisInfoServlet?subjectId=${subject.id}">${subject.title
                             }</a>
                     </td>
-                    <td><a href="#">${ subject.teacher.name}</a></td>
+                    <td><a href="${pageContext.request.servletContext.contextPath }/UserInfoUIServlet?userId=${subject.teacher.id}">${ subject.teacher.name}</a></td>
                     <td><c:choose>  
                             <c:when test="${subject.student==null}">尚未有学生选择</c:when>  
-                            <c:otherwise><a href="#">${ subject.student.name}</a>   同学选择了此题</c:otherwise>
+                            <c:otherwise><a href="${pageContext.request.servletContext.contextPath }/UserInfoUIServlet?userId=${subject.student.id}">${ subject.student.name}</a>   同学选择了此题</c:otherwise>
                         </c:choose>
                     </td>
                     <td><c:url var="urlForStu" value="/servlet/SelectSubjectServlet" >

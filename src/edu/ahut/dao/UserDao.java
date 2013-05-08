@@ -19,6 +19,8 @@ public interface UserDao {
     public void addUser(User user);
 
     public User findUser(String loginName, String password);
+    
+     public User findUser(String id);
 
     //第一个key是teacher，
     //第二个key是student

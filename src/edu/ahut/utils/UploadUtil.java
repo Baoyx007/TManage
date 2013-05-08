@@ -114,7 +114,7 @@ public final class UploadUtil {
      *
      * @param user 为了产生对应的路径
      */
-    public static Thesis doSave(String realUploadPath, SubmitForm submitForm, User student)
+    public static Thesis doSave(String realUploadPath, SubmitForm submitForm, User user)
             throws IOException {
         FileItem fileItem = submitForm.getThesis();
         InputStream in = null;
@@ -123,7 +123,7 @@ public final class UploadUtil {
             // 获取所有路径
             String realFileName = getRealFileName(fileItem.getName());
             String uuidFileName = makeUUIDFileName(realFileName);
-            String uuidFilePath = makeUserPath(realUploadPath, student);
+            String uuidFilePath = makeUserPath(realUploadPath, user);
 
             // 路径保存到thesis中
             Thesis thesis = new Thesis();
@@ -187,7 +187,9 @@ public final class UploadUtil {
             sb.append(user.getUnit().getCollege()).append('/');
             sb.append(user.getUnit().getCalss()).append('/');
             sb.append(user.getSchoolNumber()).append('/');
-        }//else if
+        } else if (Role.TEACHER == user.getRole()) {
+            //TODO 占时老师还没有上传文件
+        }
         File file = new File(sb.toString());
         if (!file.exists()) {
             file.mkdirs();

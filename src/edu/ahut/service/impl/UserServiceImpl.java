@@ -47,24 +47,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findTeacher(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public User findStudent(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public User getUserFullInfo(String studentId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void makeUserInfoComplete(User user) {
-        userDao.fillUnit(user);
-        userDao.fillQualification(user);
+    public User getUserFullInfo(String id) {
+        return userDao.fillUnit(userDao.fillQualification(userDao.findUser(id)));
     }
 
     @Override
@@ -74,6 +58,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User fillQualification(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return userDao.fillQualification(user);
+    }
+
+    @Override
+    public User fillAllInfo(User user) {
+        if (user.getUnit() == null) {
+            user = userDao.fillUnit(user);
+        }
+        if (user.getQualification() == null) {
+            user = userDao.fillQualification(user);
+        }
+        return user;
+    }
+
+    @Override
+    public User getUserById(String id) {
+        return userDao.findUser(id);
     }
 }

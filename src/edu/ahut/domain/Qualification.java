@@ -14,7 +14,6 @@ import java.util.Date;
 public class Qualification {
 
     private int id;
-    private String school;
     private String college;
     private String degree;
     private int duration;
@@ -29,14 +28,6 @@ public class Qualification {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getSchool() {
-        return school;
-    }
-
-    public void setSchool(String school) {
-        this.school = school;
     }
 
     public String getCollege() {

@@ -74,6 +74,7 @@ public class UserDaoTest {
     @Test
     public void findUser() {
         User user = userDao.findUser("byx", ServiceUtils.md5("123"));
+        user = userDao.fillQualification(userDao.fillUnit(user));
         System.out.println(user);
     }
 
