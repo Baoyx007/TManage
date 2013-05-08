@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES ('0e45a5be-3e33-47f6-8df0-9cfc6045da09','发方法','ICy5YqxZB1uWSwcVLSNLcA==','asd',NULL,NULL,NULL,NULL),('1','123','ICy5YqxZB1uWSwcVLSNLcA==','123','123@ww.cc','1234456','test','SUPER'),('9b13e06f-967a-406e-a0d7-5b016649b2d7','得到','ICy5YqxZB1uWSwcVLSNLcA==','qwe',NULL,NULL,NULL,NULL);
+INSERT INTO `admin` VALUES ('07f1b2bc-afb5-428d-8411-e4477c16227a','baoyx','ICy5YqxZB1uWSwcVLSNLcA==','byx','bad@sedf.cd',NULL,NULL,'SUPER'),('0e45a5be-3e33-47f6-8df0-9cfc6045da09','发方法','ICy5YqxZB1uWSwcVLSNLcA==','asd',NULL,NULL,NULL,NULL),('1','123','ICy5YqxZB1uWSwcVLSNLcA==','123','123@ww.cc','1234456','test','SUPER'),('9b13e06f-967a-406e-a0d7-5b016649b2d7','得到','ICy5YqxZB1uWSwcVLSNLcA==','qwe',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,7 +56,7 @@ CREATE TABLE `qualification` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `college` varchar(45) DEFAULT NULL,
   `degree` varchar(45) DEFAULT NULL,
-  `Duration` int(11) DEFAULT NULL,
+  `duration` int(11) DEFAULT NULL,
   `start_time` year(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
@@ -114,6 +114,7 @@ CREATE TABLE `thesis` (
   `id` varchar(45) NOT NULL,
   `real_file_name` varchar(45) DEFAULT NULL,
   `uuid_file_name` varchar(80) DEFAULT NULL,
+  `uuid_file_path` text,
   `submit_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `stu_comment` text,
   `tea_comment` text,
@@ -130,7 +131,7 @@ CREATE TABLE `thesis` (
 
 LOCK TABLES `thesis` WRITE;
 /*!40000 ALTER TABLE `thesis` DISABLE KEYS */;
-INSERT INTO `thesis` VALUES ('3db22eb2-76a9-4a7d-a8cf-4187f781362b','testThesis.doc','c13b4a39-d18e-4f36-9a90-573173e50d71_testThesis.doc','2013-05-03 13:29:07','v3',NULL,'1'),('9dad4a80-b71c-4511-93b4-225f37492e93','testThesis.doc','d7c2f166-dfc3-4409-b368-5a3f1643af63_testThesis.doc','2013-05-03 13:29:00','v2',NULL,'1'),('b3673860-fc1a-4cb1-bd58-12bd560b65cd','testThesis.doc','cdc4ef5a-2e3e-4b71-ada5-bdc8f0841373_testThesis.doc','2013-05-03 13:28:52','v1','还需努力','1');
+INSERT INTO `thesis` VALUES ('2615f7eb-8197-41db-9892-d8c9bf2e5eeb','testThesis.doc','b02d4d4d-5f6c-4c75-a51a-8fae5990e460_testThesis.doc',NULL,'2013-05-07 10:21:57','sdsdsd',NULL,'1'),('3db22eb2-76a9-4a7d-a8cf-4187f781362b','testThesis.doc','c13b4a39-d18e-4f36-9a90-573173e50d71_testThesis.doc',NULL,'2013-05-03 13:29:07','v3',NULL,'1'),('7a2f5aa9-6dfa-464f-a9b4-345bbacbd074','testThesis.doc','fa27b53d-485a-4f1f-9e7e-85be75e09a83_testThesis.doc','F:\\Java\\Drill\\TManage\\build\\web\\WEB-INF\\upload\\student\\安徽工业大学\\计算机学院\\094\\099074106','2013-05-07 10:41:37','zxcvwerfw',NULL,'1'),('803ab008-1ce7-4683-bd9c-f13681db8df8','testThesis.doc','72c37267-4fa1-49cb-bbf2-a5a54f0eccdd_testThesis.doc','F:\\Java\\Drill\\TManage\\build\\web\\WEB-INF\\upload\\student\\安徽工业大学\\计算机学院\\094\\099074106','2013-05-07 12:39:15','sdfsdfdsf',NULL,'1'),('9dad4a80-b71c-4511-93b4-225f37492e93','testThesis.doc','d7c2f166-dfc3-4409-b368-5a3f1643af63_testThesis.doc',NULL,'2013-05-03 13:29:00','v2',NULL,'1'),('b3673860-fc1a-4cb1-bd58-12bd560b65cd','testThesis.doc','cdc4ef5a-2e3e-4b71-ada5-bdc8f0841373_testThesis.doc',NULL,'2013-05-03 13:28:52','v1','还需努力','1'),('c62fd62e-61bb-40e3-848f-786e9c9e7509','testThesis.doc','f3f0723f-42a4-4ff3-8604-8462c10fdf1e_testThesis.doc',NULL,'2013-05-07 10:19:32','zxsczsc',NULL,'1');
 /*!40000 ALTER TABLE `thesis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,6 +171,7 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `id` varchar(45) NOT NULL,
+  `school_number` varchar(45) DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `gender` enum('MALE','FEMALE') DEFAULT NULL,
@@ -187,8 +189,8 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   KEY `fk_unit_id_idx` (`unit_id`),
   KEY `fk_qualif_id_idx` (`qualification_id`),
-  CONSTRAINT `fk_unit_id` FOREIGN KEY (`unit_id`) REFERENCES `unit` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_qualif_id` FOREIGN KEY (`qualification_id`) REFERENCES `qualification` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_qualif_id` FOREIGN KEY (`qualification_id`) REFERENCES `qualification` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_unit_id` FOREIGN KEY (`unit_id`) REFERENCES `unit` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -198,7 +200,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('1','鲍勇翔','1991-12-08','MALE','ICy5YqxZB1uWSwcVLSNLcA==','byx','baoyx007@gmail.com','110','j3#4010',NULL,'hah','学生','STUDENT',1,1),('2','sdfasdf',NULL,'FEMALE','ICy5YqxZB1uWSwcVLSNLcA==','zxc',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('3','储岳中',NULL,'MALE','ICy5YqxZB1uWSwcVLSNLcA==','chu',NULL,NULL,NULL,NULL,'导师','副教授','TEACHER',2,1),('4','陈学进',NULL,'MALE','ICy5YqxZB1uWSwcVLSNLcA==','chen',NULL,NULL,NULL,NULL,NULL,'副教授','TEACHER',2,2);
+INSERT INTO `user` VALUES ('1','099074106','鲍勇翔','1991-12-08','MALE','ICy5YqxZB1uWSwcVLSNLcA==','byx','baoyx007@gmail.com','110','j3#4010',NULL,'hah','学生','STUDENT',1,1),('2','099074104','sdfasdf',NULL,'FEMALE','ICy5YqxZB1uWSwcVLSNLcA==','zxc',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('3','099074103','储岳中',NULL,'MALE','ICy5YqxZB1uWSwcVLSNLcA==','chu',NULL,NULL,NULL,NULL,'导师','副教授','TEACHER',2,1),('4','099074102','陈学进',NULL,'MALE','ICy5YqxZB1uWSwcVLSNLcA==','chen',NULL,NULL,NULL,NULL,NULL,'副教授','TEACHER',2,2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -211,4 +213,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-05-05  0:19:45
+-- Dump completed on 2013-05-08 23:59:03
