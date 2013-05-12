@@ -76,4 +76,13 @@ public class UserServiceImpl implements UserService {
     public User getUserById(String id) {
         return userDao.findUser(id);
     }
+
+    @Override
+    public void fillPhoto(String id,String photo) {
+        if (ServiceUtils.checkStringParam(id,photo)) {
+            DaoFactory.getUserDao().fillPhoto(id,photo);
+        } else {
+            throw new IllegalArgumentException("photo参数不能为空");
+        }
+    }
 }

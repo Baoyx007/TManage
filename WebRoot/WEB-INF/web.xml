@@ -73,6 +73,18 @@
         <servlet-name>UserInfoUIServlet</servlet-name>
         <servlet-class>edu.ahut.web.UI.UserInfoUIServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UploadPhotoUIServlet</servlet-name>
+        <servlet-class>edu.ahut.web.UI.UploadPhotoUIServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadPhotoServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.UploadPhotoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowPhotoUIServlet</servlet-name>
+        <servlet-class>edu.ahut.web.UI.ShowPhotoUIServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/servlet/LoginServlet</url-pattern>
@@ -132,6 +144,18 @@
     <servlet-mapping>
         <servlet-name>UserInfoUIServlet</servlet-name>
         <url-pattern>/UserInfoUIServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadPhotoUIServlet</servlet-name>
+        <url-pattern>/UploadPhotoUIServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadPhotoServlet</servlet-name>
+        <url-pattern>/UploadPhotoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowPhotoUIServlet</servlet-name>
+        <url-pattern>/ShowPhotoUIServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

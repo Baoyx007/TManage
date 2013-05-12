@@ -43,7 +43,7 @@ public final class UploadUtil {
     public final static String uploadPath = "/WEB-INF/upload/";
     //TODO 下面这两个应该在具体调用时修改
     // 允许文件后缀
-    public final static String fileSuffix = "doc,docx,txt,pdf";
+    public final static String fileSuffix = "doc,docx,txt,pdf,png,jpg";
     // 限制10M
     public final static int fileSize = 10 * 1024 * 1024;
 
@@ -104,7 +104,7 @@ public final class UploadUtil {
                 if (fileItem.getSize() > fileSize) {
                     throw new UpfileSizeException();
                 }
-                submitForm.setThesis(fileItem);
+                submitForm.setFile(fileItem);
             }
         }
         return submitForm;
@@ -116,7 +116,7 @@ public final class UploadUtil {
      */
     public static Thesis doSave(String realUploadPath, SubmitForm submitForm, User user)
             throws IOException {
-        FileItem fileItem = submitForm.getThesis();
+        FileItem fileItem = submitForm.getFile();
         InputStream in = null;
         OutputStream out = null;
         try {
@@ -155,6 +155,39 @@ public final class UploadUtil {
             }
         }
 
+    }
+
+    public static User savePhoto(String realUploadPath, SubmitForm submitForm, User user) throws IOException {
+        FileItem fileItem = submitForm.getFile();
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            // 获取所有路径
+            String realFileName = getRealFileName(fileItem.getName());
+            String photoSuffix = realFileName.substring(realFileName.lastIndexOf('.') + 1);
+            String uuidFilePath = makeUserPath(realUploadPath, user);
+
+            user.setPhoto(uuidFilePath + "/photo." + photoSuffix);
+            // 保存
+            in = fileItem.getInputStream();
+            out = new FileOutputStream(uuidFilePath + "/photo." + photoSuffix);
+
+            byte[] buf = new byte[1024];
+            int len = -1;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+            // 将临时文件删除
+            fileItem.delete();
+            return user;
+        } finally {
+            if (in != null) {
+                in.close();
+            }
+            if (out != null) {
+                out.close();
+            }
+        }
     }
 
     // 获取不带路径的文件名

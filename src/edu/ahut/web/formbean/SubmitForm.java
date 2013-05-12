@@ -12,7 +12,7 @@ import org.apache.commons.fileupload.FileItem;
  */
 public class SubmitForm {
     private String comment;
-    private FileItem thesis;
+    private FileItem file;
 
     /**
      * @return the comment
@@ -35,17 +35,17 @@ public class SubmitForm {
     }
 
     /**
-     * @return the thesis
+     * @return the file
      */
-    public FileItem getThesis() {
-	return thesis;
+    public FileItem getFile() {
+	return file;
     }
 
     /**
-     * @param thesis
-     *            the thesis to set
+     * @param file
+     *            the file to set
      */
-    public void setThesis(FileItem thesis) {
-	this.thesis = thesis;
+    public void setFile(FileItem file) {
+	this.file = file;
     }
 }

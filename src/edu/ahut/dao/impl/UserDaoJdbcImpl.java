@@ -138,4 +138,16 @@ public class UserDaoJdbcImpl implements UserDao {
             throw new DaoException(e);
         }
     }
+
+    @Override
+    public void fillPhoto(String id, String photo) {
+        String sql = "update user set photo=? where id=?";
+        QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
+        try {
+            runner.update(sql, photo, id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DaoException(e);
+        }
+    }
 }

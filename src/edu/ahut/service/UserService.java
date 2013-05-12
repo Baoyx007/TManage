@@ -26,4 +26,6 @@ public interface UserService {
     public User fillQualification(User user);
 
     public User fillAllInfo(User user);
+
+    public void fillPhoto(String id,String photo);
 }
