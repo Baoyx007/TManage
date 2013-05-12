@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,7 +32,11 @@
         // 通讯地址<br>
         private String address;${user.address}<br>
         // 图片位置<br>
-        private String photo;${user.photo}<br>
+        private String photo;
+        <c:if test="${user.photo==null}">
+            <img src="img/${user.gender}.png"/>
+        </c:if>
+        <br>
         //学生，还是教授<br>
         private String title;${user.title}<br>
         <hr>
