@@ -79,6 +79,12 @@ public class UserDaoTest {
     }
 
     @Test
+    public void findAdmin() {
+        Admin admin = userDao.findAdmin("byx", ServiceUtils.md5("123"));
+        System.out.println(admin);
+    }
+
+    @Test
     public void testEnum() {
         System.out.println(Role.STUDENT);
     }

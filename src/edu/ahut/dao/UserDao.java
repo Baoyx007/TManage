@@ -16,6 +16,8 @@ public interface UserDao {
 
     public void addAdmin(Admin admin);
 
+    public Admin findAdmin(String loginName, String password);
+
     public void addUser(User user);
 
     public User findUser(String loginName, String password);
@@ -30,5 +32,5 @@ public interface UserDao {
 
     public User fillQualification(User user);
 
-    public void fillPhoto(String id,String photo);
+    public void fillPhoto(String id, String photo);
 }

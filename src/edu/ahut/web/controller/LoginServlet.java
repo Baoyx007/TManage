@@ -3,6 +3,7 @@
  */
 package edu.ahut.web.controller;
 
+import edu.ahut.domain.Admin;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import edu.ahut.domain.User;
 import edu.ahut.service.UserService;
 import edu.ahut.service.impl.ServiceFactory;
+import edu.ahut.utils.ServiceUtils;
+
 /**
  * @author Haven
  * @date 2013-3-20
@@ -38,24 +41,45 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //获取2个传进来的参数
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
-        //TODO 占时只能用户登录
-        UserService service = ServiceFactory.getUserService();
-        User user = service.login(username, password);
-        if (user != null) {
-            //登录成功
-            //1个session
-            request.getSession().setAttribute("user", user);
-
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
-        } else {
-            request.setAttribute("message", "用户名或密码错误");
+        String group = request.getParameter("group");
+        try {
+            //检查参数不为空
+            if (!ServiceUtils.checkStringParam(username, password, group)) {
+                throw new IllegalArgumentException("不要瞎点！" + username + password + group);
+            }
+            UserService service = ServiceFactory.getUserService();
+            //如果是用户
+            if (group.equals("user")) {
+                User user = service.login(username, password);
+                if (user != null) {
+                    //登录成功
+                    //1个session
+                    request.getSession().setAttribute("user", user);
+                    response.sendRedirect(request.getContextPath() + "/index.jsp");
+                } else {
+                    throw new IllegalArgumentException("用户名或密码错误");
+                }
+            } //如果是管理员
+            else if (group.equals("admin")) {
+                Admin admin = service.adminLogin(username, password);
+                if (admin != null) {
+                    request.getSession().setAttribute("admin", admin);
+                    response.sendRedirect(request.getContextPath() + "/BackIndexUIServlet");
+                } else {
+                    throw new IllegalArgumentException("管理员用户名或密码错误！若是老师或学生，请选择普通用户！！");
+                }
+            }//wrong arguement
+            else {
+                throw new IllegalArgumentException("不要瞎点！" + group);
+            }
+        } catch (IllegalArgumentException e) {
+            request.setAttribute("message", e.getMessage());
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }
+
     }
 
     /**

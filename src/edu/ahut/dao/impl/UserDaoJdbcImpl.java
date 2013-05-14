@@ -150,4 +150,16 @@ public class UserDaoJdbcImpl implements UserDao {
             throw new DaoException(e);
         }
     }
+
+    @Override
+    public Admin findAdmin(String loginName, String password) {
+        String sql = "select * from admin where username=? and password=?";
+        QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
+        try {
+            return runner.query(sql, new BeanHandler<Admin>(Admin.class), loginName, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DaoException(e);
+        }
+    }
 }

@@ -3,6 +3,7 @@
  */
 package edu.ahut.service;
 
+import edu.ahut.domain.Admin;
 import edu.ahut.domain.User;
 
 /**
@@ -16,6 +17,8 @@ public interface UserService {
 
     public User login(String loginName, String password);
 
+    public Admin adminLogin(String loginName, String password);
+
     public User getUserById(String id);
 
 //包括包涵的类
@@ -27,5 +30,5 @@ public interface UserService {
 
     public User fillAllInfo(User user);
 
-    public void fillPhoto(String id,String photo);
+    public void fillPhoto(String id, String photo);
 }

@@ -1,0 +1,33 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package edu.ahut.dao.impl;
+
+import edu.ahut.dao.BulletinDao;
+import edu.ahut.domain.Bulletin;
+import edu.ahut.exceptions.DaoException;
+import edu.ahut.utils.JdbcUtils;
+import java.sql.SQLException;
+import org.apache.commons.dbutils.QueryRunner;
+
+/**
+ *
+ * @author Haven
+ * @date May 14, 2013
+ */
+public class BulletinDaoImpl implements BulletinDao {
+
+    @Override
+    public void saveBulletin(Bulletin bulletin) {
+        String sql = "insert into bulletin(id,topic,time,content,attachment,admin_id) values(?,?,?,?,?,?)";
+        QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
+        try {
+            runner.update(sql, bulletin.getId(), bulletin.getTopic(), bulletin.getTime(),
+                    bulletin.getContent(), bulletin.getAttachment(), bulletin.getAdmin().getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DaoException(e);
+        }
+    }
+}

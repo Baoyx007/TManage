@@ -5,6 +5,7 @@ package edu.ahut.service.impl;
 
 import edu.ahut.dao.UserDao;
 import edu.ahut.dao.impl.DaoFactory;
+import edu.ahut.domain.Admin;
 import edu.ahut.domain.User;
 import edu.ahut.service.UserService;
 import edu.ahut.utils.ServiceUtils;
@@ -78,11 +79,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void fillPhoto(String id,String photo) {
-        if (ServiceUtils.checkStringParam(id,photo)) {
-            DaoFactory.getUserDao().fillPhoto(id,photo);
+    public void fillPhoto(String id, String photo) {
+        if (ServiceUtils.checkStringParam(id, photo)) {
+            DaoFactory.getUserDao().fillPhoto(id, photo);
         } else {
             throw new IllegalArgumentException("photo参数不能为空");
+        }
+    }
+
+    @Override
+    public Admin adminLogin(String loginName, String password) {
+        if (ServiceUtils.checkStringParam(loginName, password)) {
+            return userDao.findAdmin(loginName, ServiceUtils.md5(password));
+        } else {
+            throw new IllegalArgumentException("参数不能为空");
         }
     }
 }
