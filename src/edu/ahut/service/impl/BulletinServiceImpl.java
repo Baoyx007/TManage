@@ -5,12 +5,14 @@
 package edu.ahut.service.impl;
 
 import edu.ahut.dao.BulletinDao;
+import edu.ahut.dao.UserDao;
 import edu.ahut.dao.impl.DaoFactory;
 import edu.ahut.domain.Admin;
 import edu.ahut.domain.Bulletin;
 import edu.ahut.service.BulletinService;
 import edu.ahut.utils.ServiceUtils;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -55,5 +57,22 @@ public class BulletinServiceImpl implements BulletinService {
             bulletin.setAdmin(admin);
         }
         bulletinDao.saveBulletin(bulletin);
+    }
+
+    @Override
+    public List<Bulletin> getAllBulletin() {
+        List<Bulletin> allBulletin = bulletinDao.getAllBulletin();
+
+        //TODO 太浪费内存了，admin其实都是一个人
+        for (Bulletin b : allBulletin) {
+            b = bulletinDao.fillAdmin(b);
+        }
+        return allBulletin;
+    }
+
+    @Override
+    public Bulletin getBulletinById(String id) {
+        Bulletin bulletinById = bulletinDao.getBulletinById(id);
+        return bulletinDao.fillAdmin(bulletinById);
     }
 }

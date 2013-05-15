@@ -46,6 +46,7 @@ public class SubmitBulletinServlet extends HttpServlet {
             if ("预览".equals(preview)) {
                 Bulletin bulletin = bulletinService.newBulletin(topic, content, attachment, (Admin) request.getSession().getAttribute("admin"));
                 //供提交时使用！
+                request.setAttribute("preview", true);
                 request.getSession().setAttribute("bulletin", bulletin);
                 request.getRequestDispatcher("/ShowBulletionUIServlet").forward(request,
                         response);

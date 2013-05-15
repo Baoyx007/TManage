@@ -7,7 +7,7 @@
         <title>登陆</title>
         <style type="text/css">
             body {
-                background: #0d7bd5 url('../img/glow.png') no-repeat center center;
+                background: #0d7bd5 url('img/glow.png') no-repeat center center;
                 height: 100%;
                 color: rgba(255, 255, 255, .8);
                 font-size: 14px;
@@ -67,7 +67,7 @@
         <br>
         <br>
         <br>
-        <img src="../img/title.png"></img>
+        <img src="img/title.png"></img>
         <form action="${pageContext.request.contextPath }/servlet/LoginServlet"
               method="post">
             <table>

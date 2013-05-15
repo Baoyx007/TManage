@@ -101,13 +101,13 @@
         <servlet-name>SubmitBulletinServlet</servlet-name>
         <servlet-class>edu.ahut.web.controller.SubmitBulletinServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListBulletinServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.ListBulletinServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/servlet/LoginServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LoginUIServlet</servlet-name>
-        <url-pattern>/servlet/LoginUIServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
@@ -189,7 +189,15 @@
         <servlet-name>SubmitBulletinServlet</servlet-name>
         <url-pattern>/SubmitBulletinServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListBulletinServlet</servlet-name>
+        <url-pattern>/ListBulletinServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginUIServlet</servlet-name>
+        <url-pattern>/LoginUIServlet</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>gate.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

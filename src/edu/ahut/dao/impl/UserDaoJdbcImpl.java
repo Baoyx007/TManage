@@ -162,4 +162,16 @@ public class UserDaoJdbcImpl implements UserDao {
             throw new DaoException(e);
         }
     }
+
+    @Override
+    public Admin findAdmin(String id) {
+        String sql = "select * from admin where id=?";
+        QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
+        try {
+            return runner.query(sql, new BeanHandler<Admin>(Admin.class), id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DaoException(e);
+        }
+    }
 }

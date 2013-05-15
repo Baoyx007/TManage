@@ -41,13 +41,15 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //删除当前session
+        request.getSession().invalidate();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String group = request.getParameter("group");
         try {
             //检查参数不为空
             if (!ServiceUtils.checkStringParam(username, password, group)) {
-                throw new IllegalArgumentException("不要瞎点！" + username + password + group);
+                throw new IllegalArgumentException("用户名，密码不能为空！！！" + username + password + group);
             }
             UserService service = ServiceFactory.getUserService();
             //如果是用户

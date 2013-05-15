@@ -14,9 +14,9 @@
     <body>
         管理员界面:<br>
         <a href="${pageContext.servletContext.contextPath}/PublishBulletinUIServlet">发布公告</a><br>
-        <a href="#">所有公告</a><br>
-
-
+        <a href="${pageContext.servletContext.contextPath}/ListBulletinServlet">所有公告</a><br>
+        <div align="right">
+            欢迎你：${admin.name },设置,注销</div>
         <hr>
         测试：<br>
         管理员：${admin}

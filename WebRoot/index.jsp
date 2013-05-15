@@ -36,7 +36,7 @@
 
         <!--学生-->
         <c:if test="${user!=null && user.role=='STUDENT' }">
-            <a href="#">查看公告</a>
+            <a href="${myContext}/ListBulletinServlet">查看公告</a>
             <a href="${myContext}/servlet/ListSubjectServlet">选择论题</a>
             <br>
             <a

@@ -18,6 +18,8 @@ public interface UserDao {
 
     public Admin findAdmin(String loginName, String password);
 
+    public Admin findAdmin(String id);
+
     public void addUser(User user);
 
     public User findUser(String loginName, String password);

@@ -5,6 +5,7 @@
 package edu.ahut.dao;
 
 import edu.ahut.domain.Bulletin;
+import java.util.List;
 
 /**
  *
@@ -14,4 +15,10 @@ import edu.ahut.domain.Bulletin;
 public interface BulletinDao {
 
     public void saveBulletin(Bulletin bulletin);
+
+    public List<Bulletin> getAllBulletin();
+
+    public Bulletin fillAdmin(Bulletin bulletin);
+
+    public Bulletin getBulletinById(String id);
 }
