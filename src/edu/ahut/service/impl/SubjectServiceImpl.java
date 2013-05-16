@@ -88,4 +88,17 @@ public class SubjectServiceImpl implements SubjectService {
 
         return subject;
     }
+
+    @Override
+    public Subject getSubjectBySid(String sId) {
+        Subject subject = subjectdao.findSubjectBySid(sId);
+
+        Map<String, User> users = userDao.findUserBySubjectId(subject.getId());
+        subject.setTeacher(users.get("teacher"));
+        subject.setStudent(users.get("student"));
+        subject.setTheses(thesisDao.getThesesBySbId(subject.getId()));
+
+        return subject;
+
+    }
 }

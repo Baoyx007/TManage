@@ -36,18 +36,18 @@
 
         <!--学生-->
         <c:if test="${user!=null && user.role=='STUDENT' }">
-            <a href="${myContext}/ListBulletinServlet">查看公告</a>
+         第一阶段：   <a href="${myContext}/ListBulletinServlet">查看公告</a>
             <a href="${myContext}/servlet/ListSubjectServlet">选择论题</a>
             <br>
-            <a
+    第二阶段：        <a
                 href="${myContext}/servlet/SubmitThesisUIServlet">提交论文</a>
-            <a href="#">已提交的论文</a>
+            <a href="${myContext}/servlet/ShowThesisInfoServlet?userId=${user.id}">已提交的论文</a>
             <a href="#">提交周志</a>
             <br>
-            <a href="#">联系老师(java mail)</a>
+   第三阶段：         <a href="#">联系老师(java mail)</a>
             <a href="#">查看老师留言</a>
             <br>
-            <a href="#">查看成绩</a>
+   第四阶段：         <a href="#">查看成绩</a>
             <a href="#">查看答辩安排</a>
 
         </c:if>

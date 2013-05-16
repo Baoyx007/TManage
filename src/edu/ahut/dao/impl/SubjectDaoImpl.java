@@ -29,7 +29,7 @@ public class SubjectDaoImpl implements SubjectDao {
      */
     @Override
     public void addSubject(Subject subject) {
-        String sql = "insert into subject(id,title,description,tid) values(?,?,?,?)";
+        String sql = "insert into subject(id,title,description,teacher_id) values(?,?,?,?)";
         QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
         try {
             runner.update(

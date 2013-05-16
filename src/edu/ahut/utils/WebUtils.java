@@ -3,6 +3,7 @@
  */
 package edu.ahut.utils;
 
+import edu.ahut.domain.Gender;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,11 +33,15 @@ public class WebUtils {
             while (paras.hasMoreElements()) {
                 String name = paras.nextElement();
                 String value = request.getParameter(name);
-
+                if (name.equals("gender")) {
+                    if ("MALE".equals(value)) {
+//                        this.gender = Gender.MALE;
+                    } else if ("FEMALE".equals(value)) {
+//                        this.gender = Gender.FEMALE;
+                    }
+                    continue;
+                }
                 BeanUtils.setProperty(bean, name, value);
-                // System.out.println(name);
-                // ????¤§?¤?
-                // 要加这个request.setCharacterEncoding("utf-8");
             }
             return bean;
         } catch (Exception e) {

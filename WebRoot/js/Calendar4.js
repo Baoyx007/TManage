@@ -1,12 +1,12 @@
 //        <div>
 //            <input type="text" name="time1" id="time1" onclick="MyCalendar.SetDate(this)" value="2006-8-1" />
 //            <input type="text" name="time2" id="time2" value="2006-8-1" /><input name="" type="button"
-//                onclick="MyCalendar.SetDate(this,document.getElementById('time2'))" value="Ñ¡Ôñ" />
+//                onclick="MyCalendar.SetDate(this,document.getElementById('time2'))" value="é€‰æ‹©" />
 //        </div>
 
 function L_calendar(){}
 L_calendar.prototype={
-	_VersionInfo:"Version:1.0&#13;×÷Õß: lingye",
+	_VersionInfo:"Version:1.0&#13;ä½œè€…: lingye",
 	Moveable:true,
 	NewName:"",
 	insertId:"",
@@ -19,10 +19,10 @@ L_calendar.prototype={
 	GetDateLayer:function(){
 		return window.L_DateLayer;
 		},
-	L_TheYear:new Date().getFullYear(), //¶¨ÒåÄêµÄ±äÁ¿µÄ³õÊ¼Öµ
-	L_TheMonth:new Date().getMonth()+1,//¶¨ÒåÔÂµÄ±äÁ¿µÄ³õÊ¼Öµ
-	L_WDay:new Array(39),//¶¨ÒåĞ´ÈÕÆÚµÄÊı×é
-	MonHead:new Array(31,28,31,30,31,30,31,31,30,31,30,31),    		   //¶¨ÒåÑôÀúÖĞÃ¿¸öÔÂµÄ×î´óÌìÊı
+	L_TheYear:new Date().getFullYear(), //å®šä¹‰å¹´çš„å˜é‡çš„åˆå§‹å€¼
+	L_TheMonth:new Date().getMonth()+1,//å®šä¹‰æœˆçš„å˜é‡çš„åˆå§‹å€¼
+	L_WDay:new Array(39),//å®šä¹‰å†™æ—¥æœŸçš„æ•°ç»„
+	MonHead:new Array(31,28,31,30,31,30,31,31,30,31,30,31),    		   //å®šä¹‰é˜³å†ä¸­æ¯ä¸ªæœˆçš„æœ€å¤§å¤©æ•°
 	GetY:function(){
 		var obj;
 		if (arguments.length > 0){
@@ -57,8 +57,8 @@ L_calendar.prototype={
 		htmlstr+="<div id=\"L_calendar\">\r\n";
 		htmlstr+="<span id=\"SelectYearLayer\" style=\"z-index: 9999;position: absolute;top: 3; left: 19;display: none\"></span>\r\n";
 		htmlstr+="<span id=\"SelectMonthLayer\" style=\"z-index: 9999;position: absolute;top: 3; left: 78;display: none\"></span>\r\n";
-		htmlstr+="<div id=\"L_calendar-year-month\"><div id=\"L_calendar-PrevM\" onclick=\"parent."+this.NewName+".PrevM()\" title=\"Ç°Ò»ÔÂ\"><b>&lt;</b></div><div id=\"L_calendar-year\" onmouseover=\"style.backgroundColor='#FFD700'\" onmouseout=\"style.backgroundColor='white'\" onclick=\"parent."+this.NewName+".SelectYearInnerHTML('"+this.L_TheYear+"')\"></div><div id=\"L_calendar-month\"  onmouseover=\"style.backgroundColor='#FFD700'\" onmouseout=\"style.backgroundColor='white'\" onclick=\"parent."+this.NewName+".SelectMonthInnerHTML('"+this.L_TheMonth+"')\"></div><div id=\"L_calendar-NextM\" onclick=\"parent."+this.NewName+".NextM()\" title=\"ºóÒ»ÔÂ\"><b>&gt;</b></div></div>\r\n";
-		htmlstr+="<div id=\"L_calendar-week\"><ul  onmouseup=\"StopMove()\"><li>ÈÕ</li><li>Ò»</li><li>¶ş</li><li>Èı</li><li>ËÄ</li><li>Îå</li><li>Áù</li></ul></div>\r\n";
+		htmlstr+="<div id=\"L_calendar-year-month\"><div id=\"L_calendar-PrevM\" onclick=\"parent."+this.NewName+".PrevM()\" title=\"å‰ä¸€æœˆ\"><b>&lt;</b></div><div id=\"L_calendar-year\" onmouseover=\"style.backgroundColor='#FFD700'\" onmouseout=\"style.backgroundColor='white'\" onclick=\"parent."+this.NewName+".SelectYearInnerHTML('"+this.L_TheYear+"')\"></div><div id=\"L_calendar-month\"  onmouseover=\"style.backgroundColor='#FFD700'\" onmouseout=\"style.backgroundColor='white'\" onclick=\"parent."+this.NewName+".SelectMonthInnerHTML('"+this.L_TheMonth+"')\"></div><div id=\"L_calendar-NextM\" onclick=\"parent."+this.NewName+".NextM()\" title=\"åä¸€æœˆ\"><b>&gt;</b></div></div>\r\n";
+		htmlstr+="<div id=\"L_calendar-week\"><ul  onmouseup=\"StopMove()\"><li>æ—¥</li><li>ä¸€</li><li>äºŒ</li><li>ä¸‰</li><li>å››</li><li>äº”</li><li>å…­</li></ul></div>\r\n";
 		htmlstr+="<div id=\"L_calendar-day\">\r\n";
 		htmlstr+="<ul>\r\n";
 		for(var i=0;i<this.L_WDay.length;i++){
@@ -128,20 +128,20 @@ L_calendar.prototype={
 		var L_DateLayer=this.GetDateLayer();
 		if(L_DateLayer){L_DateLayer.document.getElementById(id).innerHTML=htmlstr;}
 		},
-	WriteHead:function (yy,mm)  //Íù head ÖĞĞ´Èëµ±Ç°µÄÄêÓëÔÂ
+	WriteHead:function (yy,mm)  //å¾€ head ä¸­å†™å…¥å½“å‰çš„å¹´ä¸æœˆ
   	{
-		this.InsertHTML("L_calendar-year",yy + " Äê");
-		this.InsertHTML("L_calendar-month",mm + " ÔÂ");
+		this.InsertHTML("L_calendar-year",yy + " å¹´");
+		this.InsertHTML("L_calendar-month",mm + " æœˆ");
   	},
-	IsPinYear:function(year)            //ÅĞ¶ÏÊÇ·ñÈòÆ½Äê
+	IsPinYear:function(year)            //åˆ¤æ–­æ˜¯å¦é—°å¹³å¹´
   	{
     	if (0==year%4&&((year%100!=0)||(year%400==0))) return true;else return false;
   	},
-	GetMonthCount:function(year,month)  //ÈòÄê¶şÔÂÎª29Ìì
+	GetMonthCount:function(year,month)  //é—°å¹´äºŒæœˆä¸º29å¤©
   	{
     	var c=this.MonHead[month-1];if((month==2)&&this.IsPinYear(year)) c++;return c;
   	},
-	GetDOW:function(day,month,year)     //ÇóÄ³ÌìµÄĞÇÆÚ¼¸
+	GetDOW:function(day,month,year)     //æ±‚æŸå¤©çš„æ˜ŸæœŸå‡ 
   	{
     	var dt=new Date(year,month-1,day).getDay()/7; return dt;
   	},
@@ -149,12 +149,12 @@ L_calendar.prototype={
 		if(obj.innerText){return obj.innerText}
 		else{return obj.textContent}
 		},
-	PrevM:function()  //ÍùÇ°·­ÔÂ·İ
+	PrevM:function()  //å¾€å‰ç¿»æœˆä»½
   	{
     	if(this.L_TheMonth>1){this.L_TheMonth--}else{this.L_TheYear--;this.L_TheMonth=12;}
     	this.SetDay(this.L_TheYear,this.L_TheMonth);
   	},
-	NextM:function()  //Íùºó·­ÔÂ·İ
+	NextM:function()  //å¾€åç¿»æœˆä»½
   	{
     	if(this.L_TheMonth==12){this.L_TheYear++;this.L_TheMonth=1}else{this.L_TheMonth++}
     	this.SetDay(this.L_TheYear,this.L_TheMonth);
@@ -170,13 +170,13 @@ L_calendar.prototype={
     	}
     	this.CloseLayer();
   	},
-	SetDay:function (yy,mm)   //Ö÷ÒªµÄĞ´³ÌĞò**********
+	SetDay:function (yy,mm)   //ä¸»è¦çš„å†™ç¨‹åº**********
 	{
   		this.WriteHead(yy,mm);
-	  	//ÉèÖÃµ±Ç°ÄêÔÂµÄ¹«¹²±äÁ¿Îª´«ÈëÖµ
+	  	//è®¾ç½®å½“å‰å¹´æœˆçš„å…¬å…±å˜é‡ä¸ºä¼ å…¥å€¼
   		this.L_TheYear=yy;
   		this.L_TheMonth=mm;
-		//µ±Ò³Ãæ±¾ÉíÎ»ÓÚ¿ò¼ÜÖĞÊ± IE»á·µ»Ø´íÎóµÄparent
+		//å½“é¡µé¢æœ¬èº«ä½äºæ¡†æ¶ä¸­æ—¶ IEä¼šè¿”å›é”™è¯¯çš„parent
 		if(window.top.location.href!=window.location.href){
 			for(var i_f=0;i_f<window.top.frames.length;i_f++){
 		  		if(window.top.frames[i_f].location.href==window.location.href){L_DateLayer_Parent=window.top.frames[i_f];}
@@ -185,9 +185,9 @@ L_calendar.prototype={
 		else{
 			L_DateLayer_Parent=window.parent;
 			}
-  		for (var i = 0; i < 39; i++){this.L_WDay[i]=""};  //½«ÏÔÊ¾¿òµÄÄÚÈİÈ«²¿Çå¿Õ
-  		var day1 = 1,day2=1,firstday = new Date(yy,mm-1,1).getDay();  //Ä³ÔÂµÚÒ»ÌìµÄĞÇÆÚ¼¸
-  		for (i=0;i<firstday;i++)this.L_WDay[i]=this.GetMonthCount(mm==1?yy-1:yy,mm==1?12:mm-1)-firstday+i+1	//ÉÏ¸öÔÂµÄ×îºó¼¸Ìì
+  		for (var i = 0; i < 39; i++){this.L_WDay[i]=""};  //å°†æ˜¾ç¤ºæ¡†çš„å†…å®¹å…¨éƒ¨æ¸…ç©º
+  		var day1 = 1,day2=1,firstday = new Date(yy,mm-1,1).getDay();  //æŸæœˆç¬¬ä¸€å¤©çš„æ˜ŸæœŸå‡ 
+  		for (i=0;i<firstday;i++)this.L_WDay[i]=this.GetMonthCount(mm==1?yy-1:yy,mm==1?12:mm-1)-firstday+i+1	//ä¸Šä¸ªæœˆçš„æœ€åå‡ å¤©
   		for (i = firstday; day1 < this.GetMonthCount(yy,mm)+1; i++){this.L_WDay[i]=day1;day1++;}
   		for (i=firstday+this.GetMonthCount(yy,mm);i<39;i++){this.L_WDay[i]=day2;day2++}
   		for (i = 0; i < 39; i++)
@@ -217,7 +217,7 @@ L_calendar.prototype={
 						da.setAttribute("onclick","parent."+this.NewName+".DayClick("+month+","+day+")");
 					}
 				}
-				da.title=month+" ÔÂ"+day+" ÈÕ";
+				da.title=month+" æœˆ"+day+" æ—¥";
 				da.style.background=(yy == new Date().getFullYear()&&month==new Date().getMonth()+1&&day==new Date().getDate())? "#FFD700":"#e0e0e0";
 				if(this.InputDate!=null){
 					if(yy==this.InputDate.getFullYear() && month== this.InputDate.getMonth() + 1 && day==this.InputDate.getDate()){
@@ -227,11 +227,11 @@ L_calendar.prototype={
       		}
   		}
 	},
-	SelectYearInnerHTML:function (strYear) //Äê·İµÄÏÂÀ­¿ò
+	SelectYearInnerHTML:function (strYear) //å¹´ä»½çš„ä¸‹æ‹‰æ¡†
 	{
- 	 	if (strYear.match(/\D/)!=null){alert("Äê·İÊäÈë²ÎÊı²»ÊÇÊı×Ö£¡");return;}
+ 	 	if (strYear.match(/\D/)!=null){alert("å¹´ä»½è¾“å…¥å‚æ•°ä¸æ˜¯æ•°å­—ï¼");return;}
  	 	var m = (strYear) ? strYear : new Date().getFullYear();
-		if (m < 1000 || m > 9999) {alert("Äê·İÖµ²»ÔÚ 1000 µ½ 9999 Ö®¼ä£¡");return;}
+		if (m < 1000 || m > 9999) {alert("å¹´ä»½å€¼ä¸åœ¨ 1000 åˆ° 9999 ä¹‹é—´ï¼");return;}
   		var n = m - 10;
   		if (n < 1000) n = 1000;
   		if (n + 26 > 9999) n = 9974;
@@ -243,8 +243,8 @@ L_calendar.prototype={
   		for (var i = n; i < n + 26; i++)
   		{
     		if (i == m)
-       		{selectInnerHTML += "<option value='" + i + "' selected>" + i + "Äê" + "</option>\r\n";}
-    		else {selectInnerHTML += "<option value='" + i + "'>" + i + "Äê" + "</option>\r\n";}
+       		{selectInnerHTML += "<option value='" + i + "' selected>" + i + "å¹´" + "</option>\r\n";}
+    		else {selectInnerHTML += "<option value='" + i + "'>" + i + "å¹´" + "</option>\r\n";}
  		}
   		selectInnerHTML += "</select>";
 		var DateLayer=this.GetDateLayer();
@@ -252,9 +252,9 @@ L_calendar.prototype={
   		DateLayer.document.getElementById("SelectYearLayer").innerHTML = selectInnerHTML;
   		DateLayer.document.getElementById("L_SelectYear").focus();
 		},
-	SelectMonthInnerHTML:function (strMonth) //ÔÂ·İµÄÏÂÀ­¿ò
+	SelectMonthInnerHTML:function (strMonth) //æœˆä»½çš„ä¸‹æ‹‰æ¡†
 	{
-  		if (strMonth.match(/\D/)!=null){alert("ÔÂ·İÊäÈë²ÎÊı²»ÊÇÊı×Ö£¡");return;}
+  		if (strMonth.match(/\D/)!=null){alert("æœˆä»½è¾“å…¥å‚æ•°ä¸æ˜¯æ•°å­—ï¼");return;}
   		var m = (strMonth) ? strMonth : new Date().getMonth() + 1;
  		var s = "<select name=\"L_SelectYear\" id=\"L_SelectMonth\" style='font-size: 12px' "
      		s += "onblur='document.getElementById(\"SelectMonthLayer\").style.display=\"none\"' "
@@ -264,8 +264,8 @@ L_calendar.prototype={
   		for (var i = 1; i < 13; i++)
   		{
     		if (i == m)
-       		{selectInnerHTML += "<option value='"+i+"' selected>"+i+"ÔÂ"+"</option>\r\n";}
-    		else {selectInnerHTML += "<option value='"+i+"'>"+i+"ÔÂ"+"</option>\r\n";}
+       		{selectInnerHTML += "<option value='"+i+"' selected>"+i+"æœˆ"+"</option>\r\n";}
+    		else {selectInnerHTML += "<option value='"+i+"'>"+i+"æœˆ"+"</option>\r\n";}
   		}
   		selectInnerHTML += "</select>";
 		var DateLayer=this.GetDateLayer();
@@ -273,24 +273,24 @@ L_calendar.prototype={
   		DateLayer.document.getElementById("SelectMonthLayer").innerHTML = selectInnerHTML;
   		DateLayer.document.getElementById("L_SelectMonth").focus();
 	},
-	DayClick:function(mm,dd)  //µã»÷ÏÔÊ¾¿òÑ¡È¡ÈÕÆÚ£¬Ö÷ÊäÈëº¯Êı*************
+	DayClick:function(mm,dd)  //ç‚¹å‡»æ˜¾ç¤ºæ¡†é€‰å–æ—¥æœŸï¼Œä¸»è¾“å…¥å‡½æ•°*************
 	{
 		var yy=this.L_TheYear;
-		//ÅĞ¶ÏÔÂ·İ£¬²¢½øĞĞ¶ÔÓ¦µÄ´¦Àí
+		//åˆ¤æ–­æœˆä»½ï¼Œå¹¶è¿›è¡Œå¯¹åº”çš„å¤„ç†
 		if(mm<1){yy--;mm=12+mm;}
 		else if(mm>12){yy++;mm=mm-12;}
   		if (mm < 10){mm = "0" + mm;}
   		if (this.ClickObject)
   		{if (!dd) {return;}
     	if ( dd < 10){dd = "0" + dd;}
-    	this.InputObject.value= yy + "-" + mm + "-" + dd ; //×¢£ºÔÚÕâÀïÄã¿ÉÒÔÊä³ö¸Ä³ÉÄãÏëÒªµÄ¸ñÊ½
+    	this.InputObject.value= yy + "-" + mm + "-" + dd ; //æ³¨ï¼šåœ¨è¿™é‡Œä½ å¯ä»¥è¾“å‡ºæ”¹æˆä½ æƒ³è¦çš„æ ¼å¼
     	this.CloseLayer();
  		}
-  		else {this.CloseLayer(); alert("ÄúËùÒªÊä³öµÄ¿Ø¼ş¶ÔÏó²¢²»´æÔÚ£¡");}
+  		else {this.CloseLayer(); alert("æ‚¨æ‰€è¦è¾“å‡ºçš„æ§ä»¶å¯¹è±¡å¹¶ä¸å­˜åœ¨ï¼");}
 	},
 	SetDate:function(){
-		if (arguments.length <  1){alert("¶Ô²»Æğ£¡´«Èë²ÎÊıÌ«ÉÙ£¡");return;}
-		else if (arguments.length >  2){alert("¶Ô²»Æğ£¡´«Èë²ÎÊıÌ«¶à£¡");return;}
+		if (arguments.length <  1){alert("å¯¹ä¸èµ·ï¼ä¼ å…¥å‚æ•°å¤ªå°‘ï¼");return;}
+		else if (arguments.length >  2){alert("å¯¹ä¸èµ·ï¼ä¼ å…¥å‚æ•°å¤ªå¤šï¼");return;}
 		this.InputObject=(arguments.length==1) ? arguments[0] : arguments[1];
 		this.ClickObject=arguments[0];
 		var reg = /^(\d+)-(\d{1,2})-(\d{1,2})$/;
@@ -299,7 +299,7 @@ L_calendar.prototype={
 			r[2]=r[2]-1; 
 			var d= new Date(r[1], r[2],r[3]); 
 			if(d.getFullYear()==r[1] && d.getMonth()==r[2] && d.getDate()==r[3]){
-				this.InputDate=d;		//±£´æÍâ²¿´«ÈëµÄÈÕÆÚ
+				this.InputDate=d;		//ä¿å­˜å¤–éƒ¨ä¼ å…¥çš„æ—¥æœŸ
 			}
 			else this.InputDate="";
 			this.L_TheYear=r[1];

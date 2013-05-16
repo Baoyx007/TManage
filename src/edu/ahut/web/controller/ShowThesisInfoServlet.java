@@ -14,6 +14,7 @@ import edu.ahut.domain.Subject;
 import edu.ahut.domain.User;
 import edu.ahut.exceptions.NotLoginException;
 import edu.ahut.service.impl.ServiceFactory;
+import edu.ahut.utils.ServiceUtils;
 
 /**
  * @author Haven
@@ -41,19 +42,30 @@ public class ShowThesisInfoServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            // 从域中获取数据
-            String subjectId = request.getParameter("subjectId");
             User user = (User) request.getSession(false).getAttribute("user");
             if (user == null) {
                 throw new NotLoginException();
             }
-            Subject subject = ServiceFactory.getSubjectService().getSubject(subjectId);
+            // 从域中获取数据
+            String subjectId = request.getParameter("subjectId");
+            String userId = request.getParameter("userId");
 
-            // 这个界面应该是这个项目的核心了把!!!
-            request.setAttribute("subject", subject);
-
-            request.getRequestDispatcher("/WEB-INF/jsp/thesis_info.jsp")
-                    .forward(request, response);
+            Subject subject = null;
+            if (ServiceUtils.checkStringParam(subjectId)) {
+                subject = ServiceFactory.getSubjectService().getSubject(subjectId);
+            } else if (ServiceUtils.checkStringParam(userId)) {
+                subject = ServiceFactory.getSubjectService().getSubjectBySid(userId);
+            } else {
+                throw new IllegalArgumentException("参数错误");
+            }
+            if (subject != null) {
+                // 这个界面应该是这个项目的核心了把!!!
+                request.setAttribute("subject", subject);
+                request.getRequestDispatcher("/WEB-INF/jsp/thesis_info.jsp")
+                        .forward(request, response);
+            } else {
+                throw new RuntimeException();
+            }
         } catch (NotLoginException e) {
             request.setAttribute("message", "尚未登陆");
             request.getRequestDispatcher("/message.jsp").forward(request,
