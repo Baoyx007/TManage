@@ -4,6 +4,7 @@
 package edu.ahut.utils;
 
 import edu.ahut.domain.Gender;
+import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,10 +35,11 @@ public class WebUtils {
                 String name = paras.nextElement();
                 String value = request.getParameter(name);
                 if (name.equals("gender")) {
+                    Method declaredMethod = beanClass.getDeclaredMethod("setGender", Gender.class);
                     if ("MALE".equals(value)) {
-//                        this.gender = Gender.MALE;
+                        declaredMethod.invoke(bean, Gender.MALE);
                     } else if ("FEMALE".equals(value)) {
-//                        this.gender = Gender.FEMALE;
+                        declaredMethod.invoke(bean, Gender.FEMALE);
                     }
                     continue;
                 }

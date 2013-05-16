@@ -60,10 +60,6 @@ public class User extends Admin {
         return gender;
     }
 
-    public void setGender(String gender) {
-      
-    }
-
     public void setGender(Gender gender) {
         this.gender = gender;
     }

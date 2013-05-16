@@ -3,6 +3,9 @@
  */
 package edu.ahut.web.controller;
 
+import edu.ahut.domain.Qualification;
+import edu.ahut.domain.Role;
+import edu.ahut.domain.Unit;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -61,7 +64,16 @@ public class RegisterServlet extends HttpServlet {
         user.setId(ServiceUtils.generateID());
         try {
             //TODO 只能注册user,要添加admin的注册
+            //注册项目不够
+            Qualification qualification = new Qualification();
+            qualification.setId(1);
+            user.setQualification(qualification);
+            Unit unit = new Unit();
+            unit.setId(1);
+            user.setUnit(unit);
+            user.setRole(Role.STUDENT);
             service.register(user);
+
 
             // 不存在此用户success
             //自动登录，转到首页

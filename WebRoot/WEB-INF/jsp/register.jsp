@@ -6,7 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>注册</title>
         <script type="text/javascript"
-        src="${pageContext.request.contextPath }/js/Calendar4.js"></script>
+        src="${pageContext.request.contextPath }/js/Calendar3.js"></script>
 
         <link rel="stylesheet"
               href="${pageContext.request.contextPath }/css/register.css"
@@ -47,7 +47,7 @@
                 <tr>
                     <td>&nbsp;生日:</td>
                     <td>&nbsp;<input type="text" name="birthday"
-                                     onclick="MyCalendar.SetDate(this)" value="${form.birthday }"><span>${form.errors.birthday
+                                     onclick="new Calendar().show(this);" value="${form.birthday }"><span>${form.errors.birthday
                             }</span></td>
                 </tr>
                 <tr>
