@@ -5,7 +5,7 @@
 package edu.ahut.domain;
 
 /**
- * ¹ÜÀíÕß£¬°üÀ¨£ºÏµÍ³¹ÜÀíÕß£¬³¬¹Ü£¬´ğ±ç¹ÜÀí
+ * ç®¡ç†è€…ï¼ŒåŒ…æ‹¬ï¼šç³»ç»Ÿç®¡ç†è€…ï¼Œè¶…ç®¡ï¼Œç­”è¾©ç®¡ç†
  *
  * @author Haven
  * @date May 5, 2013
@@ -14,13 +14,13 @@ public class Admin {
 
     private String id;
     private String name;
-    // µÇÂ½ĞÅÏ¢
+    // ç™»é™†ä¿¡æ¯
     private String password;
     private String username;
-    // Í¨Ñ¶
+    // é€šè®¯
     private String email;
     private String phone;
-    // ×ÔÎÒ½éÉÜ
+    // è‡ªæˆ‘ä»‹ç»
     private String comment;
     //----------------------
     private Role role;

@@ -51,20 +51,20 @@ public class PublishSubjectServlet extends HttpServlet {
 	String description = request.getParameter("description");
 	User u = (User) request.getSession().getAttribute("user");
 	if (u == null) {
-	    request.setAttribute("message", "ÄãÉĞÎ´µÇÂ½");
+	    request.setAttribute("message", "ä½ å°šæœªç™»é™†");
 	    request.getRequestDispatcher("/message.jsp").forward(request,
 		    response);
 	}
 	try {
 	    ss.addSubject(title, description, u.getId());
-	    request.setAttribute("message", "Ìí¼Ó³É¹¦");
+	    request.setAttribute("message", "æ·»åŠ æˆåŠŸ");
 
 	    request.getRequestDispatcher("/servlet/PublishSubjectUIServlet").forward(request,
 		    response);
 	    return;
 	} catch (Exception e) {
-	    // ÆäËûÎÊÌâ
-	    request.setAttribute("message", "Ìí¼Ó³ö´í");
+	    // å…¶ä»–é—®é¢˜
+	    request.setAttribute("message", "æ·»åŠ å‡ºé”™");
 	    e.printStackTrace();
 	    request.getRequestDispatcher("/message.jsp").forward(request,
 		    response);

@@ -13,17 +13,17 @@ import edu.ahut.domain.Thesis;
  * 
  */
 public interface ThesisDao {
-    // 初次增加论文
+    // 鍒濇澧炲姞璁烘枃
     public void addThesis(Thesis thesis);
 
-    // 增加外键
+    // 澧炲姞澶栭敭
     public void addForeignKey(Thesis thesis, String key);
 
     public Thesis getThesis(String id);
 
     /**
-     * 根据subjectID得到thesis
-     * 获取数据库所有列
+     * 鏍规嵁subjectID寰楀埌thesis
+     * 鑾峰彇鏁版嵁搴撴墍鏈夊垪
      * @param sbId subjectId
      * 
      * @return

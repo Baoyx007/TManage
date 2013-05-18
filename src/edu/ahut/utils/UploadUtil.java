@@ -37,30 +37,30 @@ import edu.ahut.web.formbean.SubmitForm;
  *
  */
 public final class UploadUtil {
-    // ´æ·ÅµÄÁ½Â·¾¶
+    // å­˜æ”¾çš„ä¸¤è·¯å¾„
 
     public final static String tempPath = "/WEB-INF/temp/";
     public final static String uploadPath = "/WEB-INF/upload/";
-    //TODO ÏÂÃæÕâÁ½¸öÓ¦¸ÃÔÚ¾ßÌåµ÷ÓÃÊ±ĞŞ¸Ä
-    // ÔÊĞíÎÄ¼şºó×º
+    //TODO ä¸‹é¢è¿™ä¸¤ä¸ªåº”è¯¥åœ¨å…·ä½“è°ƒç”¨æ—¶ä¿®æ”¹
+    // å…è®¸æ–‡ä»¶åç¼€
     public final static String fileSuffix = "doc,docx,txt,pdf,png,jpg";
-    // ÏŞÖÆ10M
+    // é™åˆ¶10M
     public final static int fileSize = 10 * 1024 * 1024;
 
-    // °ÑjspµÄÊı¾İ£¬×ª»»³ÉSubmitForm
+    // æŠŠjspçš„æ•°æ®ï¼Œè½¬æ¢æˆSubmitForm
     public static SubmitForm doUpload(HttpServletRequest request)
             throws FileUploadException, UnsupportedEncodingException,
             ServletException, NoUpfileException, UpfileTypeException,
             UpfileSizeException {
         SubmitForm submitForm = new SubmitForm();
 
-        // ÕæÊµÁÙÊ±Â·¾¶
+        // çœŸå®ä¸´æ—¶è·¯å¾„
         String realTempPath = request.getSession().getServletContext()
                 .getRealPath(UploadUtil.tempPath);
 
         // Create a factory for disk-based file items
-        // »º³åÇø´óĞ¡£¬Î»ÖÃ
-        //¶ÁĞ´²Ù×÷×îºÄÊ±
+        // ç¼“å†²åŒºå¤§å°ï¼Œä½ç½®
+        //è¯»å†™æ“ä½œæœ€è€—æ—¶
         DiskFileItemFactory factory = new DiskFileItemFactory();
         factory.setSizeThreshold(1024 * 1024);
         factory.setRepository(new File(realTempPath));
@@ -72,21 +72,21 @@ public final class UploadUtil {
         if (!ServletFileUpload.isMultipartContent(request)) {
             throw new ServletException();
         }
-        // ½«±í¸ñÖĞµÄname×ª»¯ÎªfileItem
-        // Ó¦¸ÃÖ»ÓĞ2¸ö£¬Ò»¸öÁôÑÔ£¬Ò»¸öÎÄ¼ş
+        // å°†è¡¨æ ¼ä¸­çš„nameè½¬åŒ–ä¸ºfileItem
+        // åº”è¯¥åªæœ‰2ä¸ªï¼Œä¸€ä¸ªç•™è¨€ï¼Œä¸€ä¸ªæ–‡ä»¶
         List<FileItem> files = upload.parseRequest(request);
         for (FileItem fileItem : files) {
             if (fileItem.isFormField()) {
-                // ÆÕÍ¨×Ö¶Î
+                // æ™®é€šå­—æ®µ
                 submitForm.setComment(fileItem.getString("utf-8"));
             } else {
-                // ÊÇÎÄ¼ş
-                // ÎÄ¼ş´óĞ¡Îª0
+                // æ˜¯æ–‡ä»¶
+                // æ–‡ä»¶å¤§å°ä¸º0
                 if (fileItem.getSize() <= 0) {
                     throw new NoUpfileException();
                 }
 
-                // ÏŞÖÆ¸ñÊ½
+                // é™åˆ¶æ ¼å¼
                 String realFileName = UploadUtil.getRealFileName(fileItem
                         .getName());
                 boolean ok = false;
@@ -100,7 +100,7 @@ public final class UploadUtil {
                     throw new UpfileTypeException();
                 }
 
-                // ÏŞÖÆ´óĞ¡
+                // é™åˆ¶å¤§å°
                 if (fileItem.getSize() > fileSize) {
                     throw new UpfileSizeException();
                 }
@@ -112,7 +112,7 @@ public final class UploadUtil {
 
     /**
      *
-     * @param user ÎªÁË²úÉú¶ÔÓ¦µÄÂ·¾¶
+     * @param user ä¸ºäº†äº§ç”Ÿå¯¹åº”çš„è·¯å¾„
      */
     public static Thesis doSave(String realUploadPath, SubmitForm submitForm, User user)
             throws IOException {
@@ -120,21 +120,21 @@ public final class UploadUtil {
         InputStream in = null;
         OutputStream out = null;
         try {
-            // »ñÈ¡ËùÓĞÂ·¾¶
+            // è·å–æ‰€æœ‰è·¯å¾„
             String realFileName = getRealFileName(fileItem.getName());
             String uuidFileName = makeUUIDFileName(realFileName);
             String uuidFilePath = makeUserPath(realUploadPath, user);
 
-            // Â·¾¶±£´æµ½thesisÖĞ
+            // è·¯å¾„ä¿å­˜åˆ°thesisä¸­
             Thesis thesis = new Thesis();
             thesis.setRealFileName(realFileName);
-            //·ÀÖØ¸´
+            //é˜²é‡å¤
             thesis.setUuidFileName(uuidFileName);
             thesis.setUuidFilePath(uuidFilePath);
             thesis.setStudentComment(submitForm.getComment());
             thesis.setId(ServiceUtils.generateID());
 
-            // ±£´æ
+            // ä¿å­˜
             in = fileItem.getInputStream();
             out = new FileOutputStream(uuidFilePath + "/" + uuidFileName);
 
@@ -143,7 +143,7 @@ public final class UploadUtil {
             while ((len = in.read(buf)) > 0) {
                 out.write(buf, 0, len);
             }
-            // ½«ÁÙÊ±ÎÄ¼şÉ¾³ı
+            // å°†ä¸´æ—¶æ–‡ä»¶åˆ é™¤
             fileItem.delete();
             return thesis;
         } finally {
@@ -162,13 +162,13 @@ public final class UploadUtil {
         InputStream in = null;
         OutputStream out = null;
         try {
-            // »ñÈ¡ËùÓĞÂ·¾¶
+            // è·å–æ‰€æœ‰è·¯å¾„
             String realFileName = getRealFileName(fileItem.getName());
             String photoSuffix = realFileName.substring(realFileName.lastIndexOf('.') + 1);
             String uuidFilePath = makeUserPath(realUploadPath, user);
 
             user.setPhoto(uuidFilePath + "/photo." + photoSuffix);
-            // ±£´æ
+            // ä¿å­˜
             in = fileItem.getInputStream();
             out = new FileOutputStream(uuidFilePath + "/photo." + photoSuffix);
 
@@ -177,7 +177,7 @@ public final class UploadUtil {
             while ((len = in.read(buf)) > 0) {
                 out.write(buf, 0, len);
             }
-            // ½«ÁÙÊ±ÎÄ¼şÉ¾³ı
+            // å°†ä¸´æ—¶æ–‡ä»¶åˆ é™¤
             fileItem.delete();
             return user;
         } finally {
@@ -190,7 +190,7 @@ public final class UploadUtil {
         }
     }
 
-    // »ñÈ¡²»´øÂ·¾¶µÄÎÄ¼şÃû
+    // è·å–ä¸å¸¦è·¯å¾„çš„æ–‡ä»¶å
     public static String getRealFileName(String realFileName) {
         int index = realFileName.lastIndexOf('\\');
         if (index >= 0) {
@@ -200,8 +200,8 @@ public final class UploadUtil {
     }
 
     /**
-     * //ÉÏ´«UUIDÂ·¾¶£ºstudent/xuexiao/xueyuan/ban/ID/<br>
-     * eg:upload\student\°²»Õ¹¤Òµ´óÑ§\¼ÆËã»úÑ§Ôº\094\099074106<br>
+     * //ä¸Šä¼ UUIDè·¯å¾„ï¼šstudent/xuexiao/xueyuan/ban/ID/<br>
+     * eg:upload\student\å®‰å¾½å·¥ä¸šå¤§å­¦\è®¡ç®—æœºå­¦é™¢\094\099074106<br>
      * // teacher / xueyuan / ID<br>
      * // admin / ID<br>
      *
@@ -221,7 +221,7 @@ public final class UploadUtil {
             sb.append(user.getUnit().getCalss()).append('/');
             sb.append(user.getSchoolNumber()).append('/');
         } else if (Role.TEACHER == user.getRole()) {
-            //TODO Õ¼Ê±ÀÏÊ¦»¹Ã»ÓĞÉÏ´«ÎÄ¼ş
+            //TODO å æ—¶è€å¸ˆè¿˜æ²¡æœ‰ä¸Šä¼ æ–‡ä»¶
         }
         File file = new File(sb.toString());
         if (!file.exists()) {

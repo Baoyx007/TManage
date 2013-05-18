@@ -40,9 +40,9 @@ public class UserInfoUIServlet extends HttpServlet {
             if (user == null) {
                 throw new NotLoginException();
             }
-            //要显示的用户
+            //瑕佹樉绀虹殑鐢ㄦ埛
             User thisUser;
-            //若与登陆的id相同
+            //鑻ヤ笌鐧婚檰鐨刬d鐩稿悓
             if (user.getId().equals(userId)) {
                 thisUser = user;
                 userService.fillAllInfo(user);
@@ -54,7 +54,7 @@ public class UserInfoUIServlet extends HttpServlet {
                     .forward(request, response);
         } catch (NotLoginException e) {
             e.printStackTrace();
-            request.setAttribute("message", "尚未登陆");
+            request.setAttribute("message", "灏氭湭鐧婚檰");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }

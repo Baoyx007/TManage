@@ -1,9 +1,9 @@
-±¸·İÒ»¸öÊı¾İ¿â£¬ÏêÏ¸¼ûmysql-reference
+å¤‡ä»½ä¸€ä¸ªæ•°æ®åº“ï¼Œè¯¦ç»†è§mysql-reference
 
-//±¸·İÊı¾İ¿â
+//å¤‡ä»½æ•°æ®åº“
 mysqldump --default-character-set=gbk --result-file=F:/Java/Drill/TManage/src/edu/ahut/db/tmanage.sql  -u root -p  tmanage
 
-//±¸·İteacher±í
+//å¤‡ä»½teacherè¡¨
 mysqldump --default-character-set=gbk --result-file=f:/tmanage_teacher.sql  -u root -p  tmanage teacher
 
 

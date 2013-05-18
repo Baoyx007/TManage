@@ -37,34 +37,34 @@ public class SubmitBulletinServlet extends HttpServlet {
         String content = request.getParameter("content");
         String attachment = request.getParameter("attachment");
         String preview = request.getParameter("preview");
-        //µãÔ¤ÀÀ??¡·preview¾ÍÊÇÔ¤ÀÀ
-        //µãÌá½»??¡·previewÊÇNULL
+        //ç‚¹é¢„è§ˆ??ã€‹previewå°±æ˜¯é¢„è§ˆ
+        //ç‚¹æäº¤??ã€‹previewæ˜¯NULL
 //        System.out.println(preview);
 
         try {
             BulletinService bulletinService = ServiceFactory.getBulletinService();
-            if ("Ô¤ÀÀ".equals(preview)) {
+            if ("é¢„è§ˆ".equals(preview)) {
                 Bulletin bulletin = bulletinService.newBulletin(topic, content, attachment, (Admin) request.getSession().getAttribute("admin"));
-                //¹©Ìá½»Ê±Ê¹ÓÃ£¡
+                //ä¾›æäº¤æ—¶ä½¿ç”¨ï¼
                 request.setAttribute("preview", true);
                 request.getSession().setAttribute("bulletin", bulletin);
                 request.getRequestDispatcher("/ShowBulletionUIServlet").forward(request,
                         response);
-            }//±£´æµ½Êı¾İ¿â
+            }//ä¿å­˜åˆ°æ•°æ®åº“
             else {
                 Bulletin bulletin = (Bulletin) request.getSession().getAttribute("bulletin");
-                //·ÖÁ½ÖÖ
-                //1.Ô¤ÀÀºóµÄbulletin±£´æÔÚsessionÖĞ
+                //åˆ†ä¸¤ç§
+                //1.é¢„è§ˆåçš„bulletinä¿å­˜åœ¨sessionä¸­
                 if (bulletin != null) {
-                    //ÒÆ³ısessionÖĞµÄbulletin
+                    //ç§»é™¤sessionä¸­çš„bulletin
                     request.getSession().removeAttribute("bulletin");
-                } //2¡¢Ö±½ÓÌá½»µÄ
+                } //2ã€ç›´æ¥æäº¤çš„
                 else {
                     bulletin = bulletinService.newBulletin(topic, content, attachment, (Admin) request.getSession().getAttribute("admin"));
                 }
 
-                //ÒÑ»ñµÃbulletin
-                //´æÊı¾İ¿â
+                //å·²è·å¾—bulletin
+                //å­˜æ•°æ®åº“
                 bulletinService.saveBulletin(bulletin, (Admin) request.getSession().getAttribute("admin"));
                 request.getRequestDispatcher("/ListBulletinUIServlet").forward(request,
                         response);

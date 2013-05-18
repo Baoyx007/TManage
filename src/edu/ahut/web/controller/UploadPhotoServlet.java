@@ -40,35 +40,35 @@ public class UploadPhotoServlet extends HttpServlet {
         User user = (User) request.getSession(false).getAttribute("user");
         try {
             SubmitForm submitForm = UploadUtil.doUpload(request);
-            // ÕæÊµÉÏ´«Â·¾¶
+            // çœŸå®ä¸Šä¼ è·¯å¾„
             String realUploadPath = request.getSession().getServletContext()
                     .getRealPath(UploadUtil.uploadPath);
 
-            //¿ªÊ¼ÊÂÎñ
+            //å¼€å§‹äº‹åŠ¡
             JdbcUtils.begin();
-            // ´æµ½Ó²ÅÌ
+            // å­˜åˆ°ç¡¬ç›˜
             user = UploadUtil.savePhoto(realUploadPath, submitForm, user);
-            // ´æµ½Êı¾İ¿â
+            // å­˜åˆ°æ•°æ®åº“
             ServiceFactory.getUserService().fillPhoto(user.getId(), user.getPhoto());
             JdbcUtils.commit();
 
-            request.setAttribute("message", "ÉÏ´«³É¹¦");
+            request.setAttribute("message", "ä¸Šä¼ æˆåŠŸ");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } catch (Exception e) {
             e.printStackTrace();
             try {
-                //Êı¾İ¿â»Ø¹ö
+                //æ•°æ®åº“å›æ»š
                 JdbcUtils.rollback();
             } catch (SQLException ex) {
                 Logger.getLogger(SubmitThesisServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            request.setAttribute("message", "ÉÏ´«Í·ÏñÊ§°Ü");
+            request.setAttribute("message", "ä¸Šä¼ å¤´åƒå¤±è´¥");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } finally {
             try {
-                //¹Ø±ÕÊÂÎñ
+                //å…³é—­äº‹åŠ¡
                 JdbcUtils.end();
             } catch (SQLException ex) {
                 Logger.getLogger(SubmitThesisServlet.class.getName()).log(Level.SEVERE, null, ex);

@@ -13,9 +13,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 /**
- * 1.res,req±àÂëÉèÖÃ<br>
- * 2.¶ÔËùÓĞµÄservlet¹ıÂË<br>
- * 3.´¦ÓÚchain µÄµÚÒ»¸ö
+ * 1.res,reqç¼–ç è®¾ç½®<br>
+ * 2.å¯¹æ‰€æœ‰çš„servletè¿‡æ»¤<br>
+ * 3.å¤„äºchain çš„ç¬¬ä¸€ä¸ª
  *
  * @author Haven
  */
@@ -40,9 +40,9 @@ public class GeneralFilter implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
         String encoding = this.filterConfig.getInitParameter("encoding");
-        // ÇëÇó±àÂëÉèÖÃ
+        // è¯·æ±‚ç¼–ç è®¾ç½®
         request.setCharacterEncoding(encoding);
-        // ÏìÓ¦±àÂëÉèÖÃ
+        // å“åº”ç¼–ç è®¾ç½®
         response.setCharacterEncoding(encoding);
         chain.doFilter(request, response);
     }

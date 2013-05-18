@@ -26,8 +26,8 @@ public interface UserDao {
 
     public User findUser(String id);
 
-    //µÚÒ»¸ökeyÊÇteacher£¬
-    //µÚ¶þ¸ökeyÊÇstudent
+    //ç¬¬ä¸€ä¸ªkeyæ˜¯teacherï¼Œ
+    //ç¬¬äºŒä¸ªkeyæ˜¯student
     public Map<String, User> findUserBySubjectId(String id);
 
     public User fillUnit(User user);

@@ -16,21 +16,21 @@ public interface SubjectDao {
 
     public void addSubject(Subject subject);
 
-    // ÂÛÎÄÌâºÍ¶ÔÓ¦µÄ·¢²¼Õß
+    // è®ºæ–‡é¢˜å’Œå¯¹åº”çš„å‘å¸ƒè€…
     public List<Subject> getAllSubject();
 
     /**
-     * Ñ§ÉúÑ¡ÔñÌâÄ¿
+     * å­¦ç”Ÿé€‰æ‹©é¢˜ç›®
      *
-     * @param subjectId ÌâÄ¿id
-     * @param studentId Ñ§Éúid
+     * @param subjectId é¢˜ç›®id
+     * @param studentId å­¦ç”Ÿid
      *
      */
     public void selectSubject(String subjectId, String studentId);
 
     /**
-     * ¸ù¾İÑ§ÉúID·¢ÏÖÌâÄ¿ Ò»¸öÑ§ÉúÖ»ÄÜ¶ÔÓ¦Ò»¸ösubject <br>
-     * ²»³É¹¦·µ»Ønull
+     * æ ¹æ®å­¦ç”ŸIDå‘ç°é¢˜ç›® ä¸€ä¸ªå­¦ç”Ÿåªèƒ½å¯¹åº”ä¸€ä¸ªsubject <br>
+     * ä¸æˆåŠŸè¿”å›null
      *
      * @param id
      * @return
@@ -38,7 +38,7 @@ public interface SubjectDao {
     public Subject findSubjectBySid(String id);
 
     /**
-     * ¸ù¾İid»ñµÃsubject
+     * æ ¹æ®idè·å¾—subject
      *
      *
      */

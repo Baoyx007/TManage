@@ -78,7 +78,7 @@ public class ThesisDaoImpl implements ThesisDao {
      */
     @Override
     public Thesis getThesis(String id) {
-        // TODO subjectÃ»·¨Ó³Éä
+        // TODO subjectæ²¡æ³•æ˜ å°„
         return null;
     }
 }

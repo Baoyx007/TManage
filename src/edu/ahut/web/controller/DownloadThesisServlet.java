@@ -43,7 +43,7 @@ public class DownloadThesisServlet extends HttpServlet {
             if (!ServiceUtils.checkStringParam(uuidFileName, uuidFilePath)) {
                 throw new WrongOperationException();
             }
-            // ÕæÊµÉÏ´«Â·¾¶
+            // çœŸå®ä¸Šä¼ è·¯å¾„
             in = new BufferedInputStream(new FileInputStream(uuidFilePath + '/' + uuidFileName));
             out = response.getOutputStream();
             int len = -1;
@@ -51,17 +51,17 @@ public class DownloadThesisServlet extends HttpServlet {
             while ((len = in.read(buf)) > 0) {
                 out.write(buf, 0, len);
             }
-            //ÉèÖÃmimeÀàĞÍ
+            //è®¾ç½®mimeç±»å‹
             String realName = uuidFileName.substring(uuidFileName.lastIndexOf('_') + 1);
             response.setHeader("Content-Disposition", "attachment; filename=" + realName);
         } catch (WrongOperationException e) {
             e.printStackTrace();
-            request.setAttribute("message", "±ğÏ¹µã");
+            request.setAttribute("message", "åˆ«çç‚¹");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } catch (IOException e) {
             e.printStackTrace();
-            request.setAttribute("message", "ÎÄ¼ş¶ÁÈ¡´íÎó");
+            request.setAttribute("message", "æ–‡ä»¶è¯»å–é”™è¯¯");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } finally {

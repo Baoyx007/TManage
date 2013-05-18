@@ -40,8 +40,8 @@ public class ShowBulletinUIServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/jsp/bulletin_info.jsp").forward(request,
                         response);
             } else {
-                //ÕâÊÇÒ³ÃæÉÏµÄÄÚÈİ£¬²»ÔÚÊı¾İ¿âÖĞ£¡
-                //ÔÚsessionÖĞ
+                //è¿™æ˜¯é¡µé¢ä¸Šçš„å†…å®¹ï¼Œä¸åœ¨æ•°æ®åº“ä¸­ï¼
+                //åœ¨sessionä¸­
                 request.getRequestDispatcher("/WEB-INF/jsp/bulletin_info.jsp").forward(request,
                         response);
             }

@@ -40,7 +40,7 @@ public class ListBulletinServlet extends HttpServlet {
                     .forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("message", "列出公告出错");
+            request.setAttribute("message", "鍒楀嚭鍏憡鍑洪敊");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }

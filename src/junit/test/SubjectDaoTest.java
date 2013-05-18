@@ -26,7 +26,7 @@ public class SubjectDaoTest {
         Subject subject = new Subject();
         subject.setId(ServiceUtils.generateID());
         subject.setTitle("test");
-        subject.setDescription("ËùµÃË°µÄ·¢ÉúµÄË®µç·Ñ");
+        subject.setDescription("æ‰€å¾—ç¨çš„å‘ç”Ÿçš„æ°´ç”µè´¹");
         subject.setTeacher(new User("1"));
         dao.addSubject(subject);
     }

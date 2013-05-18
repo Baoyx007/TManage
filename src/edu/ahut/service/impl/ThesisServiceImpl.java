@@ -31,11 +31,11 @@ public class ThesisServiceImpl implements ThesisService {
     public void addThesis(Thesis thesis, User user) {
 	SubjectDao sDao = new SubjectDaoImpl();
         
-        //FIXME ·µ»ØµÄÓ¦¸ÃÊÇÎ¨Ò»µÄ£¬ËùÒÔÒªÇótid!=null!!!
+        //FIXME è¿”å›çš„åº”è¯¥æ˜¯å”¯ä¸€çš„ï¼Œæ‰€ä»¥è¦æ±‚tid!=null!!!
 	Subject subject = sDao.findSubjectBySid(user.getId());
 
-	// ¸Ğ¾õÓĞ´óÁ¿µÄÄÚ´æÀË·Ñ£¬ÒòÎªºÜ¶àÓÃ²»µ½£¬Ã¿´Î¶¼ÊÇnewÒ»¸ö¶ÔÏó
-	// addThesis¿ÉÄÜÖ»ÒªsubjectµÄID£¬ÀË·Ñ!
+	// æ„Ÿè§‰æœ‰å¤§é‡çš„å†…å­˜æµªè´¹ï¼Œå› ä¸ºå¾ˆå¤šç”¨ä¸åˆ°ï¼Œæ¯æ¬¡éƒ½æ˜¯newä¸€ä¸ªå¯¹è±¡
+	// addThesiså¯èƒ½åªè¦subjectçš„IDï¼Œæµªè´¹!
 	thesis.setSubject(subject);
 	new ThesisDaoImpl().addThesis(thesis);
     }

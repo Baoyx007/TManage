@@ -51,54 +51,54 @@ public class SubmitThesisServlet extends HttpServlet {
         User student = (User) request.getSession(false).getAttribute("user");
         try {
             SubmitForm submitForm = UploadUtil.doUpload(request);
-            // ÕæÊµÉÏ´«Â·¾¶
+            // çœŸå®ä¸Šä¼ è·¯å¾„
             String realUploadPath = request.getSession().getServletContext()
                     .getRealPath(UploadUtil.uploadPath);
 
-            //¿ªÊ¼ÊÂÎñ
+            //å¼€å§‹äº‹åŠ¡
             JdbcUtils.begin();
-            // ´æµ½Ó²ÅÌ
+            // å­˜åˆ°ç¡¬ç›˜
             Thesis thesis = UploadUtil.doSave(realUploadPath, submitForm,student);
-            // ´æµ½Êı¾İ¿â
+            // å­˜åˆ°æ•°æ®åº“
             new ThesisServiceImpl().addThesis(thesis, student);
             JdbcUtils.commit();
 
 
-            request.setAttribute("message", "ÉÏ´«³É¹¦");
+            request.setAttribute("message", "ä¸Šä¼ æˆåŠŸ");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
-            // ÒÔÏÂ¶¼ÊÇÅ»ĞÄµÄÒì³£
+            // ä»¥ä¸‹éƒ½æ˜¯å‘•å¿ƒçš„å¼‚å¸¸
         } catch (UpfileSizeException e) {
             e.printStackTrace();
             request.setAttribute("message",
-                    "<font color='green'>ÉÏ´«ÎÄ¼ş´óĞ¡ÏŞÖÆÔÚ10MÒÔÄÚ</font>");
+                    "<font color='green'>ä¸Šä¼ æ–‡ä»¶å¤§å°é™åˆ¶åœ¨10Mä»¥å†…</font>");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } catch (UpfileTypeException e) {
             e.printStackTrace();
             request.setAttribute("message",
-                    "<font color='red'>Ö»ÄÜÉÏ´«doc,docx,txt¸ñÊ½µÄÎÄ¼ş</font>");
+                    "<font color='red'>åªèƒ½ä¸Šä¼ doc,docx,txtæ ¼å¼çš„æ–‡ä»¶</font>");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } catch (NoUpfileException e) {
             e.printStackTrace();
-            request.setAttribute("message", "<font color='blue'>ÎŞÉÏ´«ÎÄ¼ş</font>");
+            request.setAttribute("message", "<font color='blue'>æ— ä¸Šä¼ æ–‡ä»¶</font>");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } catch (Exception e) {
             e.printStackTrace();
             try {
-                //Êı¾İ¿â»Ø¹ö
+                //æ•°æ®åº“å›æ»š
                 JdbcUtils.rollback();
             } catch (SQLException ex) {
                 Logger.getLogger(SubmitThesisServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            request.setAttribute("message", "ÉÏ´«ÎÄ¼şÊ§°Ü");
+            request.setAttribute("message", "ä¸Šä¼ æ–‡ä»¶å¤±è´¥");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } finally {
             try {
-                //¹Ø±ÕÊÂÎñ
+                //å…³é—­äº‹åŠ¡
                 JdbcUtils.end();
             } catch (SQLException ex) {
                 Logger.getLogger(SubmitThesisServlet.class.getName()).log(Level.SEVERE, null, ex);

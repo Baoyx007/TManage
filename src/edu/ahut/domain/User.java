@@ -6,26 +6,26 @@ package edu.ahut.domain;
 import java.util.Date;
 
 /**
- * ÓÃ»§ºÍ¹ÜÀíÔ±¶¼ÊÇÈË£¬ËùÒÔ¿ÉÒÔ¼Ì³Ğ<br>
- * È¨ÏŞ¹ÜÀíÍ¨¹ırole
+ * ç”¨æˆ·å’Œç®¡ç†å‘˜éƒ½æ˜¯äººï¼Œæ‰€ä»¥å¯ä»¥ç»§æ‰¿<br>
+ * æƒé™ç®¡ç†é€šè¿‡role
  *
  * @author Haven
  * @date 2013-3-19
  *
  */
 public class User extends Admin {
-    // »ù±¾ĞÅÏ¢
+    // åŸºæœ¬ä¿¡æ¯
 
     private String schoolNumber;
     private Date birthday;
     private Gender gender;
-    // Í¨Ñ¶µØÖ·
+    // é€šè®¯åœ°å€
     private String address;
-    // Í¼Æ¬Î»ÖÃ
+    // å›¾ç‰‡ä½ç½®
     private String photo;
-    //Ñ§Éú£¬»¹ÊÇ½ÌÊÚ
+    //å­¦ç”Ÿï¼Œè¿˜æ˜¯æ•™æˆ
     private String title;
-    //ÒÔÏÂÊÇ¶ÔÏóÀàĞÍ
+    //ä»¥ä¸‹æ˜¯å¯¹è±¡ç±»å‹
     private Unit unit;
     private Qualification qualification;
 

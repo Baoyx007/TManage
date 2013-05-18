@@ -22,14 +22,14 @@ import org.apache.commons.beanutils.Converter;
  *
  */
 public class WebUtils {
-    // ½«postÖĞµÄÊı¾İ·â×°µ½beanÖĞ
+    // å°†postä¸­çš„æ•°æ®å°è£…åˆ°beanä¸­
 
     public static <T> T request2Bean(HttpServletRequest request,
             Class<T> beanClass) {
         try {
             request.setCharacterEncoding("utf-8");
             T bean = beanClass.newInstance();
-            // 2.requestÖĞµÄÊı¾İÕûµ½beanÖĞ
+            // 2.requestä¸­çš„æ•°æ®æ•´åˆ°beanä¸­
             Enumeration<String> paras = request.getParameterNames();
             while (paras.hasMoreElements()) {
                 String name = paras.nextElement();

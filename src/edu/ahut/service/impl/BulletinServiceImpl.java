@@ -26,10 +26,10 @@ public class BulletinServiceImpl implements BulletinService {
     @Override
     public Bulletin newBulletin(String topic, String content, String Attachment, Admin admin) {
         if (!ServiceUtils.checkStringParam(topic, content)) {
-            throw new IllegalArgumentException("Ö÷ÌâºÍÄÚÈİ²»ÄÜÎª¿Õ£¡");
+            throw new IllegalArgumentException("ä¸»é¢˜å’Œå†…å®¹ä¸èƒ½ä¸ºç©ºï¼");
         }
         if (admin == null) {
-            throw new IllegalArgumentException("ÉĞÎ´µÇÂ½£¡");
+            throw new IllegalArgumentException("å°šæœªç™»é™†ï¼");
         }
         Bulletin bulletin = new Bulletin();
         bulletin.setId(ServiceUtils.generateID());
@@ -45,7 +45,7 @@ public class BulletinServiceImpl implements BulletinService {
     @Override
     public void saveBulletin(Bulletin bulletin, Admin admin) {
         if (!ServiceUtils.checkStringParam(bulletin.getTopic(), bulletin.getContent())) {
-            throw new IllegalArgumentException("Ö÷ÌâºÍÄÚÈİ²»ÄÜÎª¿Õ£¡");
+            throw new IllegalArgumentException("ä¸»é¢˜å’Œå†…å®¹ä¸èƒ½ä¸ºç©ºï¼");
         }
         if (bulletin.getId() == null) {
             bulletin.setId(ServiceUtils.generateID());
@@ -63,7 +63,7 @@ public class BulletinServiceImpl implements BulletinService {
     public List<Bulletin> getAllBulletin() {
         List<Bulletin> allBulletin = bulletinDao.getAllBulletin();
 
-        //TODO Ì«ÀË·ÑÄÚ´æÁË£¬adminÆäÊµ¶¼ÊÇÒ»¸öÈË
+        //TODO å¤ªæµªè´¹å†…å­˜äº†ï¼Œadminå…¶å®éƒ½æ˜¯ä¸€ä¸ªäºº
         for (Bulletin b : allBulletin) {
             b = bulletinDao.fillAdmin(b);
         }

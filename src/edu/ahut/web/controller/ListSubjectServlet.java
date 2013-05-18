@@ -47,7 +47,7 @@ public class ListSubjectServlet extends HttpServlet {
                     .forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("message", "列出用户出错");
+            request.setAttribute("message", "鍒楀嚭鐢ㄦ埛鍑洪敊");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }

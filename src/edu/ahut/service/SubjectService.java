@@ -13,14 +13,14 @@ import java.util.List;
  *
  */
 public interface SubjectService {
-    // ÀÏÊ¦Ìí¼ÓÒ»¸öÂÛÎÄÌâÄ¿
+    // è€å¸ˆæ·»åŠ ä¸€ä¸ªè®ºæ–‡é¢˜ç›®
 
     public void addSubject(String title, String description, String sId);
 
-    // ²ì¿´ËùÓĞÂÛÎÄÌâÄ¿ºÍ¶ÔÓ¦¸öÀÏÊ¦Ãû
+    // å¯Ÿçœ‹æ‰€æœ‰è®ºæ–‡é¢˜ç›®å’Œå¯¹åº”ä¸ªè€å¸ˆå
     public List<Subject> listAllSubject();
 
-    // Ñ§ÉúÑ¡ÔñÌâÄ¿
+    // å­¦ç”Ÿé€‰æ‹©é¢˜ç›®
     public void selectSubject(String subjectId, User user);
 
     /**

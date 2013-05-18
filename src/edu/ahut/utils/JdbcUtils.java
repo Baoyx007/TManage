@@ -18,19 +18,19 @@ import java.sql.Statement;
 public final class JdbcUtils {
 
     private static ComboPooledDataSource dataSource;
-    // Õâ¸ö¾ÍÊÇÁ¬½Ó³Ø
+    // è¿™ä¸ªå°±æ˜¯è¿æ¥æ± 
     private static ThreadLocal<Connection> tl = new ThreadLocal<Connection>();
 
     static {
         dataSource = new ComboPooledDataSource();
     }
 
-    // È¡µÃÊı¾İÔ´
+    // å–å¾—æ•°æ®æº
     public static ComboPooledDataSource getDataSource() {
         return dataSource;
     }
 
-    // È¡µÃÁ¬½Ó
+    // å–å¾—è¿æ¥
     public static Connection getMySqlConnection() throws SQLException {
         Connection conn = tl.get();
         if (conn == null) {
@@ -94,7 +94,7 @@ public final class JdbcUtils {
             }
         }
     }
-    // ¹Ø±ÕÁ¬½Ó
+    // å…³é—­è¿æ¥
 
     public static void close(Connection conn) throws SQLException {
         if (conn != null) {

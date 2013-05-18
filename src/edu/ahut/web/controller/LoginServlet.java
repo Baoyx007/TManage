@@ -41,40 +41,40 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //É¾³ıµ±Ç°session
+        //åˆ é™¤å½“å‰session
         request.getSession().invalidate();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String group = request.getParameter("group");
         try {
-            //¼ì²é²ÎÊı²»Îª¿Õ
+            //æ£€æŸ¥å‚æ•°ä¸ä¸ºç©º
             if (!ServiceUtils.checkStringParam(username, password, group)) {
-                throw new IllegalArgumentException("ÓÃ»§Ãû£¬ÃÜÂë²»ÄÜÎª¿Õ£¡£¡£¡" + username + password + group);
+                throw new IllegalArgumentException("ç”¨æˆ·åï¼Œå¯†ç ä¸èƒ½ä¸ºç©ºï¼ï¼ï¼" + username + password + group);
             }
             UserService service = ServiceFactory.getUserService();
-            //Èç¹ûÊÇÓÃ»§
+            //å¦‚æœæ˜¯ç”¨æˆ·
             if (group.equals("user")) {
                 User user = service.login(username, password);
                 if (user != null) {
-                    //µÇÂ¼³É¹¦
-                    //1¸ösession
+                    //ç™»å½•æˆåŠŸ
+                    //1ä¸ªsession
                     request.getSession().setAttribute("user", user);
                     response.sendRedirect(request.getContextPath() + "/index.jsp");
                 } else {
-                    throw new IllegalArgumentException("ÓÃ»§Ãû»òÃÜÂë´íÎó");
+                    throw new IllegalArgumentException("ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯");
                 }
-            } //Èç¹ûÊÇ¹ÜÀíÔ±
+            } //å¦‚æœæ˜¯ç®¡ç†å‘˜
             else if (group.equals("admin")) {
                 Admin admin = service.adminLogin(username, password);
                 if (admin != null) {
                     request.getSession().setAttribute("admin", admin);
                     response.sendRedirect(request.getContextPath() + "/BackIndexUIServlet");
                 } else {
-                    throw new IllegalArgumentException("¹ÜÀíÔ±ÓÃ»§Ãû»òÃÜÂë´íÎó£¡ÈôÊÇÀÏÊ¦»òÑ§Éú£¬ÇëÑ¡ÔñÆÕÍ¨ÓÃ»§£¡£¡");
+                    throw new IllegalArgumentException("ç®¡ç†å‘˜ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯ï¼è‹¥æ˜¯è€å¸ˆæˆ–å­¦ç”Ÿï¼Œè¯·é€‰æ‹©æ™®é€šç”¨æˆ·ï¼ï¼");
                 }
             }//wrong arguement
             else {
-                throw new IllegalArgumentException("²»ÒªÏ¹µã£¡" + group);
+                throw new IllegalArgumentException("ä¸è¦çç‚¹ï¼" + group);
             }
         } catch (IllegalArgumentException e) {
             request.setAttribute("message", e.getMessage());

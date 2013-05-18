@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
         if (ServiceUtils.checkStringParam(loginName, password)) {
             return userDao.findUser(loginName, ServiceUtils.md5(password));
         } else {
-            throw new IllegalArgumentException("参数不能为空");
+            throw new IllegalArgumentException("鍙傛暟涓嶈兘涓虹┖");
         }
     }
 
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(User user) {
         if (user != null) {
-            //FIXME 先判断用户是否已存在
+            //FIXME 鍏堝垽鏂敤鎴锋槸鍚﹀凡瀛樺湪
             userDao.addUser(user);
         }
     }
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
         if (ServiceUtils.checkStringParam(id, photo)) {
             DaoFactory.getUserDao().fillPhoto(id, photo);
         } else {
-            throw new IllegalArgumentException("photo参数不能为空");
+            throw new IllegalArgumentException("photo鍙傛暟涓嶈兘涓虹┖");
         }
     }
 
@@ -92,7 +92,7 @@ public class UserServiceImpl implements UserService {
         if (ServiceUtils.checkStringParam(loginName, password)) {
             return userDao.findAdmin(loginName, ServiceUtils.md5(password));
         } else {
-            throw new IllegalArgumentException("参数不能为空");
+            throw new IllegalArgumentException("鍙傛暟涓嶈兘涓虹┖");
         }
     }
 }

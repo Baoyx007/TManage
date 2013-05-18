@@ -112,40 +112,40 @@ public class RegisterForm {
 
     public boolean validate() {
         boolean isOK = true;
-        // ÓÃ»§ÃûÎª3-8Î»
+        // ç”¨æˆ·åä¸º3-8ä½
         if (username == null || username.trim().equals("")) {
             isOK = false;
-            errors.put("username", "ÓÃ»§Ãû²»ÄÜÎª¿Õ");
+            errors.put("username", "ç”¨æˆ·åä¸èƒ½ä¸ºç©º");
         } else if (!username.matches("[A-Za-z0-9]{3,8}")) {
             isOK = false;
-            errors.put("username", "ÓÃ»§Ãû±ØĞëÊÇ3-8Î»");
+            errors.put("username", "ç”¨æˆ·åå¿…é¡»æ˜¯3-8ä½");
         }
 
         if (password == null || password.trim().equals("")) {
             isOK = false;
-            errors.put("password", "ÃÜÂë²»ÄÜÎª¿Õ");
+            errors.put("password", "å¯†ç ä¸èƒ½ä¸ºç©º");
         } else if (!password.trim().matches("[A-Za-z0-9]{3,8}")) {
             // System.out.println(password.trim());
             isOK = false;
-            errors.put("password", "ÃÜÂë±ØĞëÊÇ3-8Î»");
+            errors.put("password", "å¯†ç å¿…é¡»æ˜¯3-8ä½");
         }
 
         if (password2 == null || password2.trim().equals("")) {
             isOK = false;
-            errors.put("password2", "ÃÜÂë²»ÄÜÎª¿Õ");
+            errors.put("password2", "å¯†ç ä¸èƒ½ä¸ºç©º");
         } else if (!password2.equals(password)) {
             isOK = false;
-            errors.put("password2", "Á½´ÎÃÜÂëÒªÒ»ÖÂ");
+            errors.put("password2", "ä¸¤æ¬¡å¯†ç è¦ä¸€è‡´");
         }
 
         // if (email == null || email.trim().equals("")) {
         // isOK = false;
-        // errors.put("email", "ÓÊÏä²»ÄÜÎª¿Õ");
+        // errors.put("email", "é‚®ç®±ä¸èƒ½ä¸ºç©º");
         // }
         // // \w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*
         // else if (!email.matches("\\w+@\\w+(\\.\\w+)+")) {
         // isOK = false;
-        // errors.put("email", "ÓÊÏä¸ñÊ½²»ÕıÈ·");
+        // errors.put("email", "é‚®ç®±æ ¼å¼ä¸æ­£ç¡®");
         // }
 
         if (!(birthday == null || birthday.trim().equals(""))) {
@@ -154,17 +154,17 @@ public class RegisterForm {
                 dic.convert(birthday, "yyyy-MM-dd");
             } catch (Exception e) {
                 isOK = false;
-                errors.put("birthday", "ÈÕÆÚ¸ñÊ½²»ÕıÈ·");
+                errors.put("birthday", "æ—¥æœŸæ ¼å¼ä¸æ­£ç¡®");
             }
         }
 
-        // System.out.println(nickname);// ??¡ã??? ÂÒÂë£¿£¿
+        // System.out.println(nickname);// ??Â°??? ä¹±ç ï¼Ÿï¼Ÿ
         if (name == null || name.trim().equals("")) {
             isOK = false;
-            errors.put("name", "êÇ³Æ²»ÄÜÎª¿Õ");
+            errors.put("name", "æ˜µç§°ä¸èƒ½ä¸ºç©º");
         } else if (!name.matches("^[\u4e00-\u9fa5]+$")) {
             isOK = false;
-            errors.put("name", "êÇ³Æ²»ÊÇºº×Ö");
+            errors.put("name", "æ˜µç§°ä¸æ˜¯æ±‰å­—");
         }
 
         return isOK;

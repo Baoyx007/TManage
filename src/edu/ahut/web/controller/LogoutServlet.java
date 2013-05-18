@@ -45,7 +45,7 @@ public class LogoutServlet extends HttpServlet {
 	    session.invalidate();
 	request.setAttribute(
 		"message",
-		"注销成功!3秒后跳转<br/><meta http-equiv='refresh' content='3;url=http://localhost:8080/"
+		"娉ㄩ攢鎴愬姛!3绉掑悗璺宠浆<br/><meta http-equiv='refresh' content='3;url=http://localhost:8080/"
 			+ request.getContextPath() + "/'>");
 	response.sendRedirect(request.getContextPath() + "/message.jsp");
     }

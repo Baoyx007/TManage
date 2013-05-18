@@ -45,7 +45,7 @@ public class SelectSubjectServlet extends HttpServlet {
 	String subjectId = request.getParameter("subjectId");
 	User user = (User) request.getSession(false).getAttribute("user");
 	if (user == null) {
-	    request.setAttribute("message", "ÉĞÎ´µÇÂ¼");
+	    request.setAttribute("message", "å°šæœªç™»å½•");
 	    request.getRequestDispatcher("/message.jsp").forward(request,
 		    response);
 	    return;
@@ -53,11 +53,11 @@ public class SelectSubjectServlet extends HttpServlet {
 
 	try {
 	    new SubjectServiceImpl().selectSubject(subjectId, user);
-	    request.setAttribute("message", "Ñ¡Ôñ³É¹¦");
+	    request.setAttribute("message", "é€‰æ‹©æˆåŠŸ");
 	    request.getRequestDispatcher("/message.jsp").forward(request,
 		    response);
 	} catch (Exception e) {
-	    request.setAttribute("message", "Ñ¡Ôñ³ö´í");
+	    request.setAttribute("message", "é€‰æ‹©å‡ºé”™");
 	    e.printStackTrace();
 	    request.getRequestDispatcher("/message.jsp").forward(request,
 		    response);

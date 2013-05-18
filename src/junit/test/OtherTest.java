@@ -43,7 +43,7 @@ public class OtherTest {
     @Test
     public void TestURL() throws UnsupportedEncodingException {
         String decode = java.net.URLDecoder.decode("F%3a%5cJava%5cDrill%5cTManage%5cbuild%5cweb%5cWEB-INF%5cupload%5cstudent%5c%e5%ae%89%e5%be%bd%e5%b7%a5%e4%b8%9a%e5%a4%a7%e5%ad%a6%5c%e8%ae%a1%e7%ae%97%e6%9c%ba%e5%ad%a6%e9%99%a2%5c094%5c099074106", "UTF-8");
-//         String uuidFilePath = new String("F%3a%5cJava%5cDrill%5cTManage%5cbuild%5cweb%5cWEB-INF%5cupload%5cstudent%5c°²»Õ¹¤Òµ´óÑ§%5c¼ÆËã»úÑ§Ôº%5c094%5c099074106".getBytes(""), "utf-8");
+//         String uuidFilePath = new String("F%3a%5cJava%5cDrill%5cTManage%5cbuild%5cweb%5cWEB-INF%5cupload%5cstudent%5cå®‰å¾½å·¥ä¸šå¤§å­¦%5cè®¡ç®—æœºå­¦é™¢%5c094%5c099074106".getBytes(""), "utf-8");
         System.out.println("F%3a%5cJava%5cDrill%5cTManage%5cbuild%5cweb%5cWEB-INF%5cupload%5cstudent%5c%e5%ae%89%e5%be%bd%e5%b7%a5%e4%b8%9a%e5%a4%a7%e5%ad%a6%5c%e8%ae%a1%e7%ae%97%e6%9c%ba%e5%ad%a6%e9%99%a2%5c094%5c099074106");
         System.out.println(decode);
     }

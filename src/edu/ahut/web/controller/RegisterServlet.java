@@ -46,10 +46,10 @@ public class RegisterServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // 1.ºÏ·¨ĞÔĞ£Ñé{formbean}
+        // 1.åˆæ³•æ€§æ ¡éªŒ{formbean}
         RegisterForm form = WebUtils.request2Bean(request, RegisterForm.class);
         boolean b = form.validate();
-        // 2.Ê§°Ü£¬»ØÏÔÊ§°ÜĞÅÏ¢
+        // 2.å¤±è´¥ï¼Œå›æ˜¾å¤±è´¥ä¿¡æ¯
         if (!b) {
             request.setAttribute("form", form);
             request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(
@@ -63,8 +63,8 @@ public class RegisterServlet extends HttpServlet {
         WebUtils.copyBean(form, user);
         user.setId(ServiceUtils.generateID());
         try {
-            //TODO Ö»ÄÜ×¢²áuser,ÒªÌí¼ÓadminµÄ×¢²á
-            //×¢²áÏîÄ¿²»¹»
+            //TODO åªèƒ½æ³¨å†Œuser,è¦æ·»åŠ adminçš„æ³¨å†Œ
+            //æ³¨å†Œé¡¹ç›®ä¸å¤Ÿ
             Qualification qualification = new Qualification();
             qualification.setId(1);
             user.setQualification(qualification);
@@ -75,19 +75,19 @@ public class RegisterServlet extends HttpServlet {
             service.register(user);
 
 
-            // ²»´æÔÚ´ËÓÃ»§success
-            //×Ô¶¯µÇÂ¼£¬×ªµ½Ê×Ò³
+            // ä¸å­˜åœ¨æ­¤ç”¨æˆ·success
+            //è‡ªåŠ¨ç™»å½•ï¼Œè½¬åˆ°é¦–é¡µ
             request.getSession().setAttribute("user", user);
 
-            //TODO ÏÔÊ¾¼ÌĞø×¢²áOR»Øµ½Ê×Ò³
-            //ÒòÎª×¢²áÊÇ¸ø¹ÜÀíÔ±×¢²áµÄ£¡²»ÊÇ¸øÓÃ»§×¢²áµÄ
-            //Ó¦¸ÃÌá¹©´ÓÆäËûÊı¾İ¿âµ¼ÈëÊı¾İ
-            request.setAttribute("message", "×¢²á³É¹¦");
+            //TODO æ˜¾ç¤ºç»§ç»­æ³¨å†ŒORå›åˆ°é¦–é¡µ
+            //å› ä¸ºæ³¨å†Œæ˜¯ç»™ç®¡ç†å‘˜æ³¨å†Œçš„ï¼ä¸æ˜¯ç»™ç”¨æˆ·æ³¨å†Œçš„
+            //åº”è¯¥æä¾›ä»å…¶ä»–æ•°æ®åº“å¯¼å…¥æ•°æ®
+            request.setAttribute("message", "æ³¨å†ŒæˆåŠŸ");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } catch (Exception e) {
-            // ÆäËûÎÊÌâ
-            request.setAttribute("message", "×¢²áÓÃ»§³ö´í");
+            // å…¶ä»–é—®é¢˜
+            request.setAttribute("message", "æ³¨å†Œç”¨æˆ·å‡ºé”™");
             e.printStackTrace();
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);

@@ -21,7 +21,7 @@ public interface UserService {
 
     public User getUserById(String id);
 
-//包括包涵的类
+//鍖呮嫭鍖呮兜鐨勭被
     public User getUserFullInfo(String id);
 
     public User fillUnit(User user);

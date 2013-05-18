@@ -46,7 +46,7 @@ public class ShowThesisInfoServlet extends HttpServlet {
             if (user == null) {
                 throw new NotLoginException();
             }
-            // ´ÓÓòÖĞ»ñÈ¡Êı¾İ
+            // ä»åŸŸä¸­è·å–æ•°æ®
             String subjectId = request.getParameter("subjectId");
             String userId = request.getParameter("userId");
 
@@ -56,10 +56,10 @@ public class ShowThesisInfoServlet extends HttpServlet {
             } else if (ServiceUtils.checkStringParam(userId)) {
                 subject = ServiceFactory.getSubjectService().getSubjectBySid(userId);
             } else {
-                throw new IllegalArgumentException("²ÎÊı´íÎó");
+                throw new IllegalArgumentException("å‚æ•°é”™è¯¯");
             }
             if (subject != null) {
-                // Õâ¸ö½çÃæÓ¦¸ÃÊÇÕâ¸öÏîÄ¿µÄºËĞÄÁË°Ñ!!!
+                // è¿™ä¸ªç•Œé¢åº”è¯¥æ˜¯è¿™ä¸ªé¡¹ç›®çš„æ ¸å¿ƒäº†æŠŠ!!!
                 request.setAttribute("subject", subject);
                 request.getRequestDispatcher("/WEB-INF/jsp/thesis_info.jsp")
                         .forward(request, response);
@@ -67,12 +67,12 @@ public class ShowThesisInfoServlet extends HttpServlet {
                 throw new RuntimeException();
             }
         } catch (NotLoginException e) {
-            request.setAttribute("message", "ÉĞÎ´µÇÂ½");
+            request.setAttribute("message", "å°šæœªç™»é™†");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("message", "ÏÔÊ¾ÂÛÎÄĞÅÏ¢³ö´í");
+            request.setAttribute("message", "æ˜¾ç¤ºè®ºæ–‡ä¿¡æ¯å‡ºé”™");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }

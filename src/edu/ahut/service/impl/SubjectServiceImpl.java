@@ -41,15 +41,15 @@ public class SubjectServiceImpl implements SubjectService {
 
     /*
      * 
-     * ÍêÈ«µÄsubject£¬ËùÓĞ¶ÔÏó¶¼°üº­
+     * å®Œå…¨çš„subjectï¼Œæ‰€æœ‰å¯¹è±¡éƒ½åŒ…æ¶µ
      * 
      * @see edu.ahut.service.SubjectService#listAllSubject()
      */
     @Override
     public List<Subject> listAllSubject() {
-        //²Ù×÷3¸ö±í£¬Õâ¸ö¶ÔÏóÓ¦¸Ã»º´æ
+        //æ“ä½œ3ä¸ªè¡¨ï¼Œè¿™ä¸ªå¯¹è±¡åº”è¯¥ç¼“å­˜
 
-        //ÆäÖĞ°üº¬µÄ¶ÔÏó»¹Ã»¸³Öµ
+        //å…¶ä¸­åŒ…å«çš„å¯¹è±¡è¿˜æ²¡èµ‹å€¼
         List<Subject> subjects = subjectdao.getAllSubject();
 
         for (Subject subject : subjects) {

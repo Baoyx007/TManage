@@ -41,10 +41,10 @@ public class SubmitThesisUIServlet extends HttpServlet {
             throws ServletException, IOException {
         User student = (User) request.getSession(false).getAttribute("user");
 
-        //FIXME Ö»ÓĞÒ»¸ö³É¶Ô
+        //FIXME åªæœ‰ä¸€ä¸ªæˆå¯¹
         Subject subject = DaoFactory.getSubjectDao().findSubjectBySid(student.getId());
         if (subject == null) {
-            request.setAttribute("message", "Äã»¹Ã»ÓĞÑ¡ÔñÂÛÎÄÌâÄ¿£¬Çë¾¡¿ìÁªÏµµ¼Ê¦£¡");
+            request.setAttribute("message", "ä½ è¿˜æ²¡æœ‰é€‰æ‹©è®ºæ–‡é¢˜ç›®ï¼Œè¯·å°½å¿«è”ç³»å¯¼å¸ˆï¼");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } else {

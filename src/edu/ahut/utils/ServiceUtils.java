@@ -33,12 +33,12 @@ public class ServiceUtils {
     }
 
     /**
-     * ÑéÖ¤string²»Îª¿Õ return true ÊÇÕıÈ·
+     * éªŒè¯stringä¸ä¸ºç©º return true æ˜¯æ­£ç¡®
      */
     public static boolean checkStringParam(String... strs) {
         boolean b = true;
         for (String string : strs) {
-            //¿Õ×Ö·û
+            //ç©ºå­—ç¬¦
             if (string == null || string.trim().length() <= 0) {
                 b = false;
                 break;
