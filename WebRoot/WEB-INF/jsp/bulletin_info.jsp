@@ -12,6 +12,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>JSP Page</title>
+        <script src="/ckeditor/ckeditor.js"></script>
+        <link rel="stylesheet"
+              href="${pageContext.servletContext.contextPath}/css/app-851b66f18114a2a31d488e9c8d7cb964.css"
+              type="text/css"></link>
     </head>
     <body align="center">
         <h3 align="left">公告</h3>
@@ -19,7 +23,12 @@
         时间： <fmt:formatDate type="both" dateStyle="default" timeStyle="default" 
                         value="${bulletin.time}"/>&nbsp;，&nbsp;来源：${bulletin.admin.name}
         <hr>
-        <textarea style="width: 1000px;height: 400px" readonly="true">${bulletin.content}</textarea>
+        <div contenteditable="false" id="content" style="width: 60%; margin: auto 200px auto 250px;text-indent: 28pt;line-height: 30pt;text-align: left;mso-char-indent-count: 2.0;mso-line-height-rule: exactly;mso-pagination: widow-orphan;"  >  ${bulletin.content}</div>
+        <script>
+            // Turn off automatic editor creation first.
+            CKEDITOR.disableAutoInline = true;
+            CKEDITOR.inline('content');
+        </script>
         <hr>
         <p align="left"> 附件：${bulletin.attachment}</p>
         <c:choose >

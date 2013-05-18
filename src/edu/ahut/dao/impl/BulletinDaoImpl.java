@@ -37,7 +37,7 @@ public class BulletinDaoImpl implements BulletinDao {
 
     @Override
     public List<Bulletin> getAllBulletin() {
-        String sql = "select * from bulletin";
+        String sql = "select * from bulletin order by time desc";
         QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
         try {
             return runner.query(sql, new BeanListHandler<Bulletin>(Bulletin.class));

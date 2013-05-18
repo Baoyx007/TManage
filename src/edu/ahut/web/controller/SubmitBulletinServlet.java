@@ -66,8 +66,7 @@ public class SubmitBulletinServlet extends HttpServlet {
                 //已获得bulletin
                 //存数据库
                 bulletinService.saveBulletin(bulletin, (Admin) request.getSession().getAttribute("admin"));
-                request.getRequestDispatcher("/ListBulletinUIServlet").forward(request,
-                        response);
+                response.sendRedirect(request.getContextPath()+"/ListBulletinServlet");
             }
         } catch (Exception e) {
             request.setAttribute("message", e.getMessage());
