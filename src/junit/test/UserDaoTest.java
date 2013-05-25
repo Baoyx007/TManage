@@ -7,10 +7,9 @@ import edu.ahut.dao.UserDao;
 import edu.ahut.dao.impl.DaoFactory;
 import org.junit.Test;
 
-import edu.ahut.domain.Admin;
 import edu.ahut.domain.Gender;
 import edu.ahut.domain.Qualification;
-import edu.ahut.domain.Role;
+import edu.ahut.domain.Student;
 import edu.ahut.domain.Unit;
 import edu.ahut.domain.User;
 import edu.ahut.utils.ServiceUtils;
@@ -37,55 +36,57 @@ public class UserDaoTest {
 
     @Ignore
     public void addAdmin() {
-        Admin admin = new Admin();
-        admin.setId(ServiceUtils.generateID());
-        admin.setName("baoyx");
-        admin.setUsername("byx");
-        admin.setPassword(ServiceUtils.md5("123"));
-        admin.setEmail("bad@sedf.cd");
-        admin.setRole(Role.SUPER);
-        userDao.addAdmin(admin);
+//        Admin_bak admin = new Admin_bak();
+//        admin.setId(ServiceUtils.generateID());
+//        admin.setName("baoyx");
+//        admin.setUsername("byx");
+//        admin.setPassword(ServiceUtils.md5("123"));
+//        admin.setEmail("bad@sedf.cd");
+//        admin.setRole(Role.SUPER);
+//        userDao.addAdmin(admin);
     }
 
     @Test
-    public void addUser() {
-        User user = new User();
-        user.setId(ServiceUtils.generateID());
-        user.setName("baoyx");
-        user.setUsername("byx");
-        user.setPassword(ServiceUtils.md5("123"));
-        user.setGender(Gender.MALE);
-        user.setBirthday(new Date());
-        user.setEmail("bad@sedf.cd");
-        user.setSchoolNumber("214334");
-        user.setRole(Role.STUDENT);
-        Unit unit = new Unit();
-        unit.setId(1);
+    public void addStudent() {
+        Student student = new Student();
+        student.setName("鲍勇翔");
+        student.setUsername("byx");
+        student.setPassword(ServiceUtils.md5("123"));
+        student.setGender(Gender.MALE);
+        student.setBirthday(new Date());
+        student.setEmail("baoyx007@gmail.com");
+        student.setSchoolNumber("099074016");
+        student.setAddress("j3#4010");
+
         Qualification qualification = new Qualification();
-        qualification.setId(1);
-        user.setUnit(unit);
-        user.setQualification(qualification);
-        user.setRole(Role.STUDENT);
-        user.setTitle("normal student");
-        userDao.addUser(user);
-        System.out.println("ss");
+        qualification.setCollege("安工大");
+        qualification.setDegree("学士");
+        qualification.setStartTime(2013);
+        student.setQualification(qualification);
+        Unit unit = new Unit();
+        unit.setSchool("安工大");
+        unit.setDepartment("计算机");
+        unit.setCalss("094");
+        student.setUnit(unit);
+        userDao.addUser(student);
+//        userDao.addStudent(student);
     }
 
     @Test
-    public void findUser() {
-        User user = userDao.findUser("byx", ServiceUtils.md5("123"));
-        user = userDao.fillQualification(userDao.fillUnit(user));
-        System.out.println(user);
+    public void findUserByUP() {
+        Student user = (Student) userDao.findUser("byx", ServiceUtils.md5("123"));
+        System.out.println(user.getGender());
+    }
+
+    @Test
+    public void findUserById() {
+        User user = userDao.findUser(196608);
+        System.out.println(user.getName());
     }
 
     @Test
     public void findAdmin() {
-        Admin admin = userDao.findAdmin("byx", ServiceUtils.md5("123"));
-        System.out.println(admin);
-    }
-
-    @Test
-    public void testEnum() {
-        System.out.println(Role.STUDENT);
+//        Admin_bak admin = userDao.findAdmin("byx", ServiceUtils.md5("123"));
+//        System.out.println(admin);
     }
 }

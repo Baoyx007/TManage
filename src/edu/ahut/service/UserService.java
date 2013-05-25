@@ -15,9 +15,9 @@ public interface UserService {
 
     public void register(User user);
 
-    public User login(String loginName, String password);
+    public User login(String username, String password);
 
-    public Admin adminLogin(String loginName, String password);
+    public Admin adminLogin(String username, String password);
 
     public User getUserById(String id);
 

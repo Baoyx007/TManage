@@ -49,4 +49,10 @@ public class SubjectDaoTest {
         Subject subject = new SubjectDaoImpl().findSubjectBySid("1");
         System.out.println(subject);
     }
+
+    @Test
+    public void testFindTid() {
+        String tidBySid = new SubjectDaoImpl().getTidBySid("1");
+        System.out.println(tidBySid);
+    }
 }

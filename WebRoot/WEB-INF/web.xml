@@ -105,6 +105,18 @@
         <servlet-name>ListBulletinServlet</servlet-name>
         <servlet-class>edu.ahut.web.controller.ListBulletinServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MailToUserServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.MailToUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendMailServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.SendMailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListMailServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.ListMailServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/servlet/LoginServlet</url-pattern>
@@ -194,8 +206,20 @@
         <url-pattern>/ListBulletinServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>MailToUserServlet</servlet-name>
+        <url-pattern>/MailToUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendMailServlet</servlet-name>
+        <url-pattern>/SendMailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>LoginUIServlet</servlet-name>
         <url-pattern>/LoginUIServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListMailServlet</servlet-name>
+        <url-pattern>/ListMailServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>gate.jsp</welcome-file>

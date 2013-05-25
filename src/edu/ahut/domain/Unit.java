@@ -21,6 +21,13 @@ public class Unit {
     public Unit() {
     }
 
+    public Unit(String school, String college, String department, String calss) {
+        this.school = school;
+        this.college = college;
+        this.department = department;
+        this.calss = calss;
+    }
+
     public int getId() {
         return id;
     }

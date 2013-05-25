@@ -4,9 +4,7 @@
  */
 package junit.test;
 
-import edu.ahut.domain.Admin;
 import edu.ahut.service.impl.ServiceFactory;
-import edu.ahut.utils.ServiceUtils;
 import org.junit.Test;
 
 /**
@@ -18,7 +16,7 @@ public class UserServiceTest {
 
     @Test
     public void testFindAdmin() {
-        Admin adminLogin = ServiceFactory.getUserService().adminLogin("byx", "123");
+        Admin_bak adminLogin = ServiceFactory.getUserService().adminLogin("byx", "123");
         System.out.println("");
     }
 }

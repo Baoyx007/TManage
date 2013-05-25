@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="edu.ahut.domain">
+    <class name="User" table="user" discriminator-value="0" abstract="true">
+        <id name="id" >
+            <generator class="hilo" />
+        </id>
+        <discriminator column="type" type="integer"/>
+        <property name="name" />
+        <property name="username" />
+        <property name="password" />
+        <property name="email"/>
+        <property name="phone" />
+        <property name="comment" />
+        <!--        混合类型！-->
+        <subclass name="Admin" discriminator-value="1">
+            <property name="superAdmin" type="boolean" column="super_admin"/>
+        </subclass>
+        
+        <subclass name="Student"  discriminator-value="2">
+            <join table="student">
+                <key column="s_id"/>
+                <property name="schoolNumber" column="school_number" />
+                <property name="birthday" type="date" />
+                <property name="gender">
+                    <type name="org.hibernate.type.EnumType">
+                        <param name="enumClass">edu.ahut.domain.Gender</param>
+                    </type>
+                </property>
+                <property name="address" />
+                <property name="photo" />
+                <many-to-one name="unit" column="unit_id" class="edu.ahut.domain.Unit" />
+                <many-to-one name="qualification" column="qualification_id"  class="edu.ahut.domain.Qualification" />
+            </join>
+        </subclass>
+        
+        <subclass name="Teacher"  discriminator-value="3">
+            <join table="teacher">
+                <key column="t_id"/>
+                <property name="schoolNumber" column="school_number" />
+                <property name="birthday" type="date" />
+                <property name="gender">
+                    <type name="org.hibernate.type.EnumType">
+                        <param name="enumClass">edu.ahut.domain.Gender</param>
+                    </type>
+                </property>
+                <property name="address" />
+                <property name="photo" />
+                <many-to-one name="unit" column="unit_id" class="edu.ahut.domain.Unit" />
+                <many-to-one name="qualification" column="qualification_id"  class="edu.ahut.domain.Qualification" />
+            </join>
+        </subclass>
+    </class>
+</hibernate-mapping>

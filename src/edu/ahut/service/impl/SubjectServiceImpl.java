@@ -101,4 +101,10 @@ public class SubjectServiceImpl implements SubjectService {
         return subject;
 
     }
+
+    @Override
+    public User getTeacherByStudent(User student) {
+        String tid = subjectdao.getTidBySid(student.getId());
+        return userDao.findUser(tid);
+    }
 }

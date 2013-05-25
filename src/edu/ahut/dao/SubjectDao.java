@@ -43,4 +43,6 @@ public interface SubjectDao {
      *
      */
     public Subject getSubjectByid(String id);
+
+    public String getTidBySid(String sid);
 }

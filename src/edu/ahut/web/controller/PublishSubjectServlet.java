@@ -61,7 +61,6 @@ public class PublishSubjectServlet extends HttpServlet {
 
 	    request.getRequestDispatcher("/servlet/PublishSubjectUIServlet").forward(request,
 		    response);
-	    return;
 	} catch (Exception e) {
 	    // 其他问题
 	    request.setAttribute("message", "添加出错");

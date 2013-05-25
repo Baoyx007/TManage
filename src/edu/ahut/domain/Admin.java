@@ -5,99 +5,22 @@
 package edu.ahut.domain;
 
 /**
- * 管理者，包括：系统管理者，超管，答辩管理
  *
  * @author Haven
- * @date May 5, 2013
+ * @date May 25, 2013
  */
-public class Admin {
+public class Admin extends User {
 
-    private String id;
-    private String name;
-    // 登陆信息
-    private String password;
-    private String username;
-    // 通讯
-    private String email;
-    private String phone;
-    // 自我介绍
-    private String comment;
-    //----------------------
-    private Role role;
+    private boolean superAdmin;
 
     public Admin() {
     }
 
-    public Admin(String id) {
-        this.id = id;
+    public boolean isSuperAdmin() {
+        return superAdmin;
     }
 
-    public Admin(String id, Role role) {
-        this.id = id;
-        this.role = role;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
+    public void setSuperAdmin(boolean superAdmin) {
+        this.superAdmin = superAdmin;
     }
 }

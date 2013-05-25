@@ -4,6 +4,7 @@
 package edu.ahut.dao.impl;
 
 import edu.ahut.dao.BulletinDao;
+import edu.ahut.dao.MailDao;
 import edu.ahut.dao.SubjectDao;
 import edu.ahut.dao.ThesisDao;
 import edu.ahut.dao.UserDao;
@@ -24,10 +25,14 @@ public class DaoFactory {
     }
 
     public static UserDao getUserDao() {
-        return new UserDaoJdbcImpl();
+        return new UserDaoHibImpl();
     }
 
     public static BulletinDao getBulletinDao() {
         return new BulletinDaoImpl();
+    }
+
+    public static MailDao getMailDao() {
+        return new MailDaoImpl();
     }
 }

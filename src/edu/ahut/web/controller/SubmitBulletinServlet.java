@@ -4,7 +4,7 @@
  */
 package edu.ahut.web.controller;
 
-import edu.ahut.domain.Admin;
+import edu.ahut.domain.Admin_bak;
 import edu.ahut.domain.Bulletin;
 import edu.ahut.service.BulletinService;
 import edu.ahut.service.impl.ServiceFactory;
@@ -44,7 +44,7 @@ public class SubmitBulletinServlet extends HttpServlet {
         try {
             BulletinService bulletinService = ServiceFactory.getBulletinService();
             if ("预览".equals(preview)) {
-                Bulletin bulletin = bulletinService.newBulletin(topic, content, attachment, (Admin) request.getSession().getAttribute("admin"));
+                Bulletin bulletin = bulletinService.newBulletin(topic, content, attachment, (Admin_bak) request.getSession().getAttribute("admin"));
                 //供提交时使用！
                 request.setAttribute("preview", true);
                 request.getSession().setAttribute("bulletin", bulletin);
@@ -60,12 +60,12 @@ public class SubmitBulletinServlet extends HttpServlet {
                     request.getSession().removeAttribute("bulletin");
                 } //2、直接提交的
                 else {
-                    bulletin = bulletinService.newBulletin(topic, content, attachment, (Admin) request.getSession().getAttribute("admin"));
+                    bulletin = bulletinService.newBulletin(topic, content, attachment, (Admin_bak) request.getSession().getAttribute("admin"));
                 }
 
                 //已获得bulletin
                 //存数据库
-                bulletinService.saveBulletin(bulletin, (Admin) request.getSession().getAttribute("admin"));
+                bulletinService.saveBulletin(bulletin, (Admin_bak) request.getSession().getAttribute("admin"));
                 response.sendRedirect(request.getContextPath()+"/ListBulletinServlet");
             }
         } catch (Exception e) {

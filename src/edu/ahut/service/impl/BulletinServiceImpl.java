@@ -7,7 +7,7 @@ package edu.ahut.service.impl;
 import edu.ahut.dao.BulletinDao;
 import edu.ahut.dao.UserDao;
 import edu.ahut.dao.impl.DaoFactory;
-import edu.ahut.domain.Admin;
+import edu.ahut.domain.Admin_bak;
 import edu.ahut.domain.Bulletin;
 import edu.ahut.service.BulletinService;
 import edu.ahut.utils.ServiceUtils;
@@ -24,7 +24,7 @@ public class BulletinServiceImpl implements BulletinService {
     private BulletinDao bulletinDao = DaoFactory.getBulletinDao();
 
     @Override
-    public Bulletin newBulletin(String topic, String content, String Attachment, Admin admin) {
+    public Bulletin newBulletin(String topic, String content, String Attachment, Admin_bak admin) {
         if (!ServiceUtils.checkStringParam(topic, content)) {
             throw new IllegalArgumentException("主题和内容不能为空！");
         }
@@ -43,7 +43,7 @@ public class BulletinServiceImpl implements BulletinService {
     }
 
     @Override
-    public void saveBulletin(Bulletin bulletin, Admin admin) {
+    public void saveBulletin(Bulletin bulletin, Admin_bak admin) {
         if (!ServiceUtils.checkStringParam(bulletin.getTopic(), bulletin.getContent())) {
             throw new IllegalArgumentException("主题和内容不能为空！");
         }

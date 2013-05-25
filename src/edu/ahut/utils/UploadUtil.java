@@ -3,7 +3,6 @@
  */
 package edu.ahut.utils;
 
-import edu.ahut.domain.Role;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

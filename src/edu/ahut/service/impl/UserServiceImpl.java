@@ -5,7 +5,6 @@ package edu.ahut.service.impl;
 
 import edu.ahut.dao.UserDao;
 import edu.ahut.dao.impl.DaoFactory;
-import edu.ahut.domain.Admin;
 import edu.ahut.domain.User;
 import edu.ahut.service.UserService;
 import edu.ahut.utils.ServiceUtils;
@@ -42,7 +41,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(User user) {
         if (user != null) {
-            //FIXME 先判断用户是否已存在
+            User findUser = userDao.findUser(user.getUsername());
+            if (findUser != null) {
+                throw new IllegalArgumentException("用户名重复");
+            }
             userDao.addUser(user);
         }
     }
@@ -88,7 +90,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Admin adminLogin(String loginName, String password) {
+    public Admin_bak adminLogin(String loginName, String password) {
         if (ServiceUtils.checkStringParam(loginName, password)) {
             return userDao.findAdmin(loginName, ServiceUtils.md5(password));
         } else {

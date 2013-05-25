@@ -14,6 +14,7 @@ import edu.ahut.dao.SubjectDao;
 import edu.ahut.domain.Subject;
 import edu.ahut.exceptions.DaoException;
 import edu.ahut.utils.JdbcUtils;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 /**
  * @author Haven
@@ -113,6 +114,18 @@ public class SubjectDaoImpl implements SubjectDao {
                     id);
         } catch (SQLException e) {
 
+            e.printStackTrace();
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    public String getTidBySid(String sid) {
+        String sql = "select teacher_id from subject where student_id=?";
+        QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
+        try {
+            return runner.query(sql, new ScalarHandler<String>(), sid);
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new DaoException(e);
         }

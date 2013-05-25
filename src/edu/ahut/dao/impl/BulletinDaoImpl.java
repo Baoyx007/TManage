@@ -5,7 +5,6 @@
 package edu.ahut.dao.impl;
 
 import edu.ahut.dao.BulletinDao;
-import edu.ahut.domain.Admin;
 import edu.ahut.domain.Bulletin;
 import edu.ahut.exceptions.DaoException;
 import edu.ahut.utils.JdbcUtils;
@@ -52,7 +51,7 @@ public class BulletinDaoImpl implements BulletinDao {
         String sql = "select * from admin where id=(select admin_id from bulletin where id=?)";
         QueryRunner runner = new QueryRunner(JdbcUtils.getDataSource());
         try {
-            Admin admin = runner.query(sql, new BeanHandler<Admin>(Admin.class), bulletin.getId());
+            Admin_bak admin = runner.query(sql, new BeanHandler<Admin_bak>(Admin_bak.class), bulletin.getId());
             bulletin.setAdmin(admin);
             return bulletin;
         } catch (SQLException e) {

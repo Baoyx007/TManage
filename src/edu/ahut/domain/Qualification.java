@@ -17,9 +17,16 @@ public class Qualification {
     private String college;
     private String degree;
     private int duration;
-    private Date year;
+    private int startTime;
 
     public Qualification() {
+    }
+
+    public Qualification(String college, String degree, int duration, int startTime) {
+        this.college = college;
+        this.degree = degree;
+        this.duration = duration;
+        this.startTime = startTime;
     }
 
     public int getId() {
@@ -54,11 +61,11 @@ public class Qualification {
         this.duration = duration;
     }
 
-    public Date getYear() {
-        return year;
+    public int getStartTime() {
+        return startTime;
     }
 
-    public void setYear(Date year) {
-        this.year = year;
+    public void setStartTime(int startTime) {
+        this.startTime = startTime;
     }
 }

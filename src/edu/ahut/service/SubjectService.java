@@ -30,4 +30,6 @@ public interface SubjectService {
     public Subject getSubject(String subjectId);
 
     public Subject getSubjectBySid(String sId);
+
+    public User getTeacherByStudent(User student);
 }

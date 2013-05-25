@@ -1,106 +1,84 @@
-/**
- *
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
 package edu.ahut.domain;
 
-import java.util.Date;
-
 /**
- * 用户和管理员都是人，所以可以继承<br>
- * 权限管理通过role
+ *
  *
  * @author Haven
- * @date 2013-3-19
- *
+ * @date May 25, 2013
  */
-public class User extends Admin {
-    // 基本信息
+public abstract class User {
 
-    private String schoolNumber;
-    private Date birthday;
-    private Gender gender;
-    // 通讯地址
-    private String address;
-    // 图片位置
-    private String photo;
-    //学生，还是教授
-    private String title;
-    //以下是对象类型
-    private Unit unit;
-    private Qualification qualification;
+    private int id;
+    private String name;
+    // 登陆信息
+    private String password;
+    private String username;
+    // 通讯
+    private String email;
+    private String phone;
+    // 自我介绍
+    private String comment;
 
     public User() {
     }
 
-    public User(String id) {
-        super(id);
+    public int getId() {
+        return id;
     }
 
-    public User(String id, Role role) {
-        super(id, role);
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getSchoolNumber() {
-        return schoolNumber;
+    public String getName() {
+        return name;
     }
 
-    public void setSchoolNumber(String schoolNumber) {
-        this.schoolNumber = schoolNumber;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public String getPassword() {
+        return password;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Gender getGender() {
-        return gender;
+    public String getUsername() {
+        return username;
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getAddress() {
-        return address;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getTitle() {
-        return title;
+    public String getComment() {
+        return comment;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Unit getUnit() {
-        return unit;
-    }
-
-    public void setUnit(Unit unit) {
-        this.unit = unit;
-    }
-
-    public Qualification getQualification() {
-        return qualification;
-    }
-
-    public void setQualification(Qualification qualification) {
-        this.qualification = qualification;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

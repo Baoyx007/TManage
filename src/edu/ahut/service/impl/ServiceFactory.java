@@ -4,6 +4,7 @@
 package edu.ahut.service.impl;
 
 import edu.ahut.service.BulletinService;
+import edu.ahut.service.MailService;
 import edu.ahut.service.SubjectService;
 import edu.ahut.service.ThesisService;
 import edu.ahut.service.UserService;
@@ -29,5 +30,9 @@ public class ServiceFactory {
 
     public static BulletinService getBulletinService() {
         return new BulletinServiceImpl();
+    }
+
+    public static MailService getMailService() {
+        return new MailServiceImpl();
     }
 }

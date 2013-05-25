@@ -3,7 +3,7 @@
  */
 package edu.ahut.web.controller;
 
-import edu.ahut.domain.Admin;
+import edu.ahut.domain.Admin_bak;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet {
                 }
             } //如果是管理员
             else if (group.equals("admin")) {
-                Admin admin = service.adminLogin(username, password);
+                Admin_bak admin = service.adminLogin(username, password);
                 if (admin != null) {
                     request.getSession().setAttribute("admin", admin);
                     response.sendRedirect(request.getContextPath() + "/BackIndexUIServlet");
