@@ -29,7 +29,7 @@ public class DaoFactory {
     }
 
     public static BulletinDao getBulletinDao() {
-        return new BulletinDaoImpl();
+        return new BulletinDaoHibImpl();
     }
 
     public static MailDao getMailDao() {

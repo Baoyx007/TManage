@@ -26,5 +26,6 @@
         <mapping resource="edu/ahut/domain/User.hbm.xml"/>
         <mapping resource="edu/ahut/domain/Unit.hbm.xml"/>
         <mapping resource="edu/ahut/domain/Qualification.hbm.xml"/>
+        <mapping resource="edu/ahut/domain/Bulletin.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

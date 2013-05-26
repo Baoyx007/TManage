@@ -5,6 +5,7 @@ package edu.ahut.service.impl;
 
 import edu.ahut.dao.UserDao;
 import edu.ahut.dao.impl.DaoFactory;
+import edu.ahut.domain.Admin;
 import edu.ahut.domain.User;
 import edu.ahut.service.UserService;
 import edu.ahut.utils.ServiceUtils;
@@ -66,13 +67,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User fillAllInfo(User user) {
-        if (user.getUnit() == null) {
-            user = userDao.fillUnit(user);
-        }
-        if (user.getQualification() == null) {
-            user = userDao.fillQualification(user);
-        }
-        return user;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        if (user.getUnit() == null) {
+//            user = userDao.fillUnit(user);
+//        }
+//        if (user.getQualification() == null) {
+//            user = userDao.fillQualification(user);
+//        }
+//        return user;
     }
 
     @Override
@@ -86,15 +88,6 @@ public class UserServiceImpl implements UserService {
             DaoFactory.getUserDao().fillPhoto(id, photo);
         } else {
             throw new IllegalArgumentException("photo参数不能为空");
-        }
-    }
-
-    @Override
-    public Admin_bak adminLogin(String loginName, String password) {
-        if (ServiceUtils.checkStringParam(loginName, password)) {
-            return userDao.findAdmin(loginName, ServiceUtils.md5(password));
-        } else {
-            throw new IllegalArgumentException("参数不能为空");
         }
     }
 }

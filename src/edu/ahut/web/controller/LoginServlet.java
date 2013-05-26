@@ -3,7 +3,9 @@
  */
 package edu.ahut.web.controller;
 
-import edu.ahut.domain.Admin_bak;
+import edu.ahut.domain.Admin;
+import edu.ahut.domain.Student;
+import edu.ahut.domain.Teacher;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -45,36 +47,29 @@ public class LoginServlet extends HttpServlet {
         request.getSession().invalidate();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String group = request.getParameter("group");
         try {
             //检查参数不为空
-            if (!ServiceUtils.checkStringParam(username, password, group)) {
-                throw new IllegalArgumentException("用户名，密码不能为空！！！" + username + password + group);
+            if (!ServiceUtils.checkStringParam(username, password)) {
+                throw new IllegalArgumentException("用户名，密码不能为空！！！" + username + password);
             }
             UserService service = ServiceFactory.getUserService();
-            //如果是用户
-            if (group.equals("user")) {
-                User user = service.login(username, password);
-                if (user != null) {
-                    //登录成功
-                    //1个session
-                    request.getSession().setAttribute("user", user);
-                    response.sendRedirect(request.getContextPath() + "/index.jsp");
-                } else {
-                    throw new IllegalArgumentException("用户名或密码错误");
-                }
-            } //如果是管理员
-            else if (group.equals("admin")) {
-                Admin_bak admin = service.adminLogin(username, password);
-                if (admin != null) {
-                    request.getSession().setAttribute("admin", admin);
+
+            //所有人都可以通过这个登录
+            User user = service.login(username, password);
+
+            if (user != null) {
+                request.getSession().setAttribute("user", user);
+                if (user.getClass() == Student.class) {
+                    response.sendRedirect(request.getContextPath() + "/StudentIndexUIServlet");
+                } else if (user.getClass() == Teacher.class) {
+                    response.sendRedirect(request.getContextPath() + "/TeacherIndexUIServlet");
+                } else if (user.getClass() == Admin.class) {
                     response.sendRedirect(request.getContextPath() + "/BackIndexUIServlet");
                 } else {
-                    throw new IllegalArgumentException("管理员用户名或密码错误！若是老师或学生，请选择普通用户！！");
+                    throw new IllegalArgumentException("不可能出错");
                 }
-            }//wrong arguement
-            else {
-                throw new IllegalArgumentException("不要瞎点！" + group);
+            } else {
+                throw new IllegalArgumentException("用户名或密码错误");
             }
         } catch (IllegalArgumentException e) {
             request.setAttribute("message", e.getMessage());

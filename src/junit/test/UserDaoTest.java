@@ -5,19 +5,22 @@ package junit.test;
 
 import edu.ahut.dao.UserDao;
 import edu.ahut.dao.impl.DaoFactory;
+import edu.ahut.domain.Admin;
 import org.junit.Test;
 
 import edu.ahut.domain.Gender;
 import edu.ahut.domain.Qualification;
 import edu.ahut.domain.Student;
+import edu.ahut.domain.Teacher;
 import edu.ahut.domain.Unit;
 import edu.ahut.domain.User;
 import edu.ahut.utils.ServiceUtils;
 import java.util.Date;
 import org.junit.Before;
-import org.junit.Ignore;
 
 /**
+ * add都OK
+ *
  * @author Haven
  * @date 2013-4-3
  *
@@ -34,16 +37,17 @@ public class UserDaoTest {
         userDao = DaoFactory.getUserDao();
     }
 
-    @Ignore
+    @Test
     public void addAdmin() {
-//        Admin_bak admin = new Admin_bak();
-//        admin.setId(ServiceUtils.generateID());
-//        admin.setName("baoyx");
-//        admin.setUsername("byx");
-//        admin.setPassword(ServiceUtils.md5("123"));
-//        admin.setEmail("bad@sedf.cd");
-//        admin.setRole(Role.SUPER);
+        Admin admin = new Admin();
+        admin.setName("baoyx");
+        admin.setUsername("admin");
+        admin.setPassword(ServiceUtils.md5("123"));
+        admin.setEmail("bad@sedf.cd");
+        admin.setSuperAdmin(true);
+        admin.setComment("hhhhhhhhhhhhhhhhhhh");
 //        userDao.addAdmin(admin);
+        userDao.addUser(admin);
     }
 
     @Test
@@ -69,6 +73,32 @@ public class UserDaoTest {
         unit.setCalss("094");
         student.setUnit(unit);
         userDao.addUser(student);
+//        userDao.addStudent(student);
+    }
+
+    @Test
+    public void addTeacher() {
+        Teacher t = new Teacher();
+        t.setName("储岳中");
+        t.setUsername("chu");
+        t.setPassword(ServiceUtils.md5("123"));
+        t.setGender(Gender.MALE);
+        t.setBirthday(new Date());
+        t.setEmail("e@sdf.com");
+        t.setSchoolNumber("09907232416");
+        t.setAddress("j3#ewrfqe");
+//
+//        Qualification qualification = new Qualification();
+//        qualification.setCollege("安工大");
+//        qualification.setDegree("学士");
+//        qualification.setStartTime(2013);
+//        t.setQualification(qualification);
+//        Unit unit = new Unit();
+//        unit.setSchool("安工大");
+//        unit.setDepartment("计算机");
+//        unit.setCalss("094");
+//        t.setUnit(unit);
+        userDao.addUser(t);
 //        userDao.addStudent(student);
     }
 

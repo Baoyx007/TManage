@@ -3,6 +3,7 @@
  */
 package edu.ahut.dao;
 
+import edu.ahut.domain.Admin;
 import edu.ahut.domain.Student;
 import edu.ahut.domain.User;
 import java.util.Map;
@@ -17,11 +18,12 @@ public interface UserDao {
     //FIXME  不应该重复创建unit和qualif
     public void addStudent(Student student);
 
-//    public void addAdmin(Admin admin);
+    public void addAdmin(Admin admin);
 //
 //    public Admin findAdmin(String username, String password);
 //
 //    public Admin findAdmin(String id);
+
     public void addUser(User user);
 
     public User findUser(String username, String password);

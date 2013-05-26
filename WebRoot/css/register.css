@@ -1,43 +1,48 @@
 @CHARSET "utf-8";
 
 body {
-	background: #0d7bd5 url('../img/glow.png') no-repeat center center;
-	height: 100%;
-	color: rgba(255, 255, 255, .8);
-	font-size: 14px;
+    background: #0d7bd5 url('../img/glow.png') no-repeat center center;
+    height: 100%;
+    color: rgba(255, 255, 255, .8);
+    font-size: 24px;
 }
 
 table {
-	margin-left: 41%;
+    margin-left: 41%;
 }
 span{
-	color: red;
+    color: red;
+    font-size: 12px;
 }
 h1 {
-	color: #ffffff;
-	text-align: center;
-	font-size: 36px;
-	font-family: 幼圆;
-	text-align: center;
+    color: #ffffff;
+    text-align: center;
+    font-size: 36px;
+    font-family: 幼圆;
+    text-align: center;
 }
 
 .button {
-	background: #1e95e5;
-	color: #b7d4ec;
-	color: rgba(255, 255, 255, .8);
-	box-shadow: 0 1px 0 rgba(0, 0, 0, .05), 0 1px 0 rgba(255, 255, 255, .15)
-		inset;
-	border: 1px solid #147dcd;
-	cursor: pointer;
-	display: inline-block;
-	font-size: 14px;
-	line-height: 18px;
-	text-shadow: 0 1px 0 rgba(0, 0, 0, .2);
-	padding: 6px 15px;
-	text-align: center;
-	vertical-align: middle;
-	border-radius: 5px;
-	float: left;
-	-webkit-appearance: none;
-	*color: #b7d4ec;
+    background: #1e95e5;
+    color: #b7d4ec;
+    color: rgba(255, 255, 255, .8);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, .05), 0 1px 0 rgba(255, 255, 255, .15)
+        inset;
+    border: 1px solid #147dcd;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 18px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .2);
+    padding: 6px 15px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 5px;
+    float: left;
+    -webkit-appearance: none;
+    *color: #b7d4ec;
+}
+
+.tip{
+    font-size: 12px;
 }

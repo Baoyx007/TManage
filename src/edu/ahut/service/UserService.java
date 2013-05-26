@@ -17,8 +17,6 @@ public interface UserService {
 
     public User login(String username, String password);
 
-    public Admin adminLogin(String username, String password);
-
     public User getUserById(String id);
 
 //包括包涵的类

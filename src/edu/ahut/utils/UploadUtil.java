@@ -166,7 +166,7 @@ public final class UploadUtil {
             String photoSuffix = realFileName.substring(realFileName.lastIndexOf('.') + 1);
             String uuidFilePath = makeUserPath(realUploadPath, user);
 
-            user.setPhoto(uuidFilePath + "/photo." + photoSuffix);
+//            user.setPhoto(uuidFilePath + "/photo." + photoSuffix);
             // 保存
             in = fileItem.getInputStream();
             out = new FileOutputStream(uuidFilePath + "/photo." + photoSuffix);
@@ -210,18 +210,18 @@ public final class UploadUtil {
      */
     public static String makeUserPath(String realUploadPath, User user) {
         StringBuilder sb = new StringBuilder();
-        if (Role.STUDENT == user.getRole()) {
-            sb.append(realUploadPath).append('/').append("student/");
-            if (user.getUnit() == null) {
-                user = ServiceFactory.getUserService().fillUnit(user);
-            }
-            sb.append(user.getUnit().getSchool()).append('/');
-            sb.append(user.getUnit().getCollege()).append('/');
-            sb.append(user.getUnit().getCalss()).append('/');
-            sb.append(user.getSchoolNumber()).append('/');
-        } else if (Role.TEACHER == user.getRole()) {
-            //TODO 占时老师还没有上传文件
-        }
+//        if (Role.STUDENT == user.getRole()) {
+//            sb.append(realUploadPath).append('/').append("student/");
+//            if (user.getUnit() == null) {
+//                user = ServiceFactory.getUserService().fillUnit(user);
+//            }
+//            sb.append(user.getUnit().getSchool()).append('/');
+//            sb.append(user.getUnit().getCollege()).append('/');
+//            sb.append(user.getUnit().getCalss()).append('/');
+//            sb.append(user.getSchoolNumber()).append('/');
+//        } else if (Role.TEACHER == user.getRole()) {
+//            //TODO 占时老师还没有上传文件
+//        }
         File file = new File(sb.toString());
         if (!file.exists()) {
             file.mkdirs();

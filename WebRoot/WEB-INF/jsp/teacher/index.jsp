@@ -42,31 +42,10 @@
 
 
         <!--老师-->
-        <c:if test="${user!=null && user.role=='TEACHER' }">
+        ${user}
+        <c:if test="${user!=null  }">
             <a
                 href="${myContext}/servlet/PublishSubjectUIServlet">发布论文题目</a>
-        </c:if>
-
-        <!--学生-->
-        <c:if test="${user!=null && user.role=='STUDENT' }">
-            第一阶段：   <a href="${myContext}/ListBulletinServlet">查看公告</a>
-            <a href="${myContext}/servlet/ListSubjectServlet">选择论题</a>
-            <br>
-            第二阶段：        <a
-                href="${myContext}/servlet/SubmitThesisUIServlet">提交论文</a>
-            <a href="${myContext}/servlet/ShowThesisInfoServlet?userId=${user.id}">已提交的论文</a>
-            <a href="#">提交周志</a>
-            <br>
-            联系：
-            <a href="mailto:sample@163.com">联系老师(email)(麻烦)</a>
-            //
-            <a target="_blank" href="javascript:;" onclick="openwin();">联系老师(站内信)</a>
-            <a href="#">给管理员提意见(留言板)</a>
-            <a href="#">站内信<SUP><strong>2</strong></SUP></a>
-            <br>
-            答辩阶段：<a href="#">查看成绩</a>
-            <a href="#">查看答辩安排</a>
-
         </c:if>
 
 

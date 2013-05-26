@@ -16,7 +16,7 @@ public class UserServiceTest {
 
     @Test
     public void testFindAdmin() {
-        Admin_bak adminLogin = ServiceFactory.getUserService().adminLogin("byx", "123");
-        System.out.println("");
+//        Admin_bak adminLogin = ServiceFactory.getUserService().adminLogin("byx", "123");
+//        System.out.println("");
     }
 }

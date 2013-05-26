@@ -27,7 +27,6 @@ public class WebUtils {
     public static <T> T request2Bean(HttpServletRequest request,
             Class<T> beanClass) {
         try {
-            request.setCharacterEncoding("utf-8");
             T bean = beanClass.newInstance();
             // 2.request中的数据整到bean中
             Enumeration<String> paras = request.getParameterNames();

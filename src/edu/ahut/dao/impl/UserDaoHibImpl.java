@@ -5,6 +5,7 @@
 package edu.ahut.dao.impl;
 
 import edu.ahut.dao.UserDao;
+import edu.ahut.domain.Admin;
 import edu.ahut.domain.Student;
 import edu.ahut.domain.User;
 import edu.ahut.utils.HibernateUtil;
@@ -41,7 +42,6 @@ public class UserDaoHibImpl implements UserDao {
         Session s = null;
         try {
             s = HibernateUtil.getSession();
-            s.beginTransaction();
             Query query = s.createQuery(
                     "from User as u where u.username = :username and u.password=:password");
             query.setString("username", username);
@@ -117,6 +117,21 @@ public class UserDaoHibImpl implements UserDao {
             query.setString("username", username);
 
             return (User) query.uniqueResult();
+        } finally {
+            if (s != null) {
+                s.close();
+            }
+        }
+    }
+
+    @Override
+    public void addAdmin(Admin admin) {
+        Session s = null;
+        try {
+            s = HibernateUtil.getSession();
+            s.beginTransaction();
+            s.save(admin);
+            s.getTransaction().commit();
         } finally {
             if (s != null) {
                 s.close();

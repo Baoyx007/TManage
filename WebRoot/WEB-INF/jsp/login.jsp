@@ -68,7 +68,7 @@
         <br>
         <br>
         <img src="img/title.png"></img>
-        <form action="${pageContext.request.contextPath }/servlet/LoginServlet"
+        <form action="${pageContext.servletContext.contextPath }/servlet/LoginServlet"
               method="post">
             <table>
                 <tr>
@@ -83,8 +83,6 @@
                 </tr>
                 <tr>
                     <td><input class="button" type="submit" value="登陆" /></td>
-                    <td><input type="radio" name="group" value = "user" id="userGroup" checked><label for="userGroup">普通用户</label>
-                        <input type="radio" name="group" value = "admin" id="adminGroup" ><label for="adminGroup">管理员</label></td>
                 </tr>
             </table>
         </form>

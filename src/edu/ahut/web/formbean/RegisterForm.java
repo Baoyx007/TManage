@@ -22,90 +22,97 @@ public class RegisterForm {
     private String password2;
     private Gender gender;
     private String birthday;
+    private String email;
+    private String phone;
+    private String comment;
+    private String userType;
     private String name;
-    private String checkcode;
     private Map<String, String> errors = new HashMap<String, String>();
 
-    /**
-     * @return the username
-     */
     public String getUsername() {
         return username;
     }
 
-    /**
-     * @param username the username to set
-     */
     public void setUsername(String username) {
         this.username = username;
     }
 
-    /**
-     * @return the password
-     */
     public String getPassword() {
         return password;
     }
 
-    /**
-     * @param password the password to set
-     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-    /**
-     * @return the password2
-     */
     public String getPassword2() {
         return password2;
     }
 
-    /**
-     * @param password2 the password2 to set
-     */
     public void setPassword2(String password2) {
         this.password2 = password2;
     }
 
-    /**
-     * @return the birthday
-     */
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
     public String getBirthday() {
         return birthday;
     }
 
-    /**
-     * @param birthday the birthday to set
-     */
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
-    /**
-     * @return the checkcode
-     */
-    public String getCheckcode() {
-        return checkcode;
+    public String getEmail() {
+        return email;
     }
 
-    /**
-     * @param checkcode the checkcode to set
-     */
-    public void setCheckcode(String checkcode) {
-        this.checkcode = checkcode;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    /**
-     * @return the errors
-     */
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Map<String, String> getErrors() {
         return errors;
     }
 
-    /**
-     * @param errors the errors to set
-     */
     public void setErrors(Map<String, String> errors) {
         this.errors = errors;
     }
@@ -169,41 +176,5 @@ public class RegisterForm {
 
         return isOK;
 
-    }
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return the gender
-     */
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    /**
-     * @param gender the gender to set
-     */
-    public void setGender(String gender) {
-        if (gender.equals(Gender.MALE.toString())) {
-            this.gender = Gender.MALE;
-        } else {
-            this.gender = Gender.FEMALE;
-        }
     }
 }

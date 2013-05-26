@@ -16,6 +16,8 @@
     <body>
         ${message }
         <br>
+        管理员
+        <a href="${pageContext.servletContext.contextPath}/BackIndexUIServlet" >返回首页</a>
         <a href="${pageContext.servletContext.contextPath}/LoginUIServlet" >返回登陆</a>
     </body>
 </html>

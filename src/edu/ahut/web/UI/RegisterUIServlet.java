@@ -38,7 +38,7 @@ public class RegisterUIServlet extends HttpServlet {
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(
+	request.getRequestDispatcher("/WEB-INF/jsp/admin/register.jsp").forward(
 		request, response);
     }
 

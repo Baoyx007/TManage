@@ -4,7 +4,7 @@
  */
 package edu.ahut.service;
 
-import edu.ahut.domain.Admin_bak;
+import edu.ahut.domain.Admin;
 import edu.ahut.domain.Bulletin;
 import java.util.List;
 
@@ -15,11 +15,11 @@ import java.util.List;
  */
 public interface BulletinService {
 
-    public Bulletin newBulletin(String topic, String content, String Attachment, Admin_bak admin);
+    public Bulletin newBulletin(String topic, String content, String Attachment, Admin admin);
 
-    public void saveBulletin(Bulletin bulletin, Admin_bak admin);
+    public void saveBulletin(Bulletin bulletin, Admin admin);
 
     public List<Bulletin> getAllBulletin();
 
-    public Bulletin getBulletinById(String id);
+    public Bulletin getBulletinById(int id);
 }

@@ -20,5 +20,5 @@ public interface BulletinDao {
 
     public Bulletin fillAdmin(Bulletin bulletin);
 
-    public Bulletin getBulletinById(String id);
+    public Bulletin getBulletinById(int id);
 }

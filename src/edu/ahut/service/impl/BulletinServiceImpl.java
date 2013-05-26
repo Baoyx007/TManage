@@ -5,8 +5,8 @@
 package edu.ahut.service.impl;
 
 import edu.ahut.dao.BulletinDao;
-import edu.ahut.dao.UserDao;
 import edu.ahut.dao.impl.DaoFactory;
+import edu.ahut.domain.Admin;
 import edu.ahut.domain.Admin_bak;
 import edu.ahut.domain.Bulletin;
 import edu.ahut.service.BulletinService;
@@ -24,7 +24,7 @@ public class BulletinServiceImpl implements BulletinService {
     private BulletinDao bulletinDao = DaoFactory.getBulletinDao();
 
     @Override
-    public Bulletin newBulletin(String topic, String content, String Attachment, Admin_bak admin) {
+    public Bulletin newBulletin(String topic, String content, String Attachment, Admin admin) {
         if (!ServiceUtils.checkStringParam(topic, content)) {
             throw new IllegalArgumentException("主题和内容不能为空！");
         }
@@ -32,7 +32,6 @@ public class BulletinServiceImpl implements BulletinService {
             throw new IllegalArgumentException("尚未登陆！");
         }
         Bulletin bulletin = new Bulletin();
-        bulletin.setId(ServiceUtils.generateID());
         bulletin.setContent(content);
         bulletin.setTopic(topic);
         bulletin.setAttachment(Attachment);
@@ -43,12 +42,9 @@ public class BulletinServiceImpl implements BulletinService {
     }
 
     @Override
-    public void saveBulletin(Bulletin bulletin, Admin_bak admin) {
+    public void saveBulletin(Bulletin bulletin, Admin admin) {
         if (!ServiceUtils.checkStringParam(bulletin.getTopic(), bulletin.getContent())) {
             throw new IllegalArgumentException("主题和内容不能为空！");
-        }
-        if (bulletin.getId() == null) {
-            bulletin.setId(ServiceUtils.generateID());
         }
         if (bulletin.getTime() == null) {
             bulletin.setTime(new Date());
@@ -63,16 +59,15 @@ public class BulletinServiceImpl implements BulletinService {
     public List<Bulletin> getAllBulletin() {
         List<Bulletin> allBulletin = bulletinDao.getAllBulletin();
 
-        //TODO 太浪费内存了，admin其实都是一个人
-        for (Bulletin b : allBulletin) {
-            b = bulletinDao.fillAdmin(b);
-        }
+//        //TODO 太浪费内存了，admin其实都是一个人
+//        for (Bulletin b : allBulletin) {
+//            b = bulletinDao.fillAdmin(b);
+//        }
         return allBulletin;
     }
 
     @Override
-    public Bulletin getBulletinById(String id) {
-        Bulletin bulletinById = bulletinDao.getBulletinById(id);
-        return bulletinDao.fillAdmin(bulletinById);
+    public Bulletin getBulletinById(int id) {
+        return bulletinDao.getBulletinById(id);
     }
 }

@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Bulletin {
 
-    private String id;
+    private int id;
     private String topic;
     private Date time;
     private String content;
@@ -23,11 +23,11 @@ public class Bulletin {
     public Bulletin() {
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    private void setId(int id) {
         this.id = id;
     }
 
