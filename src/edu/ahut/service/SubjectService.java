@@ -3,7 +3,9 @@
  */
 package edu.ahut.service;
 
+import edu.ahut.domain.Student;
 import edu.ahut.domain.Subject;
+import edu.ahut.domain.Teacher;
 import edu.ahut.domain.User;
 import java.util.List;
 
@@ -15,21 +17,19 @@ import java.util.List;
 public interface SubjectService {
     // 老师添加一个论文题目
 
-    public void addSubject(String title, String description, String sId);
+    public void addSubject(String title, String description, User teacher);
 
     // 察看所有论文题目和对应个老师名
     public List<Subject> listAllSubject();
 
     // 学生选择题目
-    public void selectSubject(String subjectId, User user);
+    public void selectSubject(Student student, Teacher teacher, Subject subject);
 
     /**
-     * @param subjectId
-     * @return
      */
-    public Subject getSubject(String subjectId);
+    public Subject findSubjectByStudent(Student student);
 
-    public Subject getSubjectBySid(String sId);
+    public Subject getById(int id);
 
-    public User getTeacherByStudent(User student);
+    public User getTeacherByStudent(User user);
 }

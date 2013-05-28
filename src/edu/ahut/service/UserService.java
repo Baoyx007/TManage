@@ -17,16 +17,10 @@ public interface UserService {
 
     public User login(String username, String password);
 
-    public User getUserById(String id);
-
 //包括包涵的类
-    public User getUserFullInfo(String id);
+    public User getUserFullInfo(int id);
 
-    public User fillUnit(User user);
+    public void update(User user);
 
-    public User fillQualification(User user);
-
-    public User fillAllInfo(User user);
-
-    public void fillPhoto(String id, String photo);
+    public User getUserById(int id);
 }

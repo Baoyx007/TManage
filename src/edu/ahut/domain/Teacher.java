@@ -13,6 +13,11 @@ import java.util.Date;
  */
 public class Teacher extends User {
 
+    public Teacher(int id) {
+        super(id);
+    }
+    
+
 //学号
     private String schoolNumber;
     private Date birthday;

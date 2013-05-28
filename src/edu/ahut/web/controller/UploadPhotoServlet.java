@@ -44,13 +44,10 @@ public class UploadPhotoServlet extends HttpServlet {
             String realUploadPath = request.getSession().getServletContext()
                     .getRealPath(UploadUtil.uploadPath);
 
-            //开始事务
-            JdbcUtils.begin();
             // 存到硬盘
             user = UploadUtil.savePhoto(realUploadPath, submitForm, user);
             // 存到数据库
-            ServiceFactory.getUserService().fillPhoto(user.getId(), user.getPhoto());
-            JdbcUtils.commit();
+            ServiceFactory.getUserService().update(user);
 
             request.setAttribute("message", "上传成功");
             request.getRequestDispatcher("/message.jsp").forward(request,
@@ -66,13 +63,6 @@ public class UploadPhotoServlet extends HttpServlet {
             request.setAttribute("message", "上传头像失败");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
-        } finally {
-            try {
-                //关闭事务
-                JdbcUtils.end();
-            } catch (SQLException ex) {
-                Logger.getLogger(SubmitThesisServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }
 

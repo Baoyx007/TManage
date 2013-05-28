@@ -17,7 +17,7 @@
     <body align="center">
         <h3 align="left">公告</h3>
         <h1>${bulletin.topic}</h1>
-         时间： <fmt:formatDate type="both" dateStyle="default" timeStyle="default" 
+        时间： <fmt:formatDate type="both" dateStyle="default" timeStyle="default" 
                         value="${bulletin.time}"/>&nbsp;，&nbsp;来源：${bulletin.admin.name}
         <hr>
         <div contenteditable="false" id="content" style="width: 60%; margin: auto 200px auto 250px;text-indent: 28pt;line-height: 30pt;text-align: left;"  >  ${bulletin.content}</div>
@@ -28,14 +28,14 @@
         </script>
         <hr>
         <p align="left"> 附件：${bulletin.attachment}</p>
-        <!--        <c:choose >
+        <c:choose >
+            <%-- for preview --%>
+            <c:when test="${sessionScope.user!=null and requestScope.preview==true}"><a href="${pageContext.servletContext.contextPath}/PublishBulletinUIServlet">修改</a>，<a href="${pageContext.servletContext.contextPath}/SubmitBulletinServlet">提交</a></c:when>
             <%-- for user --%>
             <c:when test="${sessionScope.user!=null}">返回</c:when>
-            <%-- for preview --%>
-            <c:when test="${sessionScope.admin!=null and requestScope.preview==true}"><a href="${pageContext.servletContext.contextPath}/PublishBulletinUIServlet">修改</a>，<a href="${pageContext.servletContext.contextPath}/SubmitBulletinServlet">提交</a></c:when>
             <%-- for admin --%>
-            <c:when test="${sessionScope.admin!=null }"><a href="#">修改(还不能改)</a></c:when>
-        </c:choose> -->
+            <c:when test="${sessionScope.user!=null }"><a href="#">修改(还不能改)</a></c:when>
+        </c:choose> 
 
     </body>
 </html>

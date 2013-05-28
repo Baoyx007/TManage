@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.ahut.web.UI;
+package edu.ahut.web.controller;
 
 import edu.ahut.domain.User;
 import edu.ahut.exceptions.NotLoginException;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Haven
  * @date May 8, 2013
  */
-public class UserInfoUIServlet extends HttpServlet {
+public class UserInfoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -34,8 +34,8 @@ public class UserInfoUIServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         User user = (User) request.getSession(false).getAttribute("user");
-        String userId = request.getParameter("userId");
         try {
+            int userId = Integer.parseInt(request.getParameter("userId"));
             UserService userService = ServiceFactory.getUserService();
             if (user == null) {
                 throw new NotLoginException();
@@ -43,13 +43,14 @@ public class UserInfoUIServlet extends HttpServlet {
             //要显示的用户
             User thisUser;
             //若与登陆的id相同
-            if (user.getId().equals(userId)) {
+            if (user.getId() == userId) {
                 thisUser = user;
-                userService.fillAllInfo(user);
+                //不需要你，open session in view
+//                userService.fillAllInfo(user);
             } else {
                 thisUser = userService.getUserFullInfo(userId);
             }
-            request.getSession(false).setAttribute("user", thisUser);
+            request.setAttribute("thisUser", thisUser);
             request.getRequestDispatcher("/WEB-INF/jsp/user_info.jsp")
                     .forward(request, response);
         } catch (NotLoginException e) {

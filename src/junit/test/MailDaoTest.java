@@ -4,11 +4,15 @@
  */
 package junit.test;
 
-import edu.ahut.dao.impl.MailDaoImpl;
+import edu.ahut.dao.MailDao;
+import edu.ahut.dao.impl.DaoFactory;
 import edu.ahut.domain.Mail;
-import edu.ahut.domain.User;
-import edu.ahut.utils.ServiceUtils;
+import edu.ahut.domain.Student;
+import edu.ahut.utils.HibernateUtil;
+import java.util.Iterator;
 import java.util.List;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -18,21 +22,35 @@ import org.junit.Test;
  */
 public class MailDaoTest {
 
+    MailDao mailDao = null;
+
+    @Before
+    public void setUp() {
+        HibernateUtil.getCurrentSession().beginTransaction();
+        mailDao = DaoFactory.getMailDao();
+    }
+
     @Test
     public void testSave() {
         Mail mail = new Mail();
-        mail.setId(ServiceUtils.generateID());
-        mail.setRecvUser(new User("1"));
-        mail.setSendUser(new User("4"));
+        mail.setRecvUser(new Student(32768));
+        mail.setSendUser(new Student(65536));
         mail.setTopic("haha");
         mail.setContent("dsfsdfsdfsdfsd");
-
-        new MailDaoImpl().saveMail(mail);
+        mailDao.save(mail);
     }
 
     @Test
     public void testgetMail() {
-        List<Mail> allMail = new MailDaoImpl().getAllMail(new User("1"));
-        System.out.println("");
+        List<Mail> allMyMail = mailDao.getAllMyMail(new Student(32768));
+        for (Iterator<Mail> it = allMyMail.iterator(); it.hasNext();) {
+            Mail mail = it.next();
+            System.out.println(mail.getRecvUser().getName());
+        }
+    }
+
+    @After
+    public void cleanUp() {
+        HibernateUtil.getCurrentSession().getTransaction().commit();
     }
 }

@@ -12,49 +12,33 @@ import java.util.Date;
  */
 public class Thesis {
 
-    private String id;
+    private int id;
     private String realFileName;
     private String uuidFileName;
-    private String uuidFilePath;
+    private String realFilePath;
     private Date submitDate;
     private String studentComment;
     private String teacherComment;
-    private String subjectId;
-    //---------------------
     private Subject subject;
 
     public Thesis() {
         super();
     }
 
-    public String getSubjectId() {
-        return subjectId;
-    }
-
-    public void setSubjectId(String subjectId) {
-        this.subjectId = subjectId;
-    }
-
-    /**
-     * @return the id
-     */
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(String id) {
+    private void setId(int id) {
         this.id = id;
     }
 
-    public String getUuidFilePath() {
-        return uuidFilePath;
+    public String getRealFilePath() {
+        return realFilePath;
     }
 
-    public void setUuidFilePath(String uuidFilePath) {
-        this.uuidFilePath = uuidFilePath;
+    public void setRealFilePath(String realFilePath) {
+        this.realFilePath = realFilePath;
     }
 
     /**

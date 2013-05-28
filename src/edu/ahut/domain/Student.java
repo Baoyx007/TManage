@@ -29,6 +29,11 @@ public class Student extends User {
     public Student() {
     }
 
+    public Student(int id) {
+        super(id);
+    }
+    
+
     public String getSchoolNumber() {
         return schoolNumber;
     }

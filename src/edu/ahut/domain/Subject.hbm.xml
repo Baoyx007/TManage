@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="edu.ahut.domain.Subject" table="subject">
+        <id name="id" column="id" >
+            <generator class="native" />
+        </id>
+        <property name="title" />
+        <property name="description" />
+        <many-to-one name="student" column="student_id" />
+        <many-to-one name="teacher" column="teacher_id" />
+        <list name="theses" inverse="true">
+            <key column="subject_id"/>   
+            <list-index column="order_col"/>  
+            <one-to-many class="edu.ahut.domain.Thesis"/>
+        </list>
+    </class>
+</hibernate-mapping>

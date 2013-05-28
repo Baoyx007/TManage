@@ -25,7 +25,6 @@ import edu.ahut.domain.User;
 import edu.ahut.exceptions.NoUpfileException;
 import edu.ahut.exceptions.UpfileSizeException;
 import edu.ahut.exceptions.UpfileTypeException;
-import edu.ahut.service.impl.ServiceFactory;
 import edu.ahut.web.formbean.SubmitForm;
 
 /**
@@ -122,20 +121,19 @@ public final class UploadUtil {
             // 获取所有路径
             String realFileName = getRealFileName(fileItem.getName());
             String uuidFileName = makeUUIDFileName(realFileName);
-            String uuidFilePath = makeUserPath(realUploadPath, user);
+            String userPath = makeUserPath(realUploadPath, user);
 
             // 路径保存到thesis中
             Thesis thesis = new Thesis();
             thesis.setRealFileName(realFileName);
             //防重复
             thesis.setUuidFileName(uuidFileName);
-            thesis.setUuidFilePath(uuidFilePath);
+            thesis.setRealFilePath(userPath);
             thesis.setStudentComment(submitForm.getComment());
-            thesis.setId(ServiceUtils.generateID());
 
             // 保存
             in = fileItem.getInputStream();
-            out = new FileOutputStream(uuidFilePath + "/" + uuidFileName);
+            out = new FileOutputStream(userPath + "/" + uuidFileName);
 
             byte[] buf = new byte[1024];
             int len = -1;
@@ -210,6 +208,7 @@ public final class UploadUtil {
      */
     public static String makeUserPath(String realUploadPath, User user) {
         StringBuilder sb = new StringBuilder();
+        //FIXME 还要设置user。setphoto
 //        if (Role.STUDENT == user.getRole()) {
 //            sb.append(realUploadPath).append('/').append("student/");
 //            if (user.getUnit() == null) {

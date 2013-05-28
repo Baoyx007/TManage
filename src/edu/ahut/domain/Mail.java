@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Mail {
 
-    private String id;
+    private int id;
     private User sendUser;
     private User recvUser;
     private String topic;
@@ -24,11 +24,15 @@ public class Mail {
     public Mail() {
     }
 
-    public String getId() {
+    public Mail(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    private void setId(int id) {
         this.id = id;
     }
 

@@ -27,5 +27,8 @@
         <mapping resource="edu/ahut/domain/Unit.hbm.xml"/>
         <mapping resource="edu/ahut/domain/Qualification.hbm.xml"/>
         <mapping resource="edu/ahut/domain/Bulletin.hbm.xml"/>
+        <mapping resource="edu/ahut/domain/Thesis.hbm.xml"/>
+        <mapping resource="edu/ahut/domain/Subject.hbm.xml"/>
+        <mapping resource="edu/ahut/domain/Mail.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

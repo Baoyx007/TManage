@@ -39,7 +39,8 @@ public class SendMailServlet extends HttpServlet {
         mail.setContent(content);
         mail.setTopic(topic);
         try {
-            ServiceFactory.getMailService().saveMail(mail, toUserId, (User) request.getSession(false).getAttribute("user"));
+            User userById = ServiceFactory.getUserService().getUserById(Integer.parseInt(toUserId));
+            ServiceFactory.getMailService().saveMail(mail, userById, (User) request.getSession(false).getAttribute("user"));
             request.setAttribute("message", "发送成功 ,3秒后自动关闭<script>\n"
                     + "setTimeout(\"window.close()\",3000);\n"
                     + "</script>");

@@ -3,16 +3,19 @@
  */
 package edu.ahut.dao;
 
+import edu.ahut.domain.Student;
 import java.util.List;
 
 import edu.ahut.domain.Subject;
+import edu.ahut.domain.Teacher;
+import edu.ahut.domain.User;
 
 /**
  * @author Haven
  * @date 2013-4-2
  *
  */
-public interface SubjectDao {
+public interface SubjectDao extends BasicDao<Subject> {
 
     public void addSubject(Subject subject);
 
@@ -22,27 +25,17 @@ public interface SubjectDao {
     /**
      * 学生选择题目
      *
-     * @param subjectId 题目id
-     * @param studentId 学生id
      *
      */
-    public void selectSubject(String subjectId, String studentId);
+    public void selectSubject(Student student, Teacher teacher, Subject subject);
 
     /**
      * 根据学生ID发现题目 一个学生只能对应一个subject <br>
      * 不成功返回null
      *
-     * @param id
-     * @return
      */
-    public Subject findSubjectBySid(String id);
+    public Subject findSubjectByStudent(Student student);
 
-    /**
-     * 根据id获得subject
-     *
-     *
-     */
-    public Subject getSubjectByid(String id);
+    public User getTeacherByStudent(User user);
 
-    public String getTidBySid(String sid);
 }

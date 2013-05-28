@@ -14,5 +14,5 @@ import edu.ahut.domain.User;
  */
 public interface MailService {
 
-    public void saveMail(Mail mail, String toUserId, User sendUser);
+    public void saveMail(Mail mail, User revcUser, User sendUser);
 }

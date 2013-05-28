@@ -110,7 +110,7 @@ public class UserDaoTest {
 
     @Test
     public void findUserById() {
-        User user = userDao.findUser(196608);
+        User user = userDao.findUser(196608,false);
         System.out.println(user.getName());
     }
 

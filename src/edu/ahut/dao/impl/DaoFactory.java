@@ -17,11 +17,11 @@ import edu.ahut.dao.UserDao;
 public class DaoFactory {
 
     public static SubjectDao getSubjectDao() {
-        return new SubjectDaoImpl();
+        return new SubjectDaoHibImpl();
     }
 
     public static ThesisDao getThesisDao() {
-        return new ThesisDaoImpl();
+        return new ThesisDaoHibImpl();
     }
 
     public static UserDao getUserDao() {
@@ -33,6 +33,6 @@ public class DaoFactory {
     }
 
     public static MailDao getMailDao() {
-        return new MailDaoImpl();
+        return new MailDaoHibImpl();
     }
 }

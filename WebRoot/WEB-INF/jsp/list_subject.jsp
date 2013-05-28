@@ -31,8 +31,8 @@
                     <td><c:url var="urlForStu" value="/servlet/SelectSubjectServlet" >
                             <c:param name="subjectId" value="${subject.id }">
                             </c:param>
-                        </c:url> <a href="${urlForStu}" style="display:${sessionScope.user.role=='STUDENT'?'':'none' } ">选此论文题目</a>
-                        <a href="${pageContext.request.servletContext.contextPath }/servlet/ShowThesisInfoServlet?subjectId=${subject.id}" style="display:${sessionScope.user.role=='TEACHER'?'':'none' } ">下载已提交的论文</a>
+                        </c:url> <a href="${urlForStu}" style="display:${sessionScope.user.getClass().simpleName=='Student'?'':'none' } ">选此论文题目</a>
+                        <a href="${pageContext.request.servletContext.contextPath }/servlet/ShowThesisInfoServlet?subjectId=${subject.id}" style="display:${sessionScope.user.getClass().simpleName=='TEACHER'?'':'none' } ">下载已提交的论文</a>
                     </td>
                 </tr>
             </c:forEach>

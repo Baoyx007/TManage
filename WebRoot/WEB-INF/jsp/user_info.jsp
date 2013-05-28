@@ -14,51 +14,50 @@
     </head>
     <body>
         admin info<基本信息>:<br>
-        private String name;${user.name}<br>
+        private String name;${thisUser.name}<br>
         <!--    // 登陆信息，，，，要被设置
             private String password;
             private String username;-->
         // 通讯<br>
-        private String email;${user.email}<br>
-        private String phone;${user.phone}<br>
+        private String email;${thisUser.email}<br>
+        private String phone;${thisUser.phone}<br>
         // 自我介绍<br>
-        private String comment;${user.comment}<br>
-        private Role role;${user.role}<br>
+        private String comment;${thisUser.comment}<br>
         <hr>
         user info<更多信息><br>
-        private String schoolNumber;${user.schoolNumber}<br>
-        private Date birthday;${user.birthday}<br>
-        private Gender gender;${user.gender}<br>
+        private String schoolNumber;${thisUser.schoolNumber}<br>
+        private Date birthday;${thisUser.birthday}<br>
+        private Gender gender;${thisUser.gender}<br>
         // 通讯地址<br>
-        private String address;${user.address}<br>
+        private String address;${thisUser.address}<br>
         // 图片位置<br>
         <a href="UploadPhotoUIServlet">photo</a>;
         <c:choose >
-            <c:when test="${user.photo==null}"> 
-                <img src="img/${user.gender}.png" width="150" height="200"/></c:when>
+            <c:when test="${thisUser.photo==null}"> 
+                <img src="img/${thisUser.gender}.png" width="150" height="200"/></c:when>
             <c:otherwise>
-                <img src="ShowPhotoUIServlet?param=${user.photo}"  width="150" height="200"/>
+                <img src="ShowPhotoUIServlet?param=${thisUser.photo}"  width="150" height="200"/>
             </c:otherwise>
         </c:choose>
         <br>
-        //学生，还是教授<br>
-        private String title;${user.title}<br>
         <hr>
+        //应该直接显示基本信息，有个按钮：详细信息
         //以下是对象类型<br>
-        private Unit unit;<br>
-        --
-        private int id;${user.unit.id}<br>
-        private String school;${user.unit.school}<br>
-        private String college;${user.unit.college}<br>
-        private String department;${user.unit.department}<br>
-        private String calss;${user.unit.calss}<br>
+        <%--
+             private Unit unit;<br>
+             --
+             private int id;${thisUser.unit.id}<br>
+             private String school;${thisUser.unit.school}<br>
+             private String college;${thisUser.unit.college}<br>
+             private String department;${thisUser.unit.department}<br>
+             private String calss;${thisUser.unit.calss}<br>
 
         private Qualification qualification;<br>
         --
-        private int id;${user.qualification.id}<br>
-        private String college;${user.qualification.college}<br>
-        private String degree;${user.qualification.degree}<br>
-        private int duration;${user.qualification.duration}<br>
-        private Date year;${user.qualification.year}<br>
+        private int id;${thisUser.qualification.id}<br>
+        private String college;${thisUser.qualification.college}<br>
+        private String degree;${thisUser.qualification.degree}<br>
+        private int duration;${thisUser.qualification.duration}<br>
+        private Date year;${thisUser.qualification.year}<br> --%>
     </body>
 </html>

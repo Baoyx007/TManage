@@ -3,15 +3,19 @@
  */
 package junit.test;
 
-import java.util.List;
-
 import org.junit.Test;
 
 import edu.ahut.dao.SubjectDao;
-import edu.ahut.dao.impl.SubjectDaoImpl;
+import edu.ahut.dao.impl.DaoFactory;
+import edu.ahut.domain.Student;
 import edu.ahut.domain.Subject;
+import edu.ahut.domain.Teacher;
 import edu.ahut.domain.User;
-import edu.ahut.utils.ServiceUtils;
+import edu.ahut.utils.HibernateUtil;
+import java.util.Date;
+import java.util.List;
+import org.junit.After;
+import org.junit.Before;
 
 /**
  * @author Haven
@@ -20,39 +24,71 @@ import edu.ahut.utils.ServiceUtils;
  */
 public class SubjectDaoTest {
 
+    SubjectDao subjectDao = null;
+
+    @Before
+    public void setUp() {
+        HibernateUtil.getCurrentSession().beginTransaction();
+        subjectDao = DaoFactory.getSubjectDao();
+    }
+
     @Test
     public void testAdd() {
-        SubjectDao dao = new SubjectDaoImpl();
         Subject subject = new Subject();
-        subject.setId(ServiceUtils.generateID());
         subject.setTitle("test");
         subject.setDescription("所得税的发生的水电费");
-        subject.setTeacher(new User("1"));
-        dao.addSubject(subject);
+        subject.setStudent(new Student(196608));
+        subjectDao.addSubject(subject);
     }
 
     @Test
     public void testlist() {
-        List<Subject> allSubject = new SubjectDaoImpl().getAllSubject();
+        List<Subject> allSubject = subjectDao.getAllSubject();
         for (Subject s : allSubject) {
-            System.out.println(s);
+            System.out.println(s.getId());
+            System.out.println(s.getTeacher().getAddress());
         }
     }
 
     @Test
     public void testSelect() {
-        new SubjectDaoImpl().selectSubject("2", "1");
+        Subject subject = new Subject();
+        subject.setTitle("test");
+        subject.setDescription(new Date().toString());
+        subjectDao.selectSubject(new Student(196608), new Teacher(327680), subject);
     }
 
     @Test
-    public void find() {
-        Subject subject = new SubjectDaoImpl().findSubjectBySid("1");
-        System.out.println(subject);
+    public void testSelectWhitoutUser() {
+        Subject subject = new Subject();
+        subject.setTitle("test");
+        subject.setDescription(new Date().toString());
+        subjectDao.selectSubject(null, null, subject);
     }
 
     @Test
-    public void testFindTid() {
-        String tidBySid = new SubjectDaoImpl().getTidBySid("1");
-        System.out.println(tidBySid);
+    public void testSelectWhitoutTeacher() {
+        Subject subject = new Subject();
+        subject.setTitle("test");
+        subject.setDescription(new Date().toString());
+        subject.setTeacher(new Teacher(327680));
+        subjectDao.selectSubject(new Student(196608), null, subject);
+    }
+
+    @Test
+    public void testFindSubjectByStudent() {
+        Subject s = subjectDao.findSubjectByStudent(new Student(196608));
+        System.out.println(s.getDescription());
+    }
+
+    @Test
+    public void testFindTeacherByStudent() {
+        User user = subjectDao.getTeacherByStudent(new Student(196608));
+        System.out.println(user.getName());
+    }
+
+    @After
+    public void cleanUp() {
+        HibernateUtil.getCurrentSession().getTransaction().commit();
     }
 }

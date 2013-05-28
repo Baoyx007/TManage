@@ -38,7 +38,7 @@ public class BulletinDaoTest {
             bulletin.setTopic("sdsdsd");
             bulletin.setContent("sdfsadfafasf");
             bulletin.setTime(new Date(System.currentTimeMillis()));
-            User findUser = DaoFactory.getUserDao().findUser(262144);
+            User findUser = DaoFactory.getUserDao().findUser(262144,false);
             bulletin.setAdmin((Admin) findUser);
             bulletinDao.saveBulletin(bulletin);
         }

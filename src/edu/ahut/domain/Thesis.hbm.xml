@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping >
+    <class name="edu.ahut.domain.Thesis" table="thesis">
+        <id name="id"  >
+            <generator class="native" />
+        </id>
+        <property name="realFileName" column="real_file_name" />
+        <property name="uuidFileName"  column="uuid_file_name"/>
+        <property name="realFilePath"  column="real_file_path" type="text"/>
+        <property name="submitDate" column="submit_date"  type="timestamp" />
+        <many-to-one name="subject" column="subject_id" />
+    </class>
+</hibernate-mapping>

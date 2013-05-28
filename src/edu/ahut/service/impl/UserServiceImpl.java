@@ -5,7 +5,6 @@ package edu.ahut.service.impl;
 
 import edu.ahut.dao.UserDao;
 import edu.ahut.dao.impl.DaoFactory;
-import edu.ahut.domain.Admin;
 import edu.ahut.domain.User;
 import edu.ahut.service.UserService;
 import edu.ahut.utils.ServiceUtils;
@@ -51,43 +50,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserFullInfo(String id) {
-        return userDao.fillUnit(userDao.fillQualification(userDao.findUser(id)));
+    public User getUserFullInfo(int id) {
+        return userDao.findUser(id, true);
     }
 
     @Override
-    public User fillUnit(User user) {
-        return userDao.fillUnit(user);
+    public void update(User user) {
+        userDao.update(user);
     }
 
     @Override
-    public User fillQualification(User user) {
-        return userDao.fillQualification(user);
-    }
-
-    @Override
-    public User fillAllInfo(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//        if (user.getUnit() == null) {
-//            user = userDao.fillUnit(user);
-//        }
-//        if (user.getQualification() == null) {
-//            user = userDao.fillQualification(user);
-//        }
-//        return user;
-    }
-
-    @Override
-    public User getUserById(String id) {
-        return userDao.findUser(id);
-    }
-
-    @Override
-    public void fillPhoto(String id, String photo) {
-        if (ServiceUtils.checkStringParam(id, photo)) {
-            DaoFactory.getUserDao().fillPhoto(id, photo);
-        } else {
-            throw new IllegalArgumentException("photo参数不能为空");
-        }
+    public User getUserById(int id) {
+        return userDao.getById(id);
     }
 }

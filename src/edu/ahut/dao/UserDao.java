@@ -13,7 +13,7 @@ import java.util.Map;
  * @date 2013-3-20
  *
  */
-public interface UserDao {
+public interface UserDao extends BasicDao<User>{
 
     //FIXME  不应该重复创建unit和qualif
     public void addStudent(Student student);
@@ -28,7 +28,7 @@ public interface UserDao {
 
     public User findUser(String username, String password);
 
-    public User findUser(int id);
+    public User findUser(int id, boolean full);
 
     public User findUser(String username);
 
@@ -36,9 +36,7 @@ public interface UserDao {
     //第二个key是student
     public Map<String, User> findUserBySubjectId(String id);
 
-    public User fillUnit(User user);
-
-    public User fillQualification(User user);
+    public User loadAllInfo(User user);
 
     public void fillPhoto(String id, String photo);
 }

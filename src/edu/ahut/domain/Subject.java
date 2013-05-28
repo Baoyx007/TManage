@@ -14,15 +14,59 @@ import java.util.List;
  */
 public class Subject {
 
-    private String id;
+    private int id;
     private String title;
     private String description;
-    //-----------
-    private User student;
-    private User teacher;
+    private Student student;
+    private Teacher teacher;
     private List<Thesis> theses;
 
     public Subject() {
+    }
+
+    public Subject(int id) {
+        this.id = id;
+    }
+    
+
+    public int getId() {
+        return id;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     public List<Thesis> getTheses() {
@@ -31,80 +75,5 @@ public class Subject {
 
     public void setTheses(List<Thesis> theses) {
         this.theses = theses;
-    }
-
-    public User getStudent() {
-        return student;
-    }
-
-    public void setStudent(User student) {
-        this.student = student;
-    }
-
-    public User getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(User teacher) {
-        this.teacher = teacher;
-    }
-
-    /**
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the title
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * @param title the title to set
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(" id : ").append(this.id);
-        sb.append(", title : ").append(this.title);
-        sb.append(", description : ").append(this.description);
-        sb.append(",student:").append(this.student);
-        sb.append(",teacher:").append(this.teacher);
-        sb.append(",theses:").append(this.theses);
-        return sb.toString();
     }
 }

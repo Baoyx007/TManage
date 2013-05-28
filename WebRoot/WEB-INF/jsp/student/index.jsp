@@ -26,7 +26,7 @@
         <br>
         <div style="text-align:right;">
             <c:choose>
-                <c:when test="${user !=null}">欢迎你：<a href="${pageContext.request.servletContext.contextPath }/UserInfoUIServlet?userId=${user.id}">${user.name }</a>。 <a>设置</a>|<a
+                <c:when test="${user !=null}">欢迎你：<a href="${pageContext.request.servletContext.contextPath }/UserInfoServlet?userId=${user.id}">${user.name }</a>。 <a>设置</a>|<a
                         href="${myContext}/servlet/LogoutServlet">注销</a>
                 </c:when>
                 <c:otherwise>

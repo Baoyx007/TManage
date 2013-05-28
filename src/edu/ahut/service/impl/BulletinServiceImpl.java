@@ -7,7 +7,6 @@ package edu.ahut.service.impl;
 import edu.ahut.dao.BulletinDao;
 import edu.ahut.dao.impl.DaoFactory;
 import edu.ahut.domain.Admin;
-import edu.ahut.domain.Admin_bak;
 import edu.ahut.domain.Bulletin;
 import edu.ahut.service.BulletinService;
 import edu.ahut.utils.ServiceUtils;
