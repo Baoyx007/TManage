@@ -19,6 +19,11 @@ public class Subject {
     private String description;
     private Student student;
     private Teacher teacher;
+//    被管理员check过
+    private boolean checked;
+    //学生老师已确定！
+    private boolean choosened;
+    //-------
     private List<Thesis> theses;
 
     public Subject() {
@@ -27,7 +32,22 @@ public class Subject {
     public Subject(int id) {
         this.id = id;
     }
-    
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    public boolean isChoosened() {
+        return choosened;
+    }
+
+    public void setChoosened(boolean choosened) {
+        this.choosened = choosened;
+    }
 
     public int getId() {
         return id;

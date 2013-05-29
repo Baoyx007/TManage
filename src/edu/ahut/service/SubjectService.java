@@ -25,11 +25,14 @@ public interface SubjectService {
     // 学生选择题目
     public void selectSubject(Student student, Teacher teacher, Subject subject);
 
+    public Subject getStudentChoosenedSubject(Student student);
+
     /**
      */
-    public Subject findSubjectByStudent(Student student);
+    public List<Subject> findSubjectByStudent(Student student);
 
     public Subject getById(int id);
 
     public User getTeacherByStudent(User user);
+
 }

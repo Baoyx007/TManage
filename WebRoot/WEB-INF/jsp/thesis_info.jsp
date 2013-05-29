@@ -30,7 +30,7 @@
             提交日期： <fmt:formatDate type="both" dateStyle="default" timeStyle="default" 
                             value="${thesis.submitDate}"/><br>
             <c:url var="downloadURL" value="/DownloadThesisServlet">
-                <c:param name="uuidFilePath" value="${thesis.uuidFilePath}">
+                <c:param name="uuidFilePath" value="${thesis.realFilePath}">
                 </c:param>
                 <c:param name="uuidFileName" value="${thesis.uuidFileName}">
                 </c:param>

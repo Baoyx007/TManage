@@ -4,6 +4,8 @@
  */
 package edu.ahut.domain;
 
+import java.util.List;
+
 /**
  *
  *
@@ -22,6 +24,8 @@ public abstract class User {
     private String phone;
     // 自我介绍
     private String comment;
+    //one-2-many
+    private List<Mail> inBoxMails;
 
     public User() {
     }
@@ -29,6 +33,15 @@ public abstract class User {
     public User(int id) {
         this.id = id;
     }
+
+    public List<Mail> getInBoxMails() {
+        return inBoxMails;
+    }
+
+    public void setInBoxMails(List<Mail> inBoxMails) {
+        this.inBoxMails = inBoxMails;
+    }
+    
 
     public int getId() {
         return id;

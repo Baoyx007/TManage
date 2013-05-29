@@ -10,6 +10,8 @@
         <property name="realFileName" column="real_file_name" />
         <property name="uuidFileName"  column="uuid_file_name"/>
         <property name="realFilePath"  column="real_file_path" type="text"/>
+        <property name="studentComment"  column="student_comment" type="text"/>
+        <property name="teacherComment"  column="teacher_comment" type="text"/>
         <property name="submitDate" column="submit_date"  type="timestamp" />
         <many-to-one name="subject" column="subject_id" />
     </class>

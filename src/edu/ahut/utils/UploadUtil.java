@@ -3,6 +3,7 @@
  */
 package edu.ahut.utils;
 
+import edu.ahut.domain.Student;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,6 +27,7 @@ import edu.ahut.exceptions.NoUpfileException;
 import edu.ahut.exceptions.UpfileSizeException;
 import edu.ahut.exceptions.UpfileTypeException;
 import edu.ahut.web.formbean.SubmitForm;
+import java.util.Date;
 
 /**
  *
@@ -130,6 +132,7 @@ public final class UploadUtil {
             thesis.setUuidFileName(uuidFileName);
             thesis.setRealFilePath(userPath);
             thesis.setStudentComment(submitForm.getComment());
+            thesis.setSubmitDate(new Date());
 
             // 保存
             in = fileItem.getInputStream();
@@ -209,16 +212,15 @@ public final class UploadUtil {
     public static String makeUserPath(String realUploadPath, User user) {
         StringBuilder sb = new StringBuilder();
         //FIXME 还要设置user。setphoto
-//        if (Role.STUDENT == user.getRole()) {
-//            sb.append(realUploadPath).append('/').append("student/");
-//            if (user.getUnit() == null) {
-//                user = ServiceFactory.getUserService().fillUnit(user);
-//            }
-//            sb.append(user.getUnit().getSchool()).append('/');
-//            sb.append(user.getUnit().getCollege()).append('/');
-//            sb.append(user.getUnit().getCalss()).append('/');
-//            sb.append(user.getSchoolNumber()).append('/');
-//        } else if (Role.TEACHER == user.getRole()) {
+        if (user instanceof Student) {
+            Student s = (Student) user;
+            sb.append(realUploadPath).append('/').append("student/");
+            sb.append(s.getUnit().getSchool()).append('/');
+            sb.append(s.getUnit().getCollege()).append('/');
+            sb.append(s.getUnit().getCalss()).append('/');
+            sb.append(s.getSchoolNumber()).append('/');
+        }
+//        else if (Role.TEACHER == user.getRole()) {
 //            //TODO 占时老师还没有上传文件
 //        }
         File file = new File(sb.toString());

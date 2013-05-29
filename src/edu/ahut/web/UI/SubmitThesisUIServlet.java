@@ -3,7 +3,7 @@
  */
 package edu.ahut.web.UI;
 
-import edu.ahut.dao.impl.DaoFactory;
+import edu.ahut.domain.Student;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ahut.domain.Subject;
 import edu.ahut.domain.User;
+import edu.ahut.service.impl.ServiceFactory;
 
 /**
  * @author Haven
@@ -40,9 +41,8 @@ public class SubmitThesisUIServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         User student = (User) request.getSession(false).getAttribute("user");
-
         //FIXME 只有一个成对
-        Subject subject = DaoFactory.getSubjectDao().findSubjectBySid(student.getId());
+        Subject subject = ServiceFactory.getSubjectService().getStudentChoosenedSubject((Student) student);
         if (subject == null) {
             request.setAttribute("message", "你还没有选择论文题目，请尽快联系导师！");
             request.getRequestDispatcher("/message.jsp").forward(request,

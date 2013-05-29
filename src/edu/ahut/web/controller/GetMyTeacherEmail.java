@@ -4,12 +4,12 @@
  */
 package edu.ahut.web.controller;
 
-import edu.ahut.domain.Mail;
+import edu.ahut.domain.Student;
+import edu.ahut.domain.Subject;
 import edu.ahut.domain.User;
-import edu.ahut.service.MailService;
 import edu.ahut.service.impl.ServiceFactory;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author Haven
- * @date May 19, 2013
+ * @date May 30, 2013
  */
-public class ListMailServlet extends HttpServlet {
+public class GetMyTeacherEmail extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -34,30 +34,19 @@ public class ListMailServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User user = (User) request.getSession(false).getAttribute("user");
+        Subject subject = ServiceFactory.getSubjectService().getStudentChoosenedSubject((Student) user);
+        String email = subject.getTeacher().getEmail();
+        PrintWriter out = response.getWriter();
         try {
-            MailService mailService = ServiceFactory.getMailService();
-            User user = (User) request.getSession(false).getAttribute("user");
-            List<Mail> readedMail = mailService.getReadedMail(user);
-            List<Mail> unreadMail = mailService.getUnreadMail(user);
-            if (readedMail.size() <= 0) {
-                readedMail = null;
-            }
-            if (unreadMail.size() <= 0) {
-                unreadMail = null;
-            }
-            request.setAttribute("readedMailList", readedMail);
-            request.setAttribute("unreadMailList", unreadMail);
-            request.getRequestDispatcher("/WEB-INF/jsp/InBoxMail.jsp")
-                    .forward(request, response);
+            out.write(email);
+            out.flush();
         } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("message", "列出邮件出错");
-            request.getRequestDispatcher("message.jsp").forward(request,
-                    response);
+            out.close();
         }
     }
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
      * <code>GET</code> method.

@@ -34,8 +34,9 @@ public interface SubjectDao extends BasicDao<Subject> {
      * 不成功返回null
      *
      */
-    public Subject findSubjectByStudent(Student student);
+    public List<Subject> findSubjectByStudent(Student student);
 
     public User getTeacherByStudent(User user);
-
+    
+    public Subject getStudentChoosenedSubject(Student student);
 }

@@ -50,7 +50,7 @@ public class ShowThesisInfoServlet extends HttpServlet {
             if (ServiceUtils.checkStringParam(subjectId)) {
                 subject = subjectService.getById(Integer.parseInt(subjectId));
             } else if (ServiceUtils.checkStringParam(userId)) {
-                subject = subjectService.findSubjectByStudent(new Student(Integer.parseInt(userId)));
+                subject = subjectService.getStudentChoosenedSubject(new Student(Integer.parseInt(userId)));
             } else {
                 throw new IllegalArgumentException("参数错误");
             }

@@ -60,6 +60,7 @@ public class LoginServlet extends HttpServlet {
             if (user != null) {
                 request.getSession().setAttribute("user", user);
                 if (user.getClass() == Student.class) {
+                    System.out.println(user.getInBoxMails().size());
                     response.sendRedirect(request.getContextPath() + "/StudentIndexUIServlet");
                 } else if (user.getClass() == Teacher.class) {
                     response.sendRedirect(request.getContextPath() + "/TeacherIndexUIServlet");

@@ -5,11 +5,9 @@
 package edu.ahut.web.controller;
 
 import edu.ahut.domain.Mail;
-import edu.ahut.domain.User;
 import edu.ahut.service.MailService;
 import edu.ahut.service.impl.ServiceFactory;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author Haven
- * @date May 19, 2013
+ * @date May 29, 2013
  */
-public class ListMailServlet extends HttpServlet {
+public class ShowMailInfoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -35,23 +33,16 @@ public class ListMailServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            int mailId = Integer.parseInt(request.getParameter("mailId"));
             MailService mailService = ServiceFactory.getMailService();
-            User user = (User) request.getSession(false).getAttribute("user");
-            List<Mail> readedMail = mailService.getReadedMail(user);
-            List<Mail> unreadMail = mailService.getUnreadMail(user);
-            if (readedMail.size() <= 0) {
-                readedMail = null;
-            }
-            if (unreadMail.size() <= 0) {
-                unreadMail = null;
-            }
-            request.setAttribute("readedMailList", readedMail);
-            request.setAttribute("unreadMailList", unreadMail);
-            request.getRequestDispatcher("/WEB-INF/jsp/InBoxMail.jsp")
-                    .forward(request, response);
+            Mail mail = mailService.getById(mailId);
+            mail.setChecked(true);
+            mailService.update(mail);
+            request.setAttribute("mail", mail);
+            request.getRequestDispatcher("/WEB-INF/jsp/mail_info.jsp").forward(request,
+                    response);
         } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("message", "列出邮件出错");
+            request.setAttribute("message", "显示出错");
             request.getRequestDispatcher("message.jsp").forward(request,
                     response);
         }

@@ -3,6 +3,7 @@
  */
 package edu.ahut.dao.impl;
 
+import edu.ahut.dao.BasicDao;
 import edu.ahut.dao.BulletinDao;
 import edu.ahut.dao.MailDao;
 import edu.ahut.dao.SubjectDao;
@@ -34,5 +35,9 @@ public class DaoFactory {
 
     public static MailDao getMailDao() {
         return new MailDaoHibImpl();
+    }
+
+    public static BasicDao getBasicDao() {
+        return new BasicDaoHibImpl();
     }
 }

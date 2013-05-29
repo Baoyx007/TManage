@@ -6,6 +6,7 @@
 package edu.ahut.domain;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  *
@@ -25,6 +26,7 @@ public class Student extends User {
     //以下是对象类型
     private Unit unit;
     private Qualification qualification;
+    private Set<Subject> subjects;
 
     public Student() {
     }
@@ -32,7 +34,14 @@ public class Student extends User {
     public Student(int id) {
         super(id);
     }
-    
+
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
+    }
 
     public String getSchoolNumber() {
         return schoolNumber;

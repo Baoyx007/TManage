@@ -7,12 +7,13 @@
         </id>
         <property name="title" />
         <property name="description" />
+        <property name="checked" type="boolean"  />
+        <property name="choosened"  type="boolean" />
         <many-to-one name="student" column="student_id" />
         <many-to-one name="teacher" column="teacher_id" />
-        <list name="theses" inverse="true">
+        <bag name="theses" inverse="true" order-by="submit_date desc" >
             <key column="subject_id"/>   
-            <list-index column="order_col"/>  
             <one-to-many class="edu.ahut.domain.Thesis"/>
-        </list>
+        </bag>
     </class>
 </hibernate-mapping>

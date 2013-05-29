@@ -51,14 +51,14 @@ public class SubjectDaoHibImpl extends BasicDaoHibImpl<Subject> implements Subje
     }
 
     @Override
-    public Subject findSubjectByStudent(Student student) {
+    public List<Subject> findSubjectByStudent(Student student) {
         Session s = HibernateUtil.getCurrentSession();
         Query query = s.createQuery(
                 "from Subject as sb where sb.student=:student");
         query.setParameter("student", student);
         query.setFirstResult(0);
         query.setMaxResults(20);
-        return (Subject) query.uniqueResult();
+        return query.list();
     }
 
     @Override
@@ -70,5 +70,16 @@ public class SubjectDaoHibImpl extends BasicDaoHibImpl<Subject> implements Subje
         Subject subject = (Subject) query.uniqueResult();
         Hibernate.initialize(subject.getTeacher());
         return subject.getTeacher();
+    }
+
+    @Override
+    public Subject getStudentChoosenedSubject(Student student) {
+        Session s = HibernateUtil.getCurrentSession();
+        Query query = s.createQuery(
+                "from Subject as sb where sb.student=:student and sb.choosened=1");
+        query.setParameter("student", student);
+        query.setFirstResult(0);
+        query.setMaxResults(20);
+        return (Subject) query.uniqueResult();
     }
 }

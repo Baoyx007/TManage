@@ -77,8 +77,8 @@ public class SubjectDaoTest {
 
     @Test
     public void testFindSubjectByStudent() {
-        Subject s = subjectDao.findSubjectByStudent(new Student(196608));
-        System.out.println(s.getDescription());
+        List<Subject> findSubjectByStudent = subjectDao.findSubjectByStudent(new Student(196608));
+        System.out.println(findSubjectByStudent);
     }
 
     @Test

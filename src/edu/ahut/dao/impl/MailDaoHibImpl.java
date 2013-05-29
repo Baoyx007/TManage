@@ -29,6 +29,21 @@ public class MailDaoHibImpl extends BasicDaoHibImpl<Mail> implements MailDao {
 
     @Override
     public List<Mail> getUnreadMail(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String hql = "from Mail as mail where mail.recvUser=:u and mail.checked='0' order by mail.sendTime desc";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("u", user);
+        query.setFirstResult(0);
+        query.setMaxResults(20);
+        return query.list();
+    }
+
+    @Override
+    public List<Mail> getReadedMail(User user) {
+        String hql = "from Mail as mail where mail.recvUser=:u and mail.checked='1' order by mail.sendTime desc";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("u", user);
+        query.setFirstResult(0);
+        query.setMaxResults(20);
+        return query.list();
     }
 }

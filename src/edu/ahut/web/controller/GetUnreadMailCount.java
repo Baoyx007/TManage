@@ -4,12 +4,12 @@
  */
 package edu.ahut.web.controller;
 
-import edu.ahut.exceptions.WrongOperationException;
-import edu.ahut.utils.ServiceUtils;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
+import edu.ahut.domain.Mail;
+import edu.ahut.domain.User;
+import edu.ahut.service.impl.ServiceFactory;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author Haven
- * @date May 3, 2013
+ * @date May 30, 2013
  */
-public class DownloadThesisServlet extends HttpServlet {
+public class GetUnreadMailCount extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -34,50 +34,19 @@ public class DownloadThesisServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BufferedInputStream in = null;
-        OutputStream out = null;
-        String uuidFileName = request.getParameter("uuidFileName");
-        String uuidFilePath = request.getParameter("uuidFilePath");
-        //设置mime类型
-        String realName = uuidFileName.substring(uuidFileName.lastIndexOf('_') + 1);
-        response.setHeader("Content-Disposition", "attachment; filename=" + realName);
+        User user = (User) request.getSession(false).getAttribute("user");
+        List<Mail> unreadMail = ServiceFactory.getMailService().getUnreadMail(user);
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
-//若乱码:
-//            String uuidFilePath = new String(request.getParameter("uuidFilePath").getBytes("iso-8859-1"), "UTF-8");
-//            System.out.println(request.getParameter("uuidFilePath"));
-//            System.out.println(uuidFilePath);
-
-            if (!ServiceUtils.checkStringParam(uuidFileName, uuidFilePath)) {
-                throw new WrongOperationException();
+            int size = unreadMail.size();
+            if (size <= 0) {
+                return;
             }
-            // 真实上传路径
-            in = new BufferedInputStream(new FileInputStream(uuidFilePath + '/' + uuidFileName));
-            out = response.getOutputStream();
-            int len = -1;
-            byte[] buf = new byte[1024];
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
-            }
-//            System.out.println(realName);
-//            Content-Disposition: attachment; filename="fname.ext"
-
-        } catch (WrongOperationException e) {
-            e.printStackTrace();
-            request.setAttribute("message", "别瞎点");
-            request.getRequestDispatcher("/message.jsp").forward(request,
-                    response);
-        } catch (IOException e) {
-            e.printStackTrace();
-            request.setAttribute("message", "文件读取错误");
-            request.getRequestDispatcher("/message.jsp").forward(request,
-                    response);
-        } finally {
-            if (in != null) {
-                in.close();
-            }
-            if (out != null) {
-                out.close();
-            }
+            out.write(String.valueOf(size));
+            out.flush();
+        } catch (Exception e) {
+            out.close();
         }
     }
 

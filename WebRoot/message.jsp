@@ -16,6 +16,6 @@
     <body>
         ${message }
         <br>
-        <a href="${pageContext.servletContext.contextPath}/LoginUIServlet" >返回登陆</a>
+        <a href="${pageContext.servletContext.contextPath}/" >首页</a>
     </body>
 </html>

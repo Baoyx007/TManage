@@ -59,7 +59,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public Subject findSubjectByStudent(Student student) {
+    public List<Subject> findSubjectByStudent(Student student) {
         return subjectdao.findSubjectByStudent(student);
     }
 
@@ -71,5 +71,10 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public User getTeacherByStudent(User user) {
         return subjectdao.getTeacherByStudent(user);
+    }
+
+    @Override
+    public Subject getStudentChoosenedSubject(Student student) {
+        return subjectdao.getStudentChoosenedSubject(student);
     }
 }

@@ -49,6 +49,15 @@ public class MailDaoTest {
         }
     }
 
+    @Test
+    public void testGetReadedMail() {
+        List<Mail> allMyMail = mailDao.getReadedMail(new Student(196608));
+        for (Iterator<Mail> it = allMyMail.iterator(); it.hasNext();) {
+            Mail mail = it.next();
+            System.out.println(mail.getRecvUser().getName());
+        }
+    }
+
     @After
     public void cleanUp() {
         HibernateUtil.getCurrentSession().getTransaction().commit();

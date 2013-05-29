@@ -3,6 +3,7 @@
  */
 package edu.ahut.web.controller;
 
+import edu.ahut.domain.Student;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -11,7 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ahut.domain.Subject;
-import edu.ahut.service.impl.SubjectServiceImpl;
+import edu.ahut.domain.User;
+import edu.ahut.service.SubjectService;
+import edu.ahut.service.impl.ServiceFactory;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -40,7 +44,19 @@ public class ListSubjectServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            List<Subject> subjects = new SubjectServiceImpl()
+            SubjectService ss = ServiceFactory.getSubjectService();
+            User user = (User) request.getSession(false).getAttribute("user");
+            List<Subject> findSubjectByStudent = ss.findSubjectByStudent((Student) user);
+            for (Iterator<Subject> it = findSubjectByStudent.iterator(); it.hasNext();) {
+                Subject subject = it.next();
+                if (subject.isChoosened()) {
+                    request.setAttribute("subject", subject);
+                    request.getRequestDispatcher("/WEB-INF/jsp/thesis_info.jsp")
+                            .forward(request, response);
+                    return;
+                }
+            }
+            List<Subject> subjects = ServiceFactory.getSubjectService()
                     .listAllSubject();
             request.setAttribute("subjects", subjects);
             request.getRequestDispatcher("/WEB-INF/jsp/list_subject.jsp")

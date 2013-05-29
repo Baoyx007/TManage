@@ -14,8 +14,10 @@ import java.util.List;
  * @date May 19, 2013
  */
 public interface MailDao extends BasicDao<Mail> {
-    
+
     public List<Mail> getAllMyMail(User user);
-    
+
     public List<Mail> getUnreadMail(User user);
+
+    public List<Mail> getReadedMail(User user);
 }

@@ -9,13 +9,17 @@ import edu.ahut.domain.Admin;
 import org.junit.Test;
 
 import edu.ahut.domain.Gender;
+import edu.ahut.domain.Mail;
 import edu.ahut.domain.Qualification;
 import edu.ahut.domain.Student;
+import edu.ahut.domain.Subject;
 import edu.ahut.domain.Teacher;
 import edu.ahut.domain.Unit;
-import edu.ahut.domain.User;
+import edu.ahut.utils.HibernateUtil;
 import edu.ahut.utils.ServiceUtils;
 import java.util.Date;
+import java.util.Iterator;
+import org.junit.After;
 import org.junit.Before;
 
 /**
@@ -34,7 +38,9 @@ public class UserDaoTest {
      */
     @Before
     public void setUp() throws Exception {
+        HibernateUtil.getCurrentSession().beginTransaction();
         userDao = DaoFactory.getUserDao();
+
     }
 
     @Test
@@ -110,13 +116,26 @@ public class UserDaoTest {
 
     @Test
     public void findUserById() {
-        User user = userDao.findUser(196608,false);
+        Student user = (Student) userDao.findUser(196608, false);
         System.out.println(user.getName());
+        for (Iterator<Subject> it = user.getSubjects().iterator(); it.hasNext();) {
+            Subject subject = it.next();
+            System.out.println(subject.getTitle());
+        }
+        for (Iterator<Mail> it = user.getInBoxMails().iterator(); it.hasNext();) {
+            Mail mail = it.next();
+            System.out.println(mail.getTopic());
+        }
     }
 
     @Test
     public void findAdmin() {
 //        Admin_bak admin = userDao.findAdmin("byx", ServiceUtils.md5("123"));
 //        System.out.println(admin);
+    }
+
+    @After
+    public void cleanUp() {
+        HibernateUtil.getCurrentSession().getTransaction().commit();
     }
 }

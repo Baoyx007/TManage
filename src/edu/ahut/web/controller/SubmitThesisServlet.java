@@ -15,13 +15,9 @@ import edu.ahut.domain.User;
 import edu.ahut.exceptions.NoUpfileException;
 import edu.ahut.exceptions.UpfileSizeException;
 import edu.ahut.exceptions.UpfileTypeException;
-import edu.ahut.service.impl.ThesisServiceImpl;
-import edu.ahut.utils.JdbcUtils;
+import edu.ahut.service.impl.ServiceFactory;
 import edu.ahut.utils.UploadUtil;
 import edu.ahut.web.formbean.SubmitForm;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Haven
@@ -48,21 +44,19 @@ public class SubmitThesisServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User student = (User) request.getSession(false).getAttribute("user");
+
         try {
             SubmitForm submitForm = UploadUtil.doUpload(request);
             // 真实上传路径
             String realUploadPath = request.getSession().getServletContext()
                     .getRealPath(UploadUtil.uploadPath);
-
-            //开始事务
-            JdbcUtils.begin();
+            //为了获取所有信息，查一次数据库
+            User student =  (User) request.getSession(false).getAttribute("user");
+            student = ServiceFactory.getUserService().getUserById(student.getId());
             // 存到硬盘
-            Thesis thesis = UploadUtil.doSave(realUploadPath, submitForm,student);
+            Thesis thesis = UploadUtil.doSave(realUploadPath, submitForm, student);
             // 存到数据库
-            new ThesisServiceImpl().addThesis(thesis, student);
-            JdbcUtils.commit();
-
+            ServiceFactory.getThesisService().addThesis(thesis, student);
 
             request.setAttribute("message", "上传成功");
             request.getRequestDispatcher("/message.jsp").forward(request,
@@ -87,22 +81,9 @@ public class SubmitThesisServlet extends HttpServlet {
                     response);
         } catch (Exception e) {
             e.printStackTrace();
-            try {
-                //数据库回滚
-                JdbcUtils.rollback();
-            } catch (SQLException ex) {
-                Logger.getLogger(SubmitThesisServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
             request.setAttribute("message", "上传文件失败");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
-        } finally {
-            try {
-                //关闭事务
-                JdbcUtils.end();
-            } catch (SQLException ex) {
-                Logger.getLogger(SubmitThesisServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }
 

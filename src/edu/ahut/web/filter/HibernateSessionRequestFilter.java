@@ -41,8 +41,10 @@ public class HibernateSessionRequestFilter implements Filter {
 
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
-        sf.getCurrentSession().getTransaction().commit();
-        System.out.println("commit");
+        if (sf.getCurrentSession().getTransaction().isActive()) {
+            sf.getCurrentSession().getTransaction().commit();
+            System.out.println("commit");
+        }
     }
 
     /**

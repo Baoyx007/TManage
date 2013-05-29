@@ -44,7 +44,7 @@ public class ThesisDaoHibImpl implements ThesisDao {
     public List<Thesis> getThesesBySubject(Subject subject) {
         Session s = HibernateUtil.getSession();
         Query query = s.createQuery(
-                "from Thesis as t where t.subject=:subject");
+                "from Thesis as t where t.subject=:subject order by t.submitDate desc");
         query.setParameter("subject", subject);
         query.setFirstResult(0);
         query.setMaxResults(20);

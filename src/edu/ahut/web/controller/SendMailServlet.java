@@ -8,6 +8,7 @@ import edu.ahut.domain.Mail;
 import edu.ahut.domain.User;
 import edu.ahut.service.impl.ServiceFactory;
 import java.io.IOException;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +39,7 @@ public class SendMailServlet extends HttpServlet {
         Mail mail = new Mail();
         mail.setContent(content);
         mail.setTopic(topic);
+        mail.setSendTime(new Date());
         try {
             User userById = ServiceFactory.getUserService().getUserById(Integer.parseInt(toUserId));
             ServiceFactory.getMailService().saveMail(mail, userById, (User) request.getSession(false).getAttribute("user"));

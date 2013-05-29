@@ -5,7 +5,6 @@ package edu.ahut.service.impl;
 
 import edu.ahut.dao.SubjectDao;
 import edu.ahut.dao.ThesisDao;
-import edu.ahut.dao.UserDao;
 import java.util.List;
 
 import edu.ahut.dao.impl.DaoFactory;
@@ -34,7 +33,7 @@ public class ThesisServiceImpl implements ThesisService {
     @Override
     public void addThesis(Thesis thesis, User user) {
         //学生只能选一个论文
-        Subject subject = subjectDao.findSubjectByStudent((Student) user);
+        Subject subject = subjectDao.getStudentChoosenedSubject((Student) user);
         thesis.setSubject(subject);
         thesisDao.addThesis(thesis);
     }
