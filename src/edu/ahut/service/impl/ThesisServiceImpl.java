@@ -8,21 +8,28 @@ import edu.ahut.dao.ThesisDao;
 import java.util.List;
 
 import edu.ahut.dao.impl.DaoFactory;
-import edu.ahut.domain.Student;
 import edu.ahut.domain.Subject;
+import edu.ahut.domain.Teacher;
 import edu.ahut.domain.Thesis;
-import edu.ahut.domain.User;
 import edu.ahut.service.ThesisService;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @author Haven
  * @date 2013-4-5
  *
  */
-public class ThesisServiceImpl implements ThesisService {
+public class ThesisServiceImpl extends BasicServiceImpl<Thesis> implements ThesisService {
 
-    private ThesisDao thesisDao = DaoFactory.getThesisDao();
-    private SubjectDao subjectDao = DaoFactory.getSubjectDao();
+    private ThesisDao thesisDao;
+    private SubjectDao subjectDao;
+
+    public ThesisServiceImpl() {
+        subjectDao = DaoFactory.getSubjectDao();
+        thesisDao = DaoFactory.getThesisDao();
+        basicDao = thesisDao;
+    }
     /*
      * (non-Javadoc)
      * 
@@ -30,16 +37,32 @@ public class ThesisServiceImpl implements ThesisService {
      * edu.ahut.domain.User)
      */
 
-    @Override
-    public void addThesis(Thesis thesis, User user) {
-        //学生只能选一个论文
-        Subject subject = subjectDao.getStudentChoosenedSubject((Student) user);
-        thesis.setSubject(subject);
-        thesisDao.addThesis(thesis);
-    }
-
+//    @Override
+//    public void addThesis(Thesis thesis, User user) {
+//        Subject subject = subjectDao.getStudentChoosenedSubject((Student) user);
+//        thesis.setSubject(subject);
+//        thesisDao.addThesis(thesis);
+//    }
     @Override
     public List<Thesis> getThesesBySubject(Subject subject) {
         return thesisDao.getThesesBySubject(subject);
+    }
+
+//    @Override
+//    public void teacherUpdateThesis(Thesis thesis,Subject subject) {
+//        
+//    }
+    @Override
+    public List<Thesis> getUnreadedThesises(Teacher teacher) {
+        ArrayList<Thesis> arrayList = new ArrayList<Thesis>();
+        //        teacher ->subject
+        List<Subject> findSubjectByTeacher = subjectDao.findSubjectByTeacher(teacher);
+        //        subject ->un thesis
+        for (Iterator<Subject> it = findSubjectByTeacher.iterator(); it.hasNext();) {
+            Subject subject = it.next();
+            List<Thesis> unreadedThesises = thesisDao.getUnreadedThesises(subject);
+            arrayList.addAll(unreadedThesises);
+        }
+        return arrayList;
     }
 }

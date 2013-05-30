@@ -3,21 +3,23 @@
  */
 package edu.ahut.service;
 
-import edu.ahut.domain.Student;
 import edu.ahut.domain.Subject;
+import edu.ahut.domain.Teacher;
 import java.util.List;
 
 import edu.ahut.domain.Thesis;
-import edu.ahut.domain.User;
 
 /**
  * @author Haven
  * @date 2013-4-5
  *
  */
-public interface ThesisService {
+public interface ThesisService extends BasicService<Thesis> {
 
-    public void addThesis(Thesis thesis, User user);
-
+//    //只有学生能添加
+//    public void addThesis(Thesis thesis, User user);
     public List<Thesis> getThesesBySubject(Subject subject);
+//    public void teacherUpdateThesis(Thesis thesis, Subject subject);
+    
+    public List<Thesis> getUnreadedThesises(Teacher teacher);
 }

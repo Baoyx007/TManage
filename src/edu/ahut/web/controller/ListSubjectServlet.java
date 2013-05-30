@@ -46,19 +46,23 @@ public class ListSubjectServlet extends HttpServlet {
         try {
             SubjectService ss = ServiceFactory.getSubjectService();
             User user = (User) request.getSession(false).getAttribute("user");
-            List<Subject> findSubjectByStudent = ss.findSubjectByStudent((Student) user);
-            for (Iterator<Subject> it = findSubjectByStudent.iterator(); it.hasNext();) {
-                Subject subject = it.next();
-                if (subject.isChoosened()) {
-                    request.setAttribute("subject", subject);
-                    request.getRequestDispatcher("/WEB-INF/jsp/thesis_info.jsp")
-                            .forward(request, response);
-                    return;
+            List<Subject> findSubjectByUser = ss.findSubjectByUser(user);
+            //若是学生，则被选中的就不能再看其他人的了
+            if (user instanceof Student) {
+                //已选过
+                for (Iterator<Subject> it = findSubjectByUser.iterator(); it.hasNext();) {
+                    Subject subject = it.next();
+                    if (subject.isChoosened()) {
+                        request.setAttribute("subject", subject);
+                        request.getRequestDispatcher("/WEB-INF/jsp/thesis_info.jsp")
+                                .forward(request, response);
+                        return;
+                    }
                 }
+                //未选过，显示所有
+                findSubjectByUser = ss.listAllSubject();
             }
-            List<Subject> subjects = ServiceFactory.getSubjectService()
-                    .listAllSubject();
-            request.setAttribute("subjects", subjects);
+            request.setAttribute("subjects", findSubjectByUser);
             request.getRequestDispatcher("/WEB-INF/jsp/list_subject.jsp")
                     .forward(request, response);
         } catch (Exception e) {

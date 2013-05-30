@@ -4,12 +4,10 @@
  */
 package edu.ahut.web.controller;
 
-import edu.ahut.domain.Student;
 import edu.ahut.domain.Subject;
-import edu.ahut.domain.User;
 import edu.ahut.service.impl.ServiceFactory;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Haven
  * @date May 30, 2013
  */
-public class GetMyTeacherEmail extends HttpServlet {
+public class CheckSubjectServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -34,23 +32,21 @@ public class GetMyTeacherEmail extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User user = (User) request.getSession(false).getAttribute("user");
-        Subject subject = ServiceFactory.getSubjectService().getStudentChoosenedSubject((Student) user);
-        //还未确定老师！
-        if (subject == null) {
-            return;
-        }
-        String email = subject.getTeacher().getEmail();
-        PrintWriter out = response.getWriter();
+        //这只有管理员做的事
         try {
-            out.write(email);
-            out.flush();
+            List<Subject> uncheckedSubjects = ServiceFactory.getSubjectService().getUncheckedSubjects();
+            request.setAttribute("uncheckedSubjects", uncheckedSubjects);
+            request.getRequestDispatcher("/WEB-INF/jsp/admin/uncheck_subject.jsp").forward(request,
+                    response);
         } catch (Exception e) {
-            out.close();
+            e.printStackTrace();
+            request.setAttribute("message", "列出论题出错");
+            request.getRequestDispatcher("/message.jsp").forward(request,
+                    response);
         }
     }
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
      * <code>GET</code> method.

@@ -5,29 +5,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Insert title here</title>
+        <script src="../js/ckeditor/ckeditor.js"></script>
     </head>
     <body>
         <h1>发布论文题目</h1>
         <form
             action="${pageContext.request.servletContext.contextPath }/servlet/PublishSubjectServlet"
             method="post">
-            <table align="center" border="1" width="70%">
-                <tr>
-                    <td>题目:</td>
-                    <td><input type="text" name="title" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>描述:</td>
-                    <td><textarea rows="10" cols="100" name="description">这里的编辑框应该跟多种</textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"><input type="submit" value="提交" />
-                    </td>
-                </tr>
-            </table>
+            题目:
+            <input type="text" name="title" />
+            <textarea id="description" rows="10" cols="100" name="description">在这里输入描述</textarea>
+            <script>
+                CKEDITOR.replace('description');
+            </script>
+            <input type="submit" value="提交" />
         </form>
+        <br><br><br><br>
         <a href="${pageContext.request.servletContext.contextPath }/">返回首页</a>
     </body>
 </html>

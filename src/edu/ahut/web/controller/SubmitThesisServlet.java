@@ -3,6 +3,7 @@
  */
 package edu.ahut.web.controller;
 
+import edu.ahut.domain.Subject;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -44,20 +45,21 @@ public class SubmitThesisServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        Subject subject = (Subject) request.getSession(false).getAttribute("subject");
         try {
             SubmitForm submitForm = UploadUtil.doUpload(request);
             // 真实上传路径
             String realUploadPath = request.getSession().getServletContext()
                     .getRealPath(UploadUtil.uploadPath);
-            //为了获取所有信息，查一次数据库
-            User student =  (User) request.getSession(false).getAttribute("user");
-            student = ServiceFactory.getUserService().getUserById(student.getId());
+            User user = (User) request.getSession(false).getAttribute("user");
+            user = ServiceFactory.getUserService().getUserById(user.getId());
             // 存到硬盘
-            Thesis thesis = UploadUtil.doSave(realUploadPath, submitForm, student);
+            Thesis thesis = UploadUtil.doSave(realUploadPath, submitForm, user);
             // 存到数据库
-            ServiceFactory.getThesisService().addThesis(thesis, student);
-
+//            Subject subject = ServiceFactory.getSubjectService().getById(Integer.parseInt(subjectId));
+            thesis.setSubject(subject);
+            ServiceFactory.getThesisService().save(thesis);
+            
             request.setAttribute("message", "上传成功");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
@@ -84,6 +86,8 @@ public class SubmitThesisServlet extends HttpServlet {
             request.setAttribute("message", "上传文件失败");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
+        } finally {
+            request.getSession(false).removeAttribute("subject");
         }
     }
 
@@ -101,7 +105,7 @@ public class SubmitThesisServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         doGet(request, response);
     }
 }

@@ -26,7 +26,7 @@
         <br>
         <div style="text-align:right;">
             <c:choose>
-                <c:when test="${user !=null}">欢迎你：<a href="${pageContext.request.servletContext.contextPath }/UserInfoUIServlet?userId=${user.id}">${user.name }</a>。 <a>设置</a>|<a
+                <c:when test="${user !=null}">欢迎你：<a href="${pageContext.request.servletContext.contextPath }/UserInfoServlet?userId=${user.id}">${user.name }</a>。 <a>设置</a>|<a
                         href="${myContext}/servlet/LogoutServlet">注销</a>
                 </c:when>
                 <c:otherwise>
@@ -42,11 +42,17 @@
 
 
         <!--老师-->
-        ${user}
-        <c:if test="${user!=null  }">
-            <a
-                href="${myContext}/servlet/PublishSubjectUIServlet">发布论文题目</a>
-        </c:if>
+        <a href="${myContext}/servlet/PublishSubjectUIServlet">发布论文题目</a>
+        <a href="${myContext}/servlet/ListSubjectServlet">已发布的论文题目</a>
+        <a href="${myContext}/GetUnreadedThesisServlet">查看尚未审阅的论文</a>
+
+        <br>
+        联系：
+        <a href="mailto:XXX">联系学生(email)</a>
+        //
+        <a target="_blank" href="javascript:;" onclick="openwin();">联系学生(站内信)</a>
+        <a href="#">给管理员提意见(留言板)</a>
+        <a href="${myContext}/ListMailServlet">站内信<SUP><strong><jsp:include page="/GetUnreadMailCount" /> </strong></SUP></a>
 
 
         <hr>

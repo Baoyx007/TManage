@@ -13,7 +13,7 @@ import edu.ahut.domain.Thesis;
  * @date 2013-4-5
  *
  */
-public interface ThesisDao {
+public interface ThesisDao extends BasicDao<Thesis> {
     // 初次增加论文
 
     public void addThesis(Thesis thesis);
@@ -31,4 +31,6 @@ public interface ThesisDao {
      * @return
      */
     List<Thesis> getThesesBySubject(Subject subject);
+
+    public List<Thesis> getUnreadedThesises(Subject subject);
 }

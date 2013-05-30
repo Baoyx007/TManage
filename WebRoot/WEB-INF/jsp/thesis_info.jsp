@@ -25,17 +25,21 @@
         <c:forEach items="${requestScope.subject.theses }" var="thesis">
             <hr>
             文件名:${thesis.realFileName}<br>
-            老师评语：${thesis.teacherComment}<br>
-            学生留言：${thesis.studentComment}<br>
             提交日期： <fmt:formatDate type="both" dateStyle="default" timeStyle="default" 
                             value="${thesis.submitDate}"/><br>
+            <div style="float: left;width: 40%;">学生留言：  <textarea readonly="true" cols="50" rows="5"> ${thesis.studentComment}</textarea></div>
+            <div >老师评语：<textarea  readonly="true" cols="50" rows="5"> ${thesis.teacherComment}</textarea></div><br><br>
+
             <c:url var="downloadURL" value="/DownloadThesisServlet">
                 <c:param name="uuidFilePath" value="${thesis.realFilePath}">
                 </c:param>
                 <c:param name="uuidFileName" value="${thesis.uuidFileName}">
                 </c:param>
             </c:url>
-            <a href="${downloadURL}">下载</a>
+            <a href="${downloadURL}">下载</a>,
+            <c:if test="${user.getClass().simpleName=='Teacher'}">
+                <a href="${pageContext.servletContext.contextPath}/ReviewThesisServlet?id=${thesis.id}">审阅</a>
+            </c:if>
         </c:forEach>
         <br />
     </body>

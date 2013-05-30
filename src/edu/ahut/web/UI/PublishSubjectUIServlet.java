@@ -40,7 +40,7 @@ public class PublishSubjectUIServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 
-	request.getRequestDispatcher("/WEB-INF/jsp/PublishSubject.jsp")
+	request.getRequestDispatcher("/WEB-INF/jsp/teacher/PublishSubject.jsp")
 		.forward(request, response);
     }
 
@@ -59,6 +59,7 @@ public class PublishSubjectUIServlet extends HttpServlet {
      * @throws IOException
      *             if an error occurred
      */
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 

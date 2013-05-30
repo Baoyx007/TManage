@@ -17,7 +17,7 @@ import org.hibernate.Session;
  * @author Haven
  * @date May 26, 2013
  */
-public class ThesisDaoHibImpl implements ThesisDao {
+public class ThesisDaoHibImpl extends BasicDaoHibImpl<Thesis> implements ThesisDao {
 
     @Override
     public void addThesis(Thesis thesis) {
@@ -45,6 +45,17 @@ public class ThesisDaoHibImpl implements ThesisDao {
         Session s = HibernateUtil.getSession();
         Query query = s.createQuery(
                 "from Thesis as t where t.subject=:subject order by t.submitDate desc");
+        query.setParameter("subject", subject);
+        query.setFirstResult(0);
+        query.setMaxResults(20);
+        return query.list();
+    }
+
+    @Override
+    public List<Thesis> getUnreadedThesises(Subject subject) {
+        Session s = HibernateUtil.getSession();
+        Query query = s.createQuery(
+                "from Thesis as t where t.subject=:subject and t.teacherComment=null order by t.submitDate desc");
         query.setParameter("subject", subject);
         query.setFirstResult(0);
         query.setMaxResults(20);

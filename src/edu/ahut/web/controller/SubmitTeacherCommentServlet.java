@@ -4,9 +4,8 @@
  */
 package edu.ahut.web.controller;
 
-import edu.ahut.domain.Student;
-import edu.ahut.domain.Subject;
-import edu.ahut.domain.User;
+import edu.ahut.domain.Thesis;
+import edu.ahut.service.ThesisService;
 import edu.ahut.service.impl.ServiceFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Haven
  * @date May 30, 2013
  */
-public class GetMyTeacherEmail extends HttpServlet {
+public class SubmitTeacherCommentServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -34,19 +33,22 @@ public class GetMyTeacherEmail extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User user = (User) request.getSession(false).getAttribute("user");
-        Subject subject = ServiceFactory.getSubjectService().getStudentChoosenedSubject((Student) user);
-        //还未确定老师！
-        if (subject == null) {
-            return;
-        }
-        String email = subject.getTeacher().getEmail();
-        PrintWriter out = response.getWriter();
+        String thesisId = request.getParameter("thesisId");
+        String teacherComment = request.getParameter("teacherComment");
+        ThesisService thesisService = ServiceFactory.getThesisService();
         try {
-            out.write(email);
-            out.flush();
+            Thesis byId = thesisService.getById(Integer.parseInt(thesisId));
+            byId.setTeacherComment(teacherComment);
+            thesisService.update(byId);
+            request.setAttribute("thesis", byId);
+            request.setAttribute("success", "修改成功");
+            request.getRequestDispatcher("/WEB-INF/jsp/teacher/review_thesis.jsp").forward(request,
+                    response);
         } catch (Exception e) {
-            out.close();
+            e.printStackTrace();
+            request.setAttribute("message", "审查论文出错");
+            request.getRequestDispatcher("/message.jsp").forward(request,
+                    response);
         }
     }
 

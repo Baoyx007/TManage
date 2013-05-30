@@ -4,6 +4,7 @@
 package edu.ahut.utils;
 
 import edu.ahut.domain.Student;
+import edu.ahut.domain.Teacher;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -131,7 +132,11 @@ public final class UploadUtil {
             //防重复
             thesis.setUuidFileName(uuidFileName);
             thesis.setRealFilePath(userPath);
-            thesis.setStudentComment(submitForm.getComment());
+            if (user instanceof Student) {
+                thesis.setStudentComment(submitForm.getComment());
+            } else if (user instanceof Teacher) {
+                thesis.setTeacherComment(submitForm.getComment());
+            }
             thesis.setSubmitDate(new Date());
 
             // 保存
@@ -219,10 +224,14 @@ public final class UploadUtil {
             sb.append(s.getUnit().getCollege()).append('/');
             sb.append(s.getUnit().getCalss()).append('/');
             sb.append(s.getSchoolNumber()).append('/');
+        } else if (user instanceof Teacher) {
+            Teacher t = (Teacher) user;
+            sb.append(realUploadPath).append('/').append("student/");
+            sb.append(t.getUnit().getSchool()).append('/');
+            sb.append(t.getUnit().getCollege()).append('/');
+            sb.append(t.getUnit().getCalss()).append('/');
+            sb.append(t.getSchoolNumber()).append('/');
         }
-//        else if (Role.TEACHER == user.getRole()) {
-//            //TODO 占时老师还没有上传文件
-//        }
         File file = new File(sb.toString());
         if (!file.exists()) {
             file.mkdirs();

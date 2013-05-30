@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2013-4-2
  *
  */
-public interface SubjectService {
+public interface SubjectService extends BasicService<Subject>{
     // 老师添加一个论文题目
 
     public void addSubject(String title, String description, User teacher);
@@ -35,4 +35,9 @@ public interface SubjectService {
 
     public User getTeacherByStudent(User user);
 
+    //返回每个人提交的
+    //admin返回所有的
+    public List<Subject> findSubjectByUser(User user);
+    
+     public List<Subject> getUncheckedSubjects();
 }

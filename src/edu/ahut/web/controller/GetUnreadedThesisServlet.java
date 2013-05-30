@@ -4,12 +4,11 @@
  */
 package edu.ahut.web.controller;
 
-import edu.ahut.domain.Student;
-import edu.ahut.domain.Subject;
-import edu.ahut.domain.User;
+import edu.ahut.domain.Teacher;
+import edu.ahut.domain.Thesis;
 import edu.ahut.service.impl.ServiceFactory;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Haven
  * @date May 30, 2013
  */
-public class GetMyTeacherEmail extends HttpServlet {
+public class GetUnreadedThesisServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -34,19 +33,18 @@ public class GetMyTeacherEmail extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User user = (User) request.getSession(false).getAttribute("user");
-        Subject subject = ServiceFactory.getSubjectService().getStudentChoosenedSubject((Student) user);
-        //还未确定老师！
-        if (subject == null) {
-            return;
-        }
-        String email = subject.getTeacher().getEmail();
-        PrintWriter out = response.getWriter();
+//        必然是老师
+        Teacher teacher = (Teacher) request.getSession(false).getAttribute("user");
         try {
-            out.write(email);
-            out.flush();
+            List<Thesis> unreadedThesises = ServiceFactory.getThesisService().getUnreadedThesises(teacher);
+            request.setAttribute("unreadedThesises", unreadedThesises);
+            request.getRequestDispatcher("/WEB-INF/jsp/teacher/list_thesis.jsp").forward(request,
+                    response);
         } catch (Exception e) {
-            out.close();
+            e.printStackTrace();
+            request.setAttribute("message", "获取出错");
+            request.getRequestDispatcher("/message.jsp").forward(request,
+                    response);
         }
     }
 

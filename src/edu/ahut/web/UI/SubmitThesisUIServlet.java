@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ahut.domain.Subject;
 import edu.ahut.domain.User;
+import edu.ahut.service.SubjectService;
 import edu.ahut.service.impl.ServiceFactory;
 
 /**
@@ -40,15 +41,26 @@ public class SubmitThesisUIServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User student = (User) request.getSession(false).getAttribute("user");
-        //FIXME 只有一个成对
-        Subject subject = ServiceFactory.getSubjectService().getStudentChoosenedSubject((Student) student);
+        String subjectId = request.getParameter("subjectId");
+        Subject subject = null;
+        SubjectService ss = ServiceFactory.getSubjectService();
+        //已指定subject
+        if (subjectId != null) {
+            subject = ss.getById(Integer.parseInt(subjectId));
+
+        }//根据学生找到对应的subject
+        else {
+            User student = (User) request.getSession(false).getAttribute("user");
+            subject = ServiceFactory.getSubjectService().getStudentChoosenedSubject((Student) student);
+        }
         if (subject == null) {
             request.setAttribute("message", "你还没有选择论文题目，请尽快联系导师！");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } else {
-            request.setAttribute("subject", subject);
+//            request.setAttribute("subject", subject);
+            //设置session，在submitThesisSevlet获取并销毁
+            request.getSession(false).setAttribute("subject", subject);
             request.getRequestDispatcher("/WEB-INF/jsp/submit_thesis.jsp").forward(
                     request, response);
         }

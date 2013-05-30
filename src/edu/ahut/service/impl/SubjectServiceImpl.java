@@ -18,9 +18,14 @@ import edu.ahut.service.SubjectService;
  * @date 2013-4-2
  *
  */
-public class SubjectServiceImpl implements SubjectService {
+public class SubjectServiceImpl extends BasicServiceImpl<Subject> implements SubjectService {
 
-    SubjectDao subjectdao = DaoFactory.getSubjectDao();
+    SubjectDao subjectdao = null;
+
+    public SubjectServiceImpl() {
+        subjectdao = DaoFactory.getSubjectDao();
+        basicDao = subjectdao;
+    }
 
     @Override
     public void addSubject(String title, String description, User teacher) {
@@ -39,17 +44,8 @@ public class SubjectServiceImpl implements SubjectService {
      */
     @Override
     public List<Subject> listAllSubject() {
-        //操作3个表，这个对象应该缓存
-
-        //其中包含的对象还没赋值
         List<Subject> subjects = subjectdao.getAllSubject();
 
-//        for (Subject subject : subjects) {
-//            Map<String, User> users = userDao.findUserBySubjectId(subject.getId());
-//            subject.setTeacher(users.get("teacher"));
-//            subject.setStudent(users.get("student"));
-//            subject.setTheses(thesisDao.getThesesBySbId(subject.getId()));
-//        }
         return subjects;
     }
 
@@ -76,5 +72,22 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public Subject getStudentChoosenedSubject(Student student) {
         return subjectdao.getStudentChoosenedSubject(student);
+    }
+
+    @Override
+    public List<Subject> findSubjectByUser(User user) {
+        if (user instanceof Student) {
+            return subjectdao.findSubjectByStudent((Student) user);
+        } else if (user instanceof Teacher) {
+            return subjectdao.findSubjectByTeacher((Teacher) user);
+        } //admin，可以看所有的
+        else {
+            return subjectdao.findAll();
+        }
+    }
+
+    @Override
+    public List<Subject> getUncheckedSubjects() {
+        return subjectdao.getUncheckedSubjects();
     }
 }

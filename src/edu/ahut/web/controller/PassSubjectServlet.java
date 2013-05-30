@@ -4,12 +4,10 @@
  */
 package edu.ahut.web.controller;
 
-import edu.ahut.domain.Student;
 import edu.ahut.domain.Subject;
-import edu.ahut.domain.User;
+import edu.ahut.service.SubjectService;
 import edu.ahut.service.impl.ServiceFactory;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Haven
  * @date May 30, 2013
  */
-public class GetMyTeacherEmail extends HttpServlet {
+public class PassSubjectServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -34,19 +32,27 @@ public class GetMyTeacherEmail extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User user = (User) request.getSession(false).getAttribute("user");
-        Subject subject = ServiceFactory.getSubjectService().getStudentChoosenedSubject((Student) user);
-        //还未确定老师！
-        if (subject == null) {
-            return;
-        }
-        String email = subject.getTeacher().getEmail();
-        PrintWriter out = response.getWriter();
+        String pass = request.getParameter("pass");
+        String subjectId = request.getParameter("id");
         try {
-            out.write(email);
-            out.flush();
+            SubjectService ss = ServiceFactory.getSubjectService();
+            Subject byId = ss.getById(Integer.parseInt(subjectId));
+            if ("true".equals(pass)) {
+                byId.setChecked(true);
+                ss.update(byId);
+                request.setAttribute("success", "成功通过" + byId.getTitle());
+            } else if ("false".equals(pass)) {
+                byId.setDescription(byId.getDescription() + "-----------------\r\n,请重新修改后在提交");
+                request.setAttribute("success", "成功拒绝" + byId.getTitle());
+            } else {
+                throw new IllegalArgumentException("别瞎点!");
+            }
+            request.getRequestDispatcher("/CheckSubjectServlet").forward(request, response);
         } catch (Exception e) {
-            out.close();
+            e.printStackTrace();
+            request.setAttribute("message", "修改出错");
+            request.getRequestDispatcher("/message.jsp").forward(request,
+                    response);
         }
     }
 

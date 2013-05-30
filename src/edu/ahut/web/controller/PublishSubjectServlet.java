@@ -50,9 +50,8 @@ public class PublishSubjectServlet extends HttpServlet {
         try {
             SubjectService subjectService = ServiceFactory.getSubjectService();
             subjectService.addSubject(title, description, u);
-            request.setAttribute("message", "添加成功");
-
-            request.getRequestDispatcher("/servlet/PublishSubjectUIServlet").forward(request,
+            request.setAttribute("message", "添加成功,请等待管理员审核!");
+            request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } catch (Exception e) {
             // 其他问题

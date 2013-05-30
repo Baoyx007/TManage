@@ -31,7 +31,7 @@
 
         <hr>
         <form
-            action="${pageContext.request.contextPath }/servlet/SubmitThesisServlet"
+            action="${pageContext.servletContext.contextPath }/servlet/SubmitThesisServlet"
             method="post" enctype="multipart/form-data">
             <table border="1" align="center">
                 <tr>
@@ -39,7 +39,7 @@
                     <td><input type="file" name="thesis" /></td>
                 </tr>
                 <tr>
-                    <th>给老师留言</th>
+                    <th>留言</th>
                     <td><textarea rows="10" cols="50" name="comment"></textarea></td>
                 </tr>
                 <tr>

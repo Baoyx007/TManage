@@ -65,7 +65,7 @@ public class SubjectDaoHibImpl extends BasicDaoHibImpl<Subject> implements Subje
     public User getTeacherByStudent(User user) {
         Session s = HibernateUtil.getCurrentSession();
         Query query = s.createQuery(
-                "from Subject as sb where sb.student=:student");
+                "from Subject as sb where sb.student=:student and sb.choosened=1");
         query.setParameter("student", user);
         Subject subject = (Subject) query.uniqueResult();
         Hibernate.initialize(subject.getTeacher());
@@ -82,4 +82,26 @@ public class SubjectDaoHibImpl extends BasicDaoHibImpl<Subject> implements Subje
         query.setMaxResults(20);
         return (Subject) query.uniqueResult();
     }
+
+    @Override
+    public List<Subject> findSubjectByTeacher(Teacher teacher) {
+        Session s = HibernateUtil.getCurrentSession();
+        Query query = s.createQuery(
+                "from Subject as sb where sb.teacher=:teacher");
+        query.setParameter("teacher", teacher);
+        query.setFirstResult(0);
+        query.setMaxResults(20);
+        return query.list();
+    }
+
+    @Override
+    public List<Subject> getUncheckedSubjects() {
+        Session s = HibernateUtil.getCurrentSession();
+        Query query = s.createQuery(
+                "from Subject as sb where sb.checked=0");
+        query.setFirstResult(0);
+        query.setMaxResults(20);
+        return query.list();
+    }
+
 }
