@@ -20,20 +20,18 @@ import javax.servlet.http.HttpServletRequest;
  * @date May 26, 2013
  */
 public class AuthorityFilter implements Filter {
-    
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
-    
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         //登陆界面
         String url = req.getRequestURI().toLowerCase();
         System.out.println(url);
-        if (url.endsWith(".png") || url.contains("login") || url.endsWith("tmanage/")) {
-            chain.doFilter(request, response);
-        } else {
+        if (url.endsWith("Servlet")) {
             if (req.getSession().getAttribute("user") == null) {
                 request.setAttribute("message", "尚未登陆");
                 request.getRequestDispatcher("/message.jsp").forward(request,
@@ -41,9 +39,11 @@ public class AuthorityFilter implements Filter {
             } else {
                 chain.doFilter(request, response);
             }
+        } else {
+            chain.doFilter(request, response);
         }
     }
-    
+
     @Override
     public void destroy() {
     }

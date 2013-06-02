@@ -3,6 +3,7 @@
  */
 package edu.ahut.domain;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ public class Subject {
     private String description;
     private Student student;
     private Teacher teacher;
+    private Date submitDate;
 //    被管理员check过
     private boolean checked;
     //学生老师已确定！
@@ -31,6 +33,14 @@ public class Subject {
 
     public Subject(int id) {
         this.id = id;
+    }
+
+    public Date getSubmitDate() {
+        return submitDate;
+    }
+
+    public void setSubmitDate(Date submitDate) {
+        this.submitDate = submitDate;
     }
 
     public boolean isChecked() {

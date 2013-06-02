@@ -8,7 +8,6 @@ import edu.ahut.dao.BulletinDao;
 import edu.ahut.domain.Bulletin;
 import edu.ahut.utils.HibernateUtil;
 import java.util.List;
-import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -54,5 +53,15 @@ public class BulletinDaoHibImpl implements BulletinDao {
         Session s = HibernateUtil.getSession();
         Bulletin b = (Bulletin) s.get(Bulletin.class, id);
         return b;
+    }
+
+    @Override
+    public List<Bulletin> getTop2() {
+        Session s = HibernateUtil.getCurrentSession();
+        Query query = s.createQuery(
+                "from Bulletin as b order by b.time desc ");
+        query.setFirstResult(0);
+        query.setMaxResults(2);
+        return query.list();
     }
 }

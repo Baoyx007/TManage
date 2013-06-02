@@ -1,18 +1,16 @@
 <%-- 
-    Document   : list_bulletin
-    Created on : May 14, 2013, 9:57:38 PM
+    Document   : index
+    Created on : Jun 1, 2013, 4:03:29 PM
     Author     : Haven
 --%>
 
 <%@page contentType="text/html" pageEncoding="utf-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="myContext" value="${pageContext.request.servletContext.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>所有公告</title>
+        <title>毕业设计管理系统</title>
         <meta charset="utf-8">
         <meta name="description" content="毕设">
         <meta name="author" content="haven">
@@ -25,9 +23,10 @@
             }
         </style>
         <link href="./css/bootstrap-responsive.css" rel="stylesheet">
-    </head>
-    <body >
 
+    </head>
+
+    <body>
         <!--header导航栏-->
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
@@ -70,72 +69,43 @@
             </div>
         </div>
 
-        <div class="container " >
-            <div class="row " >
-                <div class="span8 offset2"  >
-                    <h3 class="text-center">
-                        公告列表
-                    </h3>
-                    <table class="table table-striped table-hover text-center ">
-                        <thead>
-                            <tr>
-                                <th>
-                                    编号
-                                </th>
-                                <th>
-                                    主题
-                                </th>
-                                <th>
-                                    时间
-                                </th>
-                                <th>
-                                    操作
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${requestScope.bulletins }" var="bulletin" varStatus="status">
-                                <tr >
-                                    <td >${status.count}</td> 
-                                    <td><a href="${pageContext.servletContext.contextPath}/ShowBulletionUIServlet?id=${bulletin.id}"> ${bulletin.topic}</a></td> 
-                                    <td> <fmt:formatDate type="date"   value="${bulletin.time}" /></td>
-                                    <td>${user}</td>
-                                </tr>
+        <div class="container">
 
-                            </c:forEach>
-                        </tbody>
-                    </table>
+            <!-- Main hero unit for a primary marketing message or call to action -->
+            <div class="hero-unit">
+                <h1>毕业设计进度条</h1>
+                <p>一般进来看到大致的进度，登陆后可以看到详细的进度</p>
+                <div class="progress progress-striped active">
+                    <div class="bar" style="width: 50%;"></div>
+                </div>
+                <p><a href="#" class="btn btn-primary btn-large">详情 &raquo;</a></p>
+            </div>
+
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="span4">
+                    <h2>${top2[0].topic}</h2>
+                    <p>${top2[0].content}</p>
+                    <p><a class="btn" href="#">详情&raquo;</a></p>
+                </div>
+                <div class="span4">
+                    <h2>${top2[1].topic}</h2>
+                    <p>${top2[1].content}</p>
+                    <p><a class="btn" href="#">View details &raquo;</a></p>
+                </div>
+                <div class="span4">
+                    <a class="btn btn-info btn-large btn-block" href="${myContext}/ListBulletinServlet">更多公告</a>
                 </div>
             </div>
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="pagination pagination-right">
-                        <ul>
-                            <li>
-                                <a href="#">上一页</a>
-                            </li>
-                            <li>
-                                <a href="#">1</a>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#">5</a>
-                            </li>
-                            <li>
-                                <a href="#">下一页</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+            <hr>
+
+            <footer>
+                <p>&copy; Ahut By Haven 2013</p>
+            </footer>
+
+        </div> <!-- /container -->
+
     </body>
 </html>
+

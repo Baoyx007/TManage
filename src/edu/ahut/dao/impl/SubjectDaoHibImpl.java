@@ -98,7 +98,7 @@ public class SubjectDaoHibImpl extends BasicDaoHibImpl<Subject> implements Subje
     public List<Subject> getUncheckedSubjects() {
         Session s = HibernateUtil.getCurrentSession();
         Query query = s.createQuery(
-                "from Subject as sb where sb.checked=0");
+                "from Subject as sb where sb.checked=0 order by sb.submitDate asc");
         query.setFirstResult(0);
         query.setMaxResults(20);
         return query.list();

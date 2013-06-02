@@ -42,5 +42,8 @@ public interface SubjectDao extends BasicDao<Subject> {
 
     public Subject getStudentChoosenedSubject(Student student);
 
+    /**
+     * 按时间排序成队列
+     */
     public List<Subject> getUncheckedSubjects();
 }

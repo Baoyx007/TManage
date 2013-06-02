@@ -22,4 +22,6 @@ public interface BulletinService {
     public List<Bulletin> getAllBulletin();
 
     public Bulletin getBulletinById(int id);
+
+    public List<Bulletin> getTop2();
 }

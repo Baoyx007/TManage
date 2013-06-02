@@ -49,7 +49,7 @@
             第二阶段：        <a
                 href="${myContext}/servlet/SubmitThesisUIServlet">提交论文</a>
             <a href="${myContext}/servlet/ShowThesisInfoServlet?userId=${user.id}">已提交的论文</a>
-            <a href="#">提交周志</a>
+            <a href="${myContext}/SubmitJournalUIServlet">提交周志</a>
             <br>
             联系：
             <a href="mailto:<jsp:include page="/GetMyTeacherEmail" />">联系老师(email)</a>

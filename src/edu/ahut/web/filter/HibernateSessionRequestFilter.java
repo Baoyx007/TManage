@@ -114,6 +114,7 @@ public class HibernateSessionRequestFilter implements Filter {
      */
     @Override
     public void destroy() {
+           HibernateUtil.getSessionFactory().close(); // Free all resources
     }
 
     /**

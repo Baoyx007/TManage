@@ -5,86 +5,61 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>登陆</title>
+        <!-- Le styles -->
+        <link href="./css/bootstrap.css" rel="stylesheet">
         <style type="text/css">
             body {
-                background: #0d7bd5 url('img/glow.png') no-repeat center center;
-                height: 100%;
+                padding-top: 60px;
+                padding-bottom: 40px;
+                background: #0d7bd5 url('./img/glow.png') no-repeat center center;
                 color: rgba(255, 255, 255, .8);
-                font-size: 14px;
-                text-align: center;
             }
-
-            table {
-                margin: 100px auto auto auto;
-            }
-
-            .textbox {
-                display: inline-block;
-                width: 248px;
-                padding: 10px;
-                margin: 9px 0 9px;
-                font-size: 14px;
-                line-height: 18px;
-                background: #e8f4fc;
-                border: 1px solid #0d7bd5;
-                color: #888;
-                cursor: text;
-                box-shadow: 0 1px 0 rgba(255, 255, 255, .3), 0 1px 3px rgba(0, 0, 0, .3)
-                    inset;
-                background-clip: padding-box;
+            .form-signin {
+                max-width: 300px;
+                padding: 19px 29px 29px;
+                margin: 0 auto 20px;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
                 border-radius: 5px;
+                -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
             }
-
-            .button {
-                background: #1e95e5;
-                color: #b7d4ec;
-                color: rgba(255, 255, 255, .8);
-                box-shadow: 0 1px 0 rgba(0, 0, 0, .05), 0 1px 0 rgba(255, 255, 255, .15)
-                    inset;
-                border: 1px solid #147dcd;
-                cursor: pointer;
-                display: inline-block;
-                font-size: 14px;
-                line-height: 18px;
-                text-shadow: 0 1px 0 rgba(0, 0, 0, .2);
-                padding: 6px 15px;
-                text-align: center;
-                vertical-align: middle;
-                border-radius: 5px;
-                float: right;
-                -webkit-appearance: none;
+            .form-signin .form-signin-heading,
+            .form-signin .checkbox {
+                margin-bottom: 10px;
             }
-
-            .text {
-                font-size: 14px;
+            .form-signin input[type="text"],
+            .form-signin input[type="password"] {
+                font-size: 16px;
+                height: auto;
+                margin-bottom: 15px;
+                padding: 7px 9px;
             }
         </style>
+        <link href="./css/bootstrap-responsive.css" rel="stylesheet">
     </head>
     <body>
         <br>
+        <br> <div class="container" align="center">
+            <img src="img/title.png" />   </div>
         <br>
         <br>
         <br>
-        <br>
-        <br>
-        <img src="img/title.png"></img>
-        <form action="${pageContext.servletContext.contextPath }/servlet/LoginServlet"
-              method="post">
-            <table>
-                <tr>
-                    <td class="text">用户名:</td>
-                    <td><input class="textbox" type="text" name="username" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text">密码:</td>
-                    <td><input class="textbox" type="password" name="password" />
-                    </td>
-                </tr>
-                <tr>
-                    <td><input class="button" type="submit" value="登陆" /></td>
-                </tr>
-            </table>
-        </form>
+        <div class="container">
+            <form class="form-signin" action="${pageContext.servletContext.contextPath }/LoginServlet"
+                  method="post">
+                <input type="text" class="input-block-level" name="username" placeholder="用户名">
+                <input type="password" class="input-block-level" name="password" placeholder="密码">
+                <label class="checkbox">
+                    <input type="checkbox" value="remember-me"> 记住我
+                </label>
+                <button class="btn  btn-primary" type="submit">登陆</button>
+            </form>
+
+        </div>
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="./bootstrap/js/jquery.js"></script>
+        <script src="./bootstrap/js/bootstrap.js"></script>
     </body>
 </html>

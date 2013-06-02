@@ -19,6 +19,12 @@
         <a href="${pageContext.servletContext.contextPath}/PublishBulletinUIServlet">发布公告</a>, 
         <a href="${pageContext.servletContext.contextPath}/ListBulletinServlet">所有公告</a><br>
         <a href="${pageContext.servletContext.contextPath}/CheckSubjectServlet">审核论题</a>
+     
+        <a href="">毕业设计系统设置(选题开始，结束，中期检查，查看论文)</a>
+        <a href="">写到xml中？数据库中？选题开放，选题结束，答辩等时间</a>
+        <br>
+        <a href="">答辩安排</a>
+        
         <hr>
         测试：<br>
         管理员：${user}

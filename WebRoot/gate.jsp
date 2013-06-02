@@ -8,5 +8,5 @@
     <c:when test="${user!=null and user.getClass().simpleName=='Student' }"><jsp:forward page="/StudentIndexUIServlet"/></c:when>
     <c:when test="${user!=null and user.getClass().simpleName=='Admin' }"><jsp:forward page="/BackIndexUIServlet"/></c:when>
     <c:when test="${user!=null and user.getClass().simpleName=='Teacher' }"><jsp:forward page="/TeacherIndexUIServlet"/></c:when>
-    <c:otherwise><jsp:forward page="/LoginUIServlet"/></c:otherwise>
+    <c:otherwise><jsp:forward page="/CommonIndexUIServlet"/></c:otherwise>
 </c:choose> 

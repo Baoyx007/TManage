@@ -177,10 +177,14 @@
         <servlet-name>PassSubjectServlet</servlet-name>
         <servlet-class>edu.ahut.web.controller.PassSubjectServlet</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/servlet/LoginServlet</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>SubmitJournalUIServlet</servlet-name>
+        <servlet-class>edu.ahut.web.UI.SubmitJournalUIServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CommonIndexUIServlet</servlet-name>
+        <servlet-class>edu.ahut.web.UI.CommonIndexUIServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/servlet/LogoutServlet</url-pattern>
@@ -325,7 +329,30 @@
         <servlet-name>PassSubjectServlet</servlet-name>
         <url-pattern>/PassSubjectServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubmitJournalUIServlet</servlet-name>
+        <url-pattern>/SubmitJournalUIServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CommonIndexUIServlet</servlet-name>
+        <url-pattern>/CommonIndexUIServlet</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>gate.jsp</welcome-file>
     </welcome-file-list>
+    <jsp-config>
+        <jsp-property-group>
+            <display-name>common</display-name>
+            <url-pattern>*.jsp</url-pattern>
+            <el-ignored>false</el-ignored>
+            <scripting-invalid>false</scripting-invalid>
+            <is-xml>false</is-xml>
+            <include-prelude>/header.jsp</include-prelude>
+            <include-coda>/footer.html</include-coda>
+        </jsp-property-group>
+    </jsp-config>
 </web-app>

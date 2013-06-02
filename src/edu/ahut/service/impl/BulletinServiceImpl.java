@@ -69,4 +69,9 @@ public class BulletinServiceImpl implements BulletinService {
     public Bulletin getBulletinById(int id) {
         return bulletinDao.getBulletinById(id);
     }
+
+    @Override
+    public List<Bulletin> getTop2() {
+        return bulletinDao.getTop2();
+    }
 }

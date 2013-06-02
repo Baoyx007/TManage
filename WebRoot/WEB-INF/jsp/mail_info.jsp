@@ -12,16 +12,17 @@
         <title>JSP Page</title>
         <script src="js/ckeditor/ckeditor.js"></script>
     </head>
-    <body>
+    <body style="width: 60%">
         发件人:${mail.sendUser.name}
         <hr>
         收件人:${mail.recvUser.name}
         <hr>
         主题：<strong>${mail.topic}</strong>——${mail.sendTime}
         <hr>
-        <textarea id="content" name="content" contenteditable="true" >${mail.content}</textarea>
+        <div id="content" name="content" contenteditable="false" >${mail.content}</div>
         <script>
-            CKEDITOR.replace('content');
+            CKEDITOR.disableAutoInline = true;
+            CKEDITOR.inline('content');
         </script>
         <br> 
         <a href="${pageContext.servletContext.contextPath}/ListMailServlet" >返回</a>

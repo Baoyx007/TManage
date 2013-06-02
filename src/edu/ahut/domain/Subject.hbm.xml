@@ -9,6 +9,7 @@
         <property name="description" />
         <property name="checked" type="boolean"  />
         <property name="choosened"  type="boolean" />
+        <property name="submitDate"   />
         <many-to-one name="student" column="student_id" />
         <many-to-one name="teacher" column="teacher_id" />
         <bag name="theses" inverse="true" order-by="submit_date desc" >

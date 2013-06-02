@@ -21,4 +21,6 @@ public interface BulletinDao {
     public Bulletin fillAdmin(Bulletin bulletin);
 
     public Bulletin getBulletinById(int id);
+
+    public List<Bulletin> getTop2();
 }

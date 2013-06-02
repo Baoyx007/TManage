@@ -5,6 +5,7 @@ package edu.ahut.dao.impl;
 
 import edu.ahut.dao.BasicDao;
 import edu.ahut.dao.BulletinDao;
+import edu.ahut.dao.JournalDao;
 import edu.ahut.dao.MailDao;
 import edu.ahut.dao.SubjectDao;
 import edu.ahut.dao.ThesisDao;
@@ -39,5 +40,9 @@ public class DaoFactory {
 
     public static BasicDao getBasicDao() {
         return new BasicDaoHibImpl();
+    }
+    
+      public static JournalDao getJournalDao() {
+        return new JournalDaoHibImpl();
     }
 }
