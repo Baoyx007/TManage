@@ -99,7 +99,7 @@
                                     <td >${status.count}</td> 
                                     <td><a href="${pageContext.servletContext.contextPath}/ShowBulletionUIServlet?id=${bulletin.id}"> ${bulletin.topic}</a></td> 
                                     <td> <fmt:formatDate type="date"   value="${bulletin.time}" /></td>
-                                    <td>${user}</td>
+                                    <td><a href="${myContext}/DeleteBulletinServlet?id=${bulletin.id}">删除</a>/<a href="${myContext}/PublishBulletinUIServlet?id=${bulletin.id}">修改</a></td>
                                 </tr>
 
                             </c:forEach>

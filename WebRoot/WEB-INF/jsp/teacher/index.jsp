@@ -42,18 +42,24 @@
 
 
         <!--老师-->
-        <a href="${myContext}/servlet/PublishSubjectUIServlet">发布论文题目</a>
-        <a href="${myContext}/servlet/ListSubjectServlet">已发布的论文题目</a>
+        论题管理：
+        <a href="${myContext}/servlet/PublishSubjectUIServlet">发布论文题目（增）</a>
+        <a href="${myContext}/servlet/ListSubjectServlet">已发布的论文题目（删,改）</a>
+        <a href="#">已被选的论文题目</a><br>
+        论文管理：
         <a href="${myContext}/GetUnreadedThesisServlet">查看尚未审阅的论文</a>
+        <a href="#">查看论文终稿</a>
+        <a href="#">查看学生周志</a>
 
         <br>
         联系：
         <a href="mailto:XXX">联系学生(email)</a>
         //
         <a target="_blank" href="javascript:;" onclick="openwin();">联系学生(站内信)</a>
-        <a href="#">给管理员提意见(留言板)</a>
         <a href="${myContext}/ListMailServlet">站内信<SUP><strong><jsp:include page="/GetUnreadMailCount" /> </strong></SUP></a>
-
+        <br>  答辩：
+        <a href="#">查看安排</a>
+        <a href="#">开始答辩</a>
 
         <hr>
         进度:黑点(可供点)对应上一览的链接

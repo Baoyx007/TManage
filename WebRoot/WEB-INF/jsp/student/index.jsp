@@ -27,11 +27,11 @@
         <div style="text-align:right;">
             <c:choose>
                 <c:when test="${user !=null}">欢迎你：<a href="${pageContext.request.servletContext.contextPath }/UserInfoServlet?userId=${user.id}">${user.name }</a>。 <a>设置</a>|<a
-                        href="${myContext}/servlet/LogoutServlet">注销</a>
+                        href="${myContext}/LogoutServlet">注销</a>
                 </c:when>
                 <c:otherwise>
                     <a
-                        href="${myContext}/servlet/RegisterUIServlet">注册</a>
+                        href="${myContext}/RegisterUIServlet">注册</a>
                     <a href="${myContext}/LoginUIServlet">登陆</a>
                     <br>
                 </c:otherwise>
@@ -49,17 +49,17 @@
             第二阶段：        <a
                 href="${myContext}/servlet/SubmitThesisUIServlet">提交论文</a>
             <a href="${myContext}/servlet/ShowThesisInfoServlet?userId=${user.id}">已提交的论文</a>
-            <a href="${myContext}/SubmitJournalUIServlet">提交周志</a>
+            <a href="${myContext}/SubmitJournalUIServlet">周志</a>
             <br>
             联系：
             <a href="mailto:<jsp:include page="/GetMyTeacherEmail" />">联系老师(email)</a>
             //
             <a target="_blank" href="javascript:;" onclick="openwin();">联系老师(站内信)</a>
-            <a href="#">给管理员提意见(留言板)</a>
             <a href="${myContext}/ListMailServlet">站内信<SUP><strong><jsp:include page="/GetUnreadMailCount" /> </strong></SUP></a>
             <br>
             答辩阶段：<a href="#">查看成绩</a>
             <a href="#">查看答辩安排</a>
+            <a href="#">提交终稿</a>
 
         </c:if>
 

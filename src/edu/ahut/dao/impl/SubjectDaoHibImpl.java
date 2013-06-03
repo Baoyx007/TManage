@@ -104,4 +104,32 @@ public class SubjectDaoHibImpl extends BasicDaoHibImpl<Subject> implements Subje
         return query.list();
     }
 
+    @Override
+    public List<Teacher> getTeachersByStudents(List<Student> students) {
+        Session s = HibernateUtil.getCurrentSession();
+        Query query = s.createQuery(
+                "select sb.teacher from Subject as sb where sb.choosened=1 and sb.student in (:students) ");
+        query.setParameterList("students", students);
+        return query.list();
+    }
+
+    @Override
+    public List<Subject> getCheckedSubjects() {
+        Session s = HibernateUtil.getCurrentSession();
+        Query query = s.createQuery(
+                "from Subject as sb where sb.checked=1 order by sb.submitDate asc");
+        query.setFirstResult(0);
+        query.setMaxResults(20);
+        return query.list();
+    }
+
+    @Override
+    public List<Subject> getSubjectsByName(String name) {
+        Session s = HibernateUtil.getCurrentSession();
+        Query query = s.createQuery("from Subject as sb where sb.title like :name");
+        query.setString("name", "%" + name + "%");
+        query.setFirstResult(0);
+        query.setMaxResults(20);
+        return query.list();
+    }
 }

@@ -90,4 +90,18 @@ public class SubjectServiceImpl extends BasicServiceImpl<Subject> implements Sub
     public List<Subject> getUncheckedSubjects() {
         return subjectdao.getUncheckedSubjects();
     }
+
+    @Override
+    public List<Subject> getCheckedSubjects() {
+        return subjectdao.getCheckedSubjects();
+    }
+
+    @Override
+    public void updateSubject(int id, String title, String description, User teacher) {
+        Subject subject = new Subject(id);
+        subject.setTitle(title);
+        subject.setDescription(description);
+        subject.setTeacher((Teacher) teacher);
+        subjectdao.update(subject);
+    }
 }

@@ -14,10 +14,12 @@ import java.util.List;
  * @date 2013-4-2
  *
  */
-public interface SubjectService extends BasicService<Subject>{
+public interface SubjectService extends BasicService<Subject> {
     // 老师添加一个论文题目
 
     public void addSubject(String title, String description, User teacher);
+
+    public void updateSubject(int id, String title, String description, User teacher);
 
     // 察看所有论文题目和对应个老师名
     public List<Subject> listAllSubject();
@@ -38,6 +40,8 @@ public interface SubjectService extends BasicService<Subject>{
     //返回每个人提交的
     //admin返回所有的
     public List<Subject> findSubjectByUser(User user);
-    
-     public List<Subject> getUncheckedSubjects();
+
+    public List<Subject> getUncheckedSubjects();
+
+    public List<Subject> getCheckedSubjects();
 }

@@ -3,8 +3,9 @@
  */
 package edu.ahut.service;
 
-import edu.ahut.domain.Admin;
+import edu.ahut.domain.Student;
 import edu.ahut.domain.User;
+import java.util.List;
 
 /**
  * @author Haven
@@ -23,4 +24,8 @@ public interface UserService {
     public void update(User user);
 
     public User getUserById(int id);
+
+    public List<Student> getAllStudents();
+
+    public int getAllStudentCount();
 }

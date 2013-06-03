@@ -8,6 +8,7 @@ import edu.ahut.domain.Admin;
 import edu.ahut.domain.Bulletin;
 import edu.ahut.service.BulletinService;
 import edu.ahut.service.impl.ServiceFactory;
+import edu.ahut.utils.ServiceUtils;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +34,7 @@ public class SubmitBulletinServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String id = request.getParameter("id");
         String topic = request.getParameter("topic");
         String content = request.getParameter("content");
         String attachment = request.getParameter("attachment");
@@ -57,17 +59,25 @@ public class SubmitBulletinServlet extends HttpServlet {
                 if (bulletin != null) {
                     //移除session中的bulletin
                     request.getSession().removeAttribute("bulletin");
-                } //2、直接提交的
-                else {
-                    bulletin = bulletinService.newBulletin(topic, content, attachment, (Admin) request.getSession().getAttribute("user"));
+                    bulletinService.save(bulletin);
+                    response.sendRedirect(request.getContextPath() + "/ListBulletinServlet");
+                } else {
+                    if (ServiceUtils.checkStringParam(id)) {
+                        //、修改的
+                        bulletin = bulletinService.newBulletin(Integer.parseInt(id), topic, content, attachment, (Admin) request.getSession().getAttribute("user"));
+                        bulletinService.update(bulletin);
+                        response.sendRedirect(request.getContextPath() + "/ListBulletinServlet");
+                    } else {
+                        //、直接提交的
+                        bulletin = bulletinService.newBulletin(topic, content, attachment, (Admin) request.getSession().getAttribute("user"));
+                        bulletinService.save(bulletin);
+                        response.sendRedirect(request.getContextPath() + "/ListBulletinServlet");
+                    }
                 }
-
-                //已获得bulletin
-                //存数据库
-                bulletinService.saveBulletin(bulletin, (Admin) request.getSession().getAttribute("user"));
-                response.sendRedirect(request.getContextPath() + "/ListBulletinServlet");
+                
             }
         } catch (Exception e) {
+            e.printStackTrace();
             request.setAttribute("message", e.getMessage());
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);

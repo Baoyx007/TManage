@@ -12,6 +12,7 @@
         <property name="email"/>
         <property name="phone" />
         <property name="comment" />
+        <many-to-one name="answerGroup" column="group_id"/>
         <bag name="inBoxMails" inverse="true">
             <key column="recv_user"/>   
             <one-to-many class="edu.ahut.domain.Mail"/>

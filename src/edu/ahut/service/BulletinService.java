@@ -13,9 +13,11 @@ import java.util.List;
  * @author Haven
  * @date May 14, 2013
  */
-public interface BulletinService {
+public interface BulletinService extends BasicService<Bulletin> {
 
     public Bulletin newBulletin(String topic, String content, String Attachment, Admin admin);
+
+    public Bulletin newBulletin(int id, String topic, String content, String Attachment, Admin admin);
 
     public void saveBulletin(Bulletin bulletin, Admin admin);
 

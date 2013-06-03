@@ -26,12 +26,21 @@ public abstract class User {
     private String comment;
     //one-2-many
     private List<Mail> inBoxMails;
+    private AnswerGroup answerGroup;
 
     public User() {
     }
 
     public User(int id) {
         this.id = id;
+    }
+
+    public AnswerGroup getAnswerGroup() {
+        return answerGroup;
+    }
+
+    public void setAnswerGroup(AnswerGroup answerGroup) {
+        this.answerGroup = answerGroup;
     }
 
     public List<Mail> getInBoxMails() {
@@ -41,7 +50,6 @@ public abstract class User {
     public void setInBoxMails(List<Mail> inBoxMails) {
         this.inBoxMails = inBoxMails;
     }
-    
 
     public int getId() {
         return id;

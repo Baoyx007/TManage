@@ -23,6 +23,10 @@ public class Bulletin {
     public Bulletin() {
     }
 
+    public Bulletin(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

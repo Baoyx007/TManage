@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-    <display-name/>
     <filter>
         <filter-name>GeneralFilter</filter-name>
         <filter-class>edu.ahut.web.filter.GeneralFilter</filter-class>
@@ -185,46 +184,18 @@
         <servlet-name>CommonIndexUIServlet</servlet-name>
         <servlet-class>edu.ahut.web.UI.CommonIndexUIServlet</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>LogoutServlet</servlet-name>
-        <url-pattern>/servlet/LogoutServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RegisterUIServlet</servlet-name>
-        <url-pattern>/servlet/RegisterUIServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RegisterServlet</servlet-name>
-        <url-pattern>/servlet/RegisterServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>PublishSubjectUIServlet</servlet-name>
-        <url-pattern>/servlet/PublishSubjectUIServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>PublishSubjectServlet</servlet-name>
-        <url-pattern>/servlet/PublishSubjectServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ListSubjectServlet</servlet-name>
-        <url-pattern>/servlet/ListSubjectServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SelectSubjectServlet</servlet-name>
-        <url-pattern>/servlet/SelectSubjectServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SubmitThesisUIServlet</servlet-name>
-        <url-pattern>/servlet/SubmitThesisUIServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SubmitThesisServlet</servlet-name>
-        <url-pattern>/servlet/SubmitThesisServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ShowThesisInfoServlet</servlet-name>
-        <url-pattern>/servlet/ShowThesisInfoServlet</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>SetSystemConfigServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.SetSystemConfigServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SystemConfigUIServlet</servlet-name>
+        <servlet-class>edu.ahut.web.UI.SystemConfigUIServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteBulletinServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.DeleteBulletinServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DownloadThesisServlet</servlet-name>
         <url-pattern>/DownloadThesisServlet</url-pattern>
@@ -341,6 +312,58 @@
         <servlet-name>CommonIndexUIServlet</servlet-name>
         <url-pattern>/CommonIndexUIServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetSystemConfigServlet</servlet-name>
+        <url-pattern>/SetSystemConfigServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SystemConfigUIServlet</servlet-name>
+        <url-pattern>/SystemConfigUIServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteBulletinServlet</servlet-name>
+        <url-pattern>/DeleteBulletinServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterUIServlet</servlet-name>
+        <url-pattern>/RegisterUIServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/RegisterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PublishSubjectUIServlet</servlet-name>
+        <url-pattern>/PublishSubjectUIServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PublishSubjectServlet</servlet-name>
+        <url-pattern>/PublishSubjectServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListSubjectServlet</servlet-name>
+        <url-pattern>/ListSubjectServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SelectSubjectServlet</servlet-name>
+        <url-pattern>/SelectSubjectServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubmitThesisUIServlet</servlet-name>
+        <url-pattern>/SubmitThesisUIServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubmitThesisServlet</servlet-name>
+        <url-pattern>/SubmitThesisServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowThesisInfoServlet</servlet-name>
+        <url-pattern>/ShowThesisInfoServlet</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>gate.jsp</welcome-file>
     </welcome-file-list>
@@ -355,4 +378,5 @@
             <include-coda>/footer.html</include-coda>
         </jsp-property-group>
     </jsp-config>
+    <absolute-ordering/>
 </web-app>

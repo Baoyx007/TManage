@@ -6,6 +6,7 @@ package edu.ahut.dao;
 import edu.ahut.domain.Admin;
 import edu.ahut.domain.Student;
 import edu.ahut.domain.User;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Map;
  * @date 2013-3-20
  *
  */
-public interface UserDao extends BasicDao<User>{
+public interface UserDao extends BasicDao<User> {
 
     //FIXME  不应该重复创建unit和qualif
     public void addStudent(Student student);
@@ -39,4 +40,8 @@ public interface UserDao extends BasicDao<User>{
     public User loadAllInfo(User user);
 
     public void fillPhoto(String id, String photo);
+
+    public List<Student> getAllStudents();
+
+    public Long getAllStudentCount();
 }

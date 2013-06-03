@@ -4,6 +4,8 @@
  */
 package edu.ahut.web.UI;
 
+import edu.ahut.domain.Bulletin;
+import edu.ahut.service.impl.ServiceFactory;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,8 +31,21 @@ public class PublishBulletinUIServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/jsp/admin/publish_bulletin.jsp").forward(request,
-                response);
+        String id = request.getParameter("id");
+        try {
+            if (id != null) {
+                Bulletin byId = ServiceFactory.getBulletinService().getById(Integer.parseInt(id));
+                request.setAttribute("bulletin", byId);
+            }
+            request.getRequestDispatcher("/WEB-INF/jsp/admin/publish_bulletin.jsp").forward(request,
+                    response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("message", "显示发布界面出错");
+            request.getRequestDispatcher("/message.jsp").forward(request,
+                    response);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

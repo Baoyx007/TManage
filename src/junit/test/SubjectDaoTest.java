@@ -98,6 +98,25 @@ public class SubjectDaoTest {
         }
     }
 
+    @Test
+    public void testGetTeachersByStudents() {
+        List<Student> allStudents = DaoFactory.getUserDao().getAllStudents();
+        List<Teacher> teachersByStudents = subjectDao.getTeachersByStudents(allStudents);
+        for (Iterator<Teacher> it = teachersByStudents.iterator(); it.hasNext();) {
+            Teacher teacher = it.next();
+            System.out.println(teacher.getName());
+        }
+    }
+
+    @Test
+    public void testFindByName() {
+        List<Subject> subjectsByName = subjectDao.getSubjectsByName("tes");
+        for (Iterator<Subject> it = subjectsByName.iterator(); it.hasNext();) {
+            Subject subject = it.next();
+            System.out.println(subject.getTitle());
+        }
+    }
+
     @After
     public void cleanUp() {
         HibernateUtil.getCurrentSession().getTransaction().commit();

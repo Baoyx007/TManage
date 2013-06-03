@@ -10,8 +10,8 @@ import edu.ahut.domain.Student;
 import edu.ahut.domain.Teacher;
 import edu.ahut.domain.User;
 import edu.ahut.utils.HibernateUtil;
+import java.util.List;
 import java.util.Map;
-import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -94,5 +94,20 @@ public class UserDaoHibImpl extends BasicDaoHibImpl<User> implements UserDao {
     @Override
     public User loadAllInfo(User user) {
         return findUser(user.getId(), true);
+    }
+
+    @Override
+    public List<Student> getAllStudents() {
+        Session s = HibernateUtil.getCurrentSession();
+        Query query = s.createQuery(
+                "from Student");
+        return query.list();
+    }
+
+    @Override
+    public Long getAllStudentCount() {
+        Session s = HibernateUtil.getCurrentSession();
+        Query query = s.createQuery("SELECT COUNT(*) from Student");
+        return  (Long) query.uniqueResult();
     }
 }

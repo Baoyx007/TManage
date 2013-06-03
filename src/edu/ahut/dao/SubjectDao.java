@@ -46,4 +46,10 @@ public interface SubjectDao extends BasicDao<Subject> {
      * 按时间排序成队列
      */
     public List<Subject> getUncheckedSubjects();
+
+    public List<Subject> getCheckedSubjects();
+
+    public List<Teacher> getTeachersByStudents(List<Student> students);
+
+    public List<Subject> getSubjectsByName(String name);
 }

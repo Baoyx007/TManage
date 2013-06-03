@@ -19,6 +19,7 @@ import edu.ahut.utils.HibernateUtil;
 import edu.ahut.utils.ServiceUtils;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 
@@ -40,7 +41,6 @@ public class UserDaoTest {
     public void setUp() throws Exception {
         HibernateUtil.getCurrentSession().beginTransaction();
         userDao = DaoFactory.getUserDao();
-
     }
 
     @Test
@@ -132,6 +132,21 @@ public class UserDaoTest {
     public void findAdmin() {
 //        Admin_bak admin = userDao.findAdmin("byx", ServiceUtils.md5("123"));
 //        System.out.println(admin);
+    }
+
+    @Test
+    public void testGetStudentCount() {
+        Long allStudentCount = userDao.getAllStudentCount();
+        System.out.println(allStudentCount);
+    }
+
+    @Test
+    public void testGetAllStudent() {
+        List<Student> allStudents = userDao.getAllStudents();
+        for (Iterator<Student> it = allStudents.iterator(); it.hasNext();) {
+            Student student = it.next();
+            System.out.println(student.getName());
+        }
     }
 
     @After

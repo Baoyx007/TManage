@@ -36,14 +36,12 @@ public class HibernateSessionRequestFilter implements Filter {
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         sf.getCurrentSession().beginTransaction();
-        System.out.println("beginTransaction");
     }
 
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (sf.getCurrentSession().getTransaction().isActive()) {
             sf.getCurrentSession().getTransaction().commit();
-            System.out.println("commit");
         }
     }
 
@@ -114,7 +112,7 @@ public class HibernateSessionRequestFilter implements Filter {
      */
     @Override
     public void destroy() {
-           HibernateUtil.getSessionFactory().close(); // Free all resources
+        HibernateUtil.getSessionFactory().close(); // Free all resources
     }
 
     /**

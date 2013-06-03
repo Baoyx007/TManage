@@ -16,8 +16,8 @@ import org.hibernate.Session;
  * @author Haven
  * @date May 26, 2013
  */
-public class BulletinDaoHibImpl implements BulletinDao {
-
+public class BulletinDaoHibImpl extends BasicDaoHibImpl<Bulletin> implements BulletinDao {
+    
     @Override
     public void saveBulletin(Bulletin bulletin) {
 //        try {
@@ -30,7 +30,7 @@ public class BulletinDaoHibImpl implements BulletinDao {
 //            }
 //        }
     }
-
+    
     @Override
     public List<Bulletin> getAllBulletin() {
         Session s = HibernateUtil.getCurrentSession();
@@ -42,19 +42,19 @@ public class BulletinDaoHibImpl implements BulletinDao {
         query.setMaxResults(20);
         return query.list();
     }
-
+    
     @Override
     public Bulletin fillAdmin(Bulletin bulletin) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public Bulletin getBulletinById(int id) {
         Session s = HibernateUtil.getSession();
         Bulletin b = (Bulletin) s.get(Bulletin.class, id);
         return b;
     }
-
+    
     @Override
     public List<Bulletin> getTop2() {
         Session s = HibernateUtil.getCurrentSession();

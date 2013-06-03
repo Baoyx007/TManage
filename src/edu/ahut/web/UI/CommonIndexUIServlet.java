@@ -7,7 +7,6 @@ package edu.ahut.web.UI;
 import edu.ahut.domain.Bulletin;
 import edu.ahut.service.impl.ServiceFactory;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

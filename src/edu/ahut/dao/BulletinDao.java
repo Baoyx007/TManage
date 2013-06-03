@@ -12,15 +12,15 @@ import java.util.List;
  * @author Haven
  * @date May 14, 2013
  */
-public interface BulletinDao {
-
+public interface BulletinDao extends BasicDao<Bulletin> {
+    
     public void saveBulletin(Bulletin bulletin);
-
+    
     public List<Bulletin> getAllBulletin();
-
+    
     public Bulletin fillAdmin(Bulletin bulletin);
-
+    
     public Bulletin getBulletinById(int id);
-
+    
     public List<Bulletin> getTop2();
 }

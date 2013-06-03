@@ -12,9 +12,9 @@
         <form
             action="${pageContext.request.servletContext.contextPath }/servlet/PublishSubjectServlet"
             method="post">
-            题目:
-            <input type="text" name="title" />
-            <textarea id="description" rows="10" cols="100" name="description">在这里输入描述</textarea>
+            <input type="hidden" name="id" value="${subject.id}"/>
+            题目:<input type="text" name="title" value="${subject.title}"  />
+            <textarea id="description" rows="10" cols="100" name="description">${subject.description}</textarea>
             <script>
                 CKEDITOR.replace('description');
             </script>

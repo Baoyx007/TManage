@@ -3,6 +3,7 @@
  */
 package edu.ahut.service.impl;
 
+import edu.ahut.service.AnswerGroupService;
 import edu.ahut.service.BulletinService;
 import edu.ahut.service.JournalService;
 import edu.ahut.service.MailService;
@@ -36,8 +37,12 @@ public class ServiceFactory {
     public static MailService getMailService() {
         return new MailServiceImpl();
     }
-    
-      public static JournalService getJournalService() {
+
+    public static JournalService getJournalService() {
         return new JournalServiceImpl();
+    }
+
+    public static AnswerGroupService getAnswerGroupService() {
+        return new AnswerGroupServiceImpl();
     }
 }

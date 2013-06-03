@@ -18,9 +18,14 @@ import java.util.List;
  * @author Haven
  * @date May 14, 2013
  */
-public class BulletinServiceImpl implements BulletinService {
+public class BulletinServiceImpl extends BasicServiceImpl<Bulletin> implements BulletinService {
 
-    private BulletinDao bulletinDao = DaoFactory.getBulletinDao();
+    private BulletinDao bulletinDao = null;
+
+    public BulletinServiceImpl() {
+        bulletinDao = DaoFactory.getBulletinDao();
+        basicDao = bulletinDao;
+    }
 
     @Override
     public Bulletin newBulletin(String topic, String content, String Attachment, Admin admin) {
@@ -73,5 +78,23 @@ public class BulletinServiceImpl implements BulletinService {
     @Override
     public List<Bulletin> getTop2() {
         return bulletinDao.getTop2();
+    }
+
+    @Override
+    public Bulletin newBulletin(int id, String topic, String content, String Attachment, Admin admin) {
+        if (!ServiceUtils.checkStringParam(topic, content)) {
+            throw new IllegalArgumentException("主题和内容不能为空！");
+        }
+        if (admin == null) {
+            throw new IllegalArgumentException("尚未登陆！");
+        }
+        Bulletin bulletin = new Bulletin(id);
+        bulletin.setContent(content);
+        bulletin.setTopic(topic);
+        bulletin.setAttachment(Attachment);
+        bulletin.setTime(new Date());
+        bulletin.setAdmin(admin);
+
+        return bulletin;
     }
 }

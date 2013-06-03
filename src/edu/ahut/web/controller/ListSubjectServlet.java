@@ -3,6 +3,7 @@
  */
 package edu.ahut.web.controller;
 
+import edu.ahut.domain.Admin;
 import edu.ahut.domain.Student;
 import java.io.IOException;
 
@@ -60,7 +61,9 @@ public class ListSubjectServlet extends HttpServlet {
                     }
                 }
                 //未选过，显示所有
-                findSubjectByUser = ss.listAllSubject();
+                findSubjectByUser = ss.getCheckedSubjects();
+            } else if(user instanceof Admin) {
+                findSubjectByUser = ss.getCheckedSubjects();
             }
             request.setAttribute("subjects", findSubjectByUser);
             request.getRequestDispatcher("/WEB-INF/jsp/list_subject.jsp")

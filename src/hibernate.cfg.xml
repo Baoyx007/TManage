@@ -31,5 +31,6 @@
         <mapping resource="edu/ahut/domain/Subject.hbm.xml"/>
         <mapping resource="edu/ahut/domain/Mail.hbm.xml"/>
         <mapping resource="edu/ahut/domain/Journal.hbm.xml"/>
+        <mapping resource="edu/ahut/domain/AnswerGroup.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

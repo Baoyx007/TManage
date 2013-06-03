@@ -24,7 +24,11 @@
                             }</a>
                     </td>
                     <td><a href="${myContext }/UserInfoServlet?userId=${subject.teacher.id}">${ subject.teacher.name}</a></td>
-                    <td><c:choose>  
+                    <td>
+                        <c:if test="${subject.checked == true}">
+                            已通过
+                        </c:if>
+                        <c:choose>  
                             <c:when test="${subject.student==null}">尚未有学生选择</c:when>  
                             <c:otherwise><a href="${myContext}/UserInfoServlet?userId=${subject.student.id}">${ subject.student.name}</a>   同学选择了此题</c:otherwise>
                         </c:choose>
@@ -32,9 +36,13 @@
                     <td><c:url var="urlForStu" value="/servlet/SelectSubjectServlet" >
                             <c:param name="subjectId" value="${subject.id }">
                             </c:param>
-                        </c:url> <a href="${urlForStu}" style="display:${sessionScope.user.getClass().simpleName=='Student'?'':'none' } ">选此论文题目</a>
+                        </c:url> 
+                         <a href="${myContext}/servlet/PublishSubjectUIServlet?id=${subject.id}">修改论题(TODO：确认是否已选)</a>
+                        <a href="${urlForStu}" style="display:${sessionScope.user.getClass().simpleName=='Student'?'':'none' } ">选此论文题目</a>
                         <c:choose>  
-                            <c:when test="${subject.student==null}">  <a href="${myContext}/DeleteSubjectServlet?id=${subject.id}">删除论题(弹出确认)</a></c:when>  
+                            <c:when test="${subject.student==null}">  
+                                <a href="${myContext}/DeleteSubjectServlet?id=${subject.id}">删除论题(弹出确认)</a>
+                            </c:when>  
                             <c:otherwise>  <a href="${myContext }/servlet/ShowThesisInfoServlet?subjectId=${subject.id}" 
                                style="display:${sessionScope.user.getClass().simpleName=='Teacher'?'':'none' } ">查看已提交的论文</a></c:otherwise>
                         </c:choose>

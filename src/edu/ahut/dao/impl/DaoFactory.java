@@ -3,6 +3,7 @@
  */
 package edu.ahut.dao.impl;
 
+import edu.ahut.dao.AnswerGroupDao;
 import edu.ahut.dao.BasicDao;
 import edu.ahut.dao.BulletinDao;
 import edu.ahut.dao.JournalDao;
@@ -41,8 +42,12 @@ public class DaoFactory {
     public static BasicDao getBasicDao() {
         return new BasicDaoHibImpl();
     }
-    
-      public static JournalDao getJournalDao() {
+
+    public static JournalDao getJournalDao() {
         return new JournalDaoHibImpl();
+    }
+
+    public static AnswerGroupDao getAnswerGroupDao() {
+        return new AnswerGroupDaoHibImpl();
     }
 }

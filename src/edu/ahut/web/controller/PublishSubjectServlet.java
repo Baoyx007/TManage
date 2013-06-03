@@ -40,19 +40,22 @@ public class PublishSubjectServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String title = request.getParameter("title");
+        String id = request.getParameter("id");
         String description = request.getParameter("description");
         User u = (User) request.getSession().getAttribute("user");
-        if (u == null) {
-            request.setAttribute("message", "你尚未登陆");
-            request.getRequestDispatcher("/message.jsp").forward(request,
-                    response);
-        }
         try {
             SubjectService subjectService = ServiceFactory.getSubjectService();
-            subjectService.addSubject(title, description, u);
-            request.setAttribute("message", "添加成功,请等待管理员审核!");
-            request.getRequestDispatcher("/message.jsp").forward(request,
-                    response);
+            if (id == null) {
+                subjectService.addSubject(title, description, u);
+                request.setAttribute("message", "添加成功,请等待管理员审核!");
+                request.getRequestDispatcher("/message.jsp").forward(request,
+                        response);
+            } else {
+                subjectService.updateSubject(Integer.parseInt(id), title, description, u);
+                request.setAttribute("message", "修改成功!");
+                request.getRequestDispatcher("/message.jsp").forward(request,
+                        response);
+            }
         } catch (Exception e) {
             // 其他问题
             request.setAttribute("message", "添加出错");

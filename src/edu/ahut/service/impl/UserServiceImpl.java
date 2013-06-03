@@ -5,9 +5,11 @@ package edu.ahut.service.impl;
 
 import edu.ahut.dao.UserDao;
 import edu.ahut.dao.impl.DaoFactory;
+import edu.ahut.domain.Student;
 import edu.ahut.domain.User;
 import edu.ahut.service.UserService;
 import edu.ahut.utils.ServiceUtils;
+import java.util.List;
 
 /**
  * @author Haven
@@ -62,5 +64,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(int id) {
         return userDao.getById(id);
+    }
+
+    @Override
+    public List<Student> getAllStudents() {
+        return userDao.getAllStudents();
+    }
+
+    @Override
+    public int getAllStudentCount() {
+        long i = userDao.getAllStudentCount();
+        return (int) i;
     }
 }

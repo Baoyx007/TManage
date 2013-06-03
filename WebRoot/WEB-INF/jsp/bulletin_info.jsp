@@ -61,7 +61,7 @@
                 <%-- for user --%>
                 <c:when test="${sessionScope.user!=null}">返回</c:when>
                 <%-- for admin --%>
-                <c:when test="${sessionScope.user!=null }"><a href="#">修改(还不能改)</a></c:when>
+                <c:when test="${sessionScope.user!=null }"><a href="${MyContext}/PublishBulletinUIServlet">修改??</a></c:when>
             </c:choose> 
         </div>
     </body>
