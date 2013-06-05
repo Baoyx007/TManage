@@ -27,11 +27,11 @@
         <div style="text-align:right;">
             <c:choose>
                 <c:when test="${user !=null}">欢迎你：<a href="${pageContext.request.servletContext.contextPath }/UserInfoServlet?userId=${user.id}">${user.name }</a>。 <a>设置</a>|<a
-                        href="${myContext}/servlet/LogoutServlet">注销</a>
+                        href="${myContext}/LogoutServlet">注销</a>
                 </c:when>
                 <c:otherwise>
                     <a
-                        href="${myContext}/servlet/RegisterUIServlet">注册</a>
+                        href="${myContext}/RegisterUIServlet">注册</a>
                     <a href="${myContext}/LoginUIServlet">登陆</a>
                     <br>
                 </c:otherwise>

@@ -35,7 +35,8 @@ public class AuthorityFilter implements Filter {
             chain.doFilter(request, response);
         } else {
             if (req.getSession().getAttribute("user") == null) {
-                request.setAttribute("message", "尚未登陆");
+                request.setAttribute("message", "尚未登陆 " + "<a class='btn btn-info btn-large btn-block' href='" + req.getContextPath() + "/LoginUIServlet'>登陆</a>");
+                request.setAttribute("info", "info");
                 request.getRequestDispatcher("/message.jsp").forward(request,
                         response);
             } else {

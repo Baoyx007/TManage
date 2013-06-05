@@ -35,11 +35,32 @@
                 overflow: scroll;
                 outline: none;
             }
+            div[data-role="editor-toolbar"] {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+            }
+
+            .dropdown-menu a {
+                cursor: pointer;
+            }
         </style>
         <link href="./css/bootstrap-responsive.css" rel="stylesheet">
         <link href="./css/font-awesome.css" rel="stylesheet">
+        <script type="text/javascript">
+            function submitContent() {
+                frm.content.value = $('#editor').html();
+                frm.submit();
+            }
+            function previewContent() {
+                frm.content.value = $('#editor').html();
+                frm.preview.value = "true";
+                frm.submit();
+            }
+        </script>
     </head>
     <body>     
+        <!--header导航栏-->
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -48,105 +69,107 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="brand" href="${myContext}/">毕业设计管理系统</a>
+                    <a class="brand" href="${myContext}">毕业设计管理系统</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="active"><a href="#">主页</a>
-                            </li><li><a href="#about">选题</a></li>
+                            <li class="active"><a href="${myContext}/BackIndexUIServlet">主页</a></li>
+                            <li><a href="#about">选题</a></li>
                             <li><a href="#about">论文</a></li>
                             <li><a href="#contact">邮件</a></li>
                             <li><a href="#contact">周志</a></li>
                             <li><a href="#contact">答辩</a></li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">杂项 <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">公告 <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
+                                    <li><a href="${myContext}/PublishBulletinUIServlet">发布公告</a></li>
                                     <li class="divider"></li>
-                                    <li class="nav-header">Nav header</li>
-                                    <li><a href="#">Separated link</a></li>
-                                    <li><a href="#">One more separated link</a></li>
+                                    <li class="nav-header">导航栏</li>
+                                    <li><a href="${myContext}/ListBulletinServlet">所有公告</a></li>
                                 </ul>
                             </li>
                         </ul>
-                        <form class="navbar-form pull-right" action="${myContext}/LoginServlet"
-                              method="post">
-                            <input class="span2" type="text" name="username" placeholder="用户名">
-                            <input class="span2" type="password" name="password" placeholder="密码">
-                            <button type="submit" class="btn">登陆</button>
-                        </form>
-                    </div><!--/.nav-collapse -->
-                </div>
+                        <ul class="nav pull-right">
+                            <li><a href="#about">${user.name }</a></li>
+                            <li class="divider-vertical">
+                            <li><a href="#">设置</a></li>
+                            <li><a href="${myContext}/LogoutServlet">注销</a></li>
+                        </ul>
+                    </div>
+
+                </div><!--/.nav-collapse -->
             </div>
         </div>
         <div class="container">
-            <form action="${pageContext.servletContext.contextPath}/SubmitBulletinServlet" method="post">
+            <form name="frm" action="${pageContext.servletContext.contextPath}/SubmitBulletinServlet" method="post">
                 <input type="hidden" value="${bulletin.id}" name="id"/>
-                题目:<input type="text" name="topic" value="${bulletin.topic}" />
-                <hr>
-                <div id="alerts"></div>
-                <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
-                    <div class="btn-group">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font"><i class="icon-font"></i><b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a data-edit="fontName Serif" style="font-family:'Serif'">Serif</a></li><li><a data-edit="fontName Sans" style="font-family:'Sans'">Sans</a></li><li><a data-edit="fontName Arial" style="font-family:'Arial'">Arial</a></li><li><a data-edit="fontName Arial Black" style="font-family:'Arial Black'">Arial Black</a></li><li><a data-edit="fontName Courier" style="font-family:'Courier'">Courier</a></li><li><a data-edit="fontName Courier New" style="font-family:'Courier New'">Courier New</a></li><li><a data-edit="fontName Comic Sans MS" style="font-family:'Comic Sans MS'">Comic Sans MS</a></li><li><a data-edit="fontName Helvetica" style="font-family:'Helvetica'">Helvetica</a></li><li><a data-edit="fontName Impact" style="font-family:'Impact'">Impact</a></li><li><a data-edit="fontName Lucida Grande" style="font-family:'Lucida Grande'">Lucida Grande</a></li><li><a data-edit="fontName Lucida Sans" style="font-family:'Lucida Sans'">Lucida Sans</a></li><li><a data-edit="fontName Tahoma" style="font-family:'Tahoma'">Tahoma</a></li><li><a data-edit="fontName Times" style="font-family:'Times'">Times</a></li><li><a data-edit="fontName Times New Roman" style="font-family:'Times New Roman'">Times New Roman</a></li><li><a data-edit="fontName Verdana" style="font-family:'Verdana'">Verdana</a></li></ul>
-                    </div>
-                    <div class="btn-group">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
-                            <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
-                            <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
-                        </ul>
-                    </div>
-                    <div class="btn-group">
-                        <a class="btn" data-edit="bold" title="" data-original-title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
-                        <a class="btn" data-edit="italic" title="" data-original-title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
-                        <a class="btn" data-edit="strikethrough" title="" data-original-title="Strikethrough"><i class="icon-strikethrough"></i></a>
-                        <a class="btn" data-edit="underline" title="" data-original-title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
-                    </div>
-                    <div class="btn-group">
-                        <a class="btn btn-info" data-edit="insertunorderedlist" title="" data-original-title="Bullet list"><i class="icon-list-ul"></i></a>
-                        <a class="btn" data-edit="insertorderedlist" title="" data-original-title="Number list"><i class="icon-list-ol"></i></a>
-                        <a class="btn" data-edit="outdent" title="" data-original-title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
-                        <a class="btn" data-edit="indent" title="" data-original-title="Indent (Tab)"><i class="icon-indent-right"></i></a>
-                    </div>
-                    <div class="btn-group">
-                        <a class="btn btn-info" data-edit="justifyleft" title="" data-original-title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
-                        <a class="btn" data-edit="justifycenter" title="" data-original-title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
-                        <a class="btn" data-edit="justifyright" title="" data-original-title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
-                        <a class="btn" data-edit="justifyfull" title="" data-original-title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
-                    </div>
-                    <div class="btn-group">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Hyperlink"><i class="icon-link"></i></a>
-                        <div class="dropdown-menu input-append">
-                            <input class="span2" placeholder="URL" type="text" data-edit="createLink">
-                            <button class="btn" type="button">Add</button>
+                <input type="hidden" name="content" value="">
+                <input type="hidden" name="preview" value="false">
+                <div class="hero-unit">
+                    <h2>主题: <input type="text" name="topic" value="${bulletin.topic}" /></h2> 
+                    <hr>
+                    <div id="alerts"></div>
+                    <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor">
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font"><i class="icon-font"></i><b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a data-edit="fontName Serif" style="font-family:'Serif'">Serif</a></li><li><a data-edit="fontName Sans" style="font-family:'Sans'">Sans</a></li><li><a data-edit="fontName Arial" style="font-family:'Arial'">Arial</a></li><li><a data-edit="fontName Arial Black" style="font-family:'Arial Black'">Arial Black</a></li><li><a data-edit="fontName Courier" style="font-family:'Courier'">Courier</a></li><li><a data-edit="fontName Courier New" style="font-family:'Courier New'">Courier New</a></li><li><a data-edit="fontName Comic Sans MS" style="font-family:'Comic Sans MS'">Comic Sans MS</a></li><li><a data-edit="fontName Helvetica" style="font-family:'Helvetica'">Helvetica</a></li><li><a data-edit="fontName Impact" style="font-family:'Impact'">Impact</a></li><li><a data-edit="fontName Lucida Grande" style="font-family:'Lucida Grande'">Lucida Grande</a></li><li><a data-edit="fontName Lucida Sans" style="font-family:'Lucida Sans'">Lucida Sans</a></li><li><a data-edit="fontName Tahoma" style="font-family:'Tahoma'">Tahoma</a></li><li><a data-edit="fontName Times" style="font-family:'Times'">Times</a></li><li><a data-edit="fontName Times New Roman" style="font-family:'Times New Roman'">Times New Roman</a></li><li><a data-edit="fontName Verdana" style="font-family:'Verdana'">Verdana</a></li></ul>
                         </div>
-                        <a class="btn" data-edit="unlink" title="" data-original-title="Remove Hyperlink"><i class="icon-cut"></i></a>
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
+                                <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
+                                <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn" data-edit="bold" title="" data-original-title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
+                            <a class="btn" data-edit="italic" title="" data-original-title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
+                            <a class="btn" data-edit="strikethrough" title="" data-original-title="Strikethrough"><i class="icon-strikethrough"></i></a>
+                            <a class="btn" data-edit="underline" title="" data-original-title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn btn-info" data-edit="insertunorderedlist" title="" data-original-title="Bullet list"><i class="icon-list-ul"></i></a>
+                            <a class="btn" data-edit="insertorderedlist" title="" data-original-title="Number list"><i class="icon-list-ol"></i></a>
+                            <a class="btn" data-edit="outdent" title="" data-original-title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
+                            <a class="btn" data-edit="indent" title="" data-original-title="Indent (Tab)"><i class="icon-indent-right"></i></a>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn btn-info" data-edit="justifyleft" title="" data-original-title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
+                            <a class="btn" data-edit="justifycenter" title="" data-original-title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
+                            <a class="btn" data-edit="justifyright" title="" data-original-title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
+                            <a class="btn" data-edit="justifyfull" title="" data-original-title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" title="" data-original-title="Hyperlink"><i class="icon-link"></i></a>
+                            <div class="dropdown-menu input-append">
+                                <input class="span2" placeholder="URL" type="text" data-edit="createLink">
+                                <button class="btn" type="button">Add</button>
+                            </div>
+                            <a class="btn" data-edit="unlink" title="" data-original-title="Remove Hyperlink"><i class="icon-cut"></i></a>
 
-                    </div>
+                        </div>
 
-                    <div class="btn-group">
-                        <a class="btn" title="" id="pictureBtn" data-original-title="Insert picture (or just drag &amp; drop)"><i class="icon-picture"></i></a>
-                        <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" style="opacity: 0; position: absolute; top: 0px; left: 0px; width: 41px; height: 30px;">
+                        <div class="btn-group">
+                            <a class="btn" title="" id="pictureBtn" data-original-title="Insert picture (or just drag &amp; drop)"><i class="icon-picture"></i></a>
+                            <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" style="opacity: 0; position: absolute; top: 0px; left: 0px; width: 41px; height: 30px;">
+                        </div>
+                        <div class="btn-group">
+                            <a class="btn" data-edit="undo" title="" data-original-title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
+                            <a class="btn" data-edit="redo" title="" data-original-title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
+                        </div>
                     </div>
-                    <div class="btn-group">
-                        <a class="btn" data-edit="undo" title="" data-original-title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
-                        <a class="btn" data-edit="redo" title="" data-original-title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
-                    </div>
+                    <div id="editor" contenteditable="true">${bulletin.content==null?'在此输入内容':bulletin.content}</div>
                 </div>
-                <div id="editor" name="content" contenteditable="true">${bulletin.content==null?'在此输入内容':bulletin.content}</div>
-
                 附件：<input type="file" name="attachment"/>
-                <input type="submit" value="预览" name="preview"/><input type="submit" value="提交" />
+                <div style="float: right;" ><input class="btn btn-inverse" type="button" value="预览"  onclick="previewContent();"/>&nbsp;&nbsp;<input class="btn btn-primary" type="button" value="提交" onclick="submitContent();"/></div>
+
             </form>
         </div>
         <script src="./js/jquery.js"></script>
+        <script src="./js/jquery.hotkeys.js"></script>
         <script src="./js/bootstrap-wysiwyg.js"></script>
         <script>
-
             $(function() {
                 function initToolbarBootstrapBindings() {
                     var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',
@@ -188,7 +211,6 @@
                 ;
                 initToolbarBootstrapBindings();
                 $('#editor').wysiwyg({fileUploadError: showErrorAlert});
-                window.prettyPrint && prettyPrint();
             });
         </script> 
     </body>  

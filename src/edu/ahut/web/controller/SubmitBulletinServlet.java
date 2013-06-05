@@ -39,12 +39,9 @@ public class SubmitBulletinServlet extends HttpServlet {
         String content = request.getParameter("content");
         String attachment = request.getParameter("attachment");
         String preview = request.getParameter("preview");
-        //点预览??》preview就是预览
-        //点提交??》preview是NULL
-//        System.out.println(preview);
         try {
             BulletinService bulletinService = ServiceFactory.getBulletinService();
-            if ("预览".equals(preview)) {
+            if ("true".equals(preview)) {
                 Bulletin bulletin = bulletinService.newBulletin(topic, content, attachment, (Admin) request.getSession().getAttribute("user"));
                 //供提交时使用！
                 request.setAttribute("preview", true);

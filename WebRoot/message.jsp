@@ -17,14 +17,37 @@
     <body>
         <div class="container">
             <div class="span9">
-                <div class="alert alert-info alert-block">
-                    <a class="close">×</a>
-                    <h4 class="alert-heading"> 提示： </h4>   ${message }
-                </div>
+                <c:choose>
+                    <c:when test="${info != null}"> 
+                        <div class="alert alert-info alert-block">
+                            <a class="close">×</a>
+                            <h4 class="alert-heading"> 提示： </h4>   ${message }
+                        </div>
+                    </c:when>
+                    <c:when test="${error != null}"> 
+                        <div class="alert alert-error alert-block">
+                            <a class="close">×</a>
+                            <h4 class="alert-heading"> 错误： </h4>   ${message }
+                        </div>
+                    </c:when>
+                    <c:when test="${success != null}"> 
+                        <div class="alert alert-success alert-block">
+                            <a class="close">×</a>
+                            <h4 class="alert-heading"> 成功： </h4>   ${message }
+                        </div>
+                    </c:when>
+                    <c:otherwise >
+                        <div class="alert alert-danger alert-block">
+                            <a class="close">×</a>
+                            <h4 class="alert-heading"> 未知： </h4>   ${message }
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
             <dir style="clear: both"/>
             <br>
             <a class="btn btn-primary btn-large" href="${pageContext.servletContext.contextPath}/" >首页</a>
         </div>
+        <script src="./js/jquery.js"></script>
     </body>
 </html>

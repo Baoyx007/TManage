@@ -21,6 +21,7 @@
             }
         </style>
         <link href="./css/bootstrap-responsive.css" rel="stylesheet">
+        <link rel="stylesheet" href="./css/grumble.css">
     </head>
 
     <body>
@@ -70,11 +71,13 @@
 
             <!-- Main hero unit for a primary marketing message or call to action -->
             <div class="hero-unit">
-                <h1>毕业设计进度条</h1>
-                <p>一般进来看到大致的进度，登陆后可以看到详细的进度</p>
+                <h1>当前进度</h1>
+                <p>登陆后可查看详细进度</p>
+                <div id="begin" ></div>
                 <div class="progress progress-striped active">
-                    <div class="bar" style="width: 50%;"></div>
+                    <div class="bar" style="width: ${percentage}%;"></div>
                 </div>
+                ${thesisStart},${thesisEnd}
                 <p><a href="#" class="btn btn-primary btn-large">详情 &raquo;</a></p>
             </div>
 
@@ -82,21 +85,13 @@
             <div class="row">
                 <div class="span4">
                     <h2>${top2[0].topic}</h2>
-                    <div id="content1" contenteditable="false" style="overflow:hidden; max-height:300px" >${top2[0].content}
+                    <div  style="overflow:hidden; max-height:300px" >${top2[0].content}
                     </div>
-                    <script>
-                        $('#content1').wysiwyg();
-                    </script>
                     <p><a class="btn" href="${myContext}/ShowBulletinUIServlet?id=${top2[0].id}">详情 &raquo;</a></p>
                 </div>
                 <div class="span4">
                     <h2>${top2[1].topic}</h2>
-                    <div id="content2" contenteditable="false">${top2[1].content}</div>
-                    <script>
-                        // Turn off automatic editor creation first.
-                        CKEDITOR.disableAutoInline = true;
-                        CKEDITOR.inline('content2');
-                    </script>
+                    <div  contenteditable="false">${top2[1].content}</div>
                     <p><a class="btn" href="${myContext}/ShowBulletinUIServlet?id=${top2[1].id}">详情 &raquo;</a></p>
                 </div>
                 <div class="span4">
@@ -112,7 +107,19 @@
 
         </div> <!-- /container -->
         <script src="./js/jquery.js"></script>
-        <script src="./js/bootstrap-wysiwyg.js"></script>
+        <script src="./js/Bubble.js"></script>
+        <script src="./js/jquery.grumble.js"></script>
+
+        <script type="text/javascript">
+            $('#begin').grumble(
+                    {
+                        text: 'Bubble-tastic!',
+                        angle: 85,
+                        distance: 100,
+                        showAfter: 500
+                    }
+            );
+        </script>
     </body>
 </html>
 
