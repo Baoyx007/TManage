@@ -73,11 +73,11 @@
             <div class="hero-unit">
                 <h1>当前进度</h1>
                 <p>登陆后可查看详细进度</p>
-                <div id="begin" ></div>
+                <div id="begin" >开始：${thesisStart}</div>
                 <div class="progress progress-striped active">
-                    <div class="bar" style="width: ${percentage}%;"></div>
+                    <div class="bar" style="width: ${percentage}%;"></div>抓紧时间啦！
                 </div>
-                ${thesisStart},${thesisEnd}
+                结束：${thesisEnd}
                 <p><a href="#" class="btn btn-primary btn-large">详情 &raquo;</a></p>
             </div>
 
