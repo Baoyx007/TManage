@@ -4,10 +4,11 @@
  */
 package edu.ahut.web.controller;
 
+import edu.ahut.domain.Admin;
 import edu.ahut.domain.Bulletin;
+import edu.ahut.domain.Student;
 import edu.ahut.service.impl.ServiceFactory;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,8 +37,13 @@ public class ListBulletinServlet extends HttpServlet {
         try {
             List<Bulletin> bulletins = ServiceFactory.getBulletinService().getAllBulletin();
             request.setAttribute("bulletins", bulletins);
-            request.getRequestDispatcher("/WEB-INF/jsp/list_bulletin.jsp")
-                    .forward(request, response);
+            if (request.getSession().getAttribute("user") instanceof Student) {
+                request.getRequestDispatcher("/WEB-INF/jsp/student/list_bulletin.jsp")
+                        .forward(request, response);
+            } else if (request.getSession().getAttribute("user") instanceof Admin) {
+                request.getRequestDispatcher("/WEB-INF/jsp/admin/list_bulletin.jsp")
+                        .forward(request, response);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("message", "列出公告出错");

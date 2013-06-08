@@ -10,12 +10,21 @@ import edu.ahut.dao.impl.DaoFactory;
 import edu.ahut.domain.AnswerGroup;
 import edu.ahut.domain.Student;
 import edu.ahut.domain.Teacher;
+import edu.ahut.domain.User;
 import edu.ahut.service.AnswerGroupService;
+import edu.ahut.web.controller.SetSystemConfigServlet;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,20 +40,23 @@ public class AnswerGroupServiceImpl extends BasicServiceImpl<AnswerGroup> implem
         basicDao = answerGroupDao;
     }
 
-    @Override
-    public void setRandomGroups(int groupStudents) {
+    //每组学生数
+    //答辩开始时间
+    //答辩持续时间
+    public void setRandomGroups(int groupStudents, Date answerStartTime, int answerDuration) {
         answerGroupDao.clearDate();
         UserDao userDao = DaoFactory.getUserDao();
         Random random = new Random(System.currentTimeMillis());
         int nextInt;
-
         List<Student> allStudents = userDao.getAllStudents();
         long studentCount = userDao.getAllStudentCount();
+        //学生总数
         int tempCount = (int) studentCount;
-        Date startTime = new Date();
         //gCount 有多少组
         int gCount = (int) (Math.floor(studentCount / groupStudents) + 1);
-
+        //min为单位
+        int groupTime = groupStudents * answerDuration;
+        int start = 0;
         for (int i = 0; i < gCount; i++) {
             AnswerGroup answerGroup = new AnswerGroup();
             List<Student> group = new ArrayList<Student>();
@@ -65,10 +77,46 @@ public class AnswerGroupServiceImpl extends BasicServiceImpl<AnswerGroup> implem
                 teacher.setAnswerGroup(answerGroup);
             }
             answerGroup.setTeachers(DaoFactory.getSubjectDao().getTeachersByStudents(group));
-            //FIXME 组数*组人*一次时间
-//            setStartTime(i + 1,groupStudents,30, Calendar.getInstance().);
-//            answerGroup.setStartTime(new Date(startTime.getTime()+groupStudents*30*60*1000*i));
+            start += groupTime;
+            int day = start / 480;
+            // 加day天
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(answerStartTime);
+            calendar.add(Calendar.DATE, day);
+            answerGroup.setStartTime(calendar.getTime());
             answerGroupDao.update(answerGroup);
         }
+    }
+
+    @Override
+    public void setRandomGroups() {
+        InputStream in = null;
+        try {
+            in = SetSystemConfigServlet.class.getClassLoader().getResourceAsStream("general.properties");
+            Properties properties = new Properties();
+            properties.load(in);
+            String answerStart = properties.getProperty("answerStart");
+            String answerDuration = properties.getProperty("answerDuration");
+            String groupCount = properties.getProperty("groupCount");
+            SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+            //答辩开始时间
+            Date answerStartTime = formatDate.parse(answerStart);
+            setRandomGroups(Integer.parseInt(groupCount), answerStartTime, Integer.parseInt(answerDuration));
+        } catch (Exception e) {
+            throw new RuntimeException("读取系统设置出错");
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(AnswerGroupServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
+    @Override
+    public AnswerGroup getGroupByUser(User user) {
+        return answerGroupDao.getGroupByUser(user);
     }
 }

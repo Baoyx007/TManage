@@ -4,10 +4,11 @@
  */
 package junit.test;
 
-import edu.ahut.dao.AnswerGroupDao;
+import edu.ahut.dao.ArchiveDao;
 import edu.ahut.dao.impl.DaoFactory;
-import edu.ahut.domain.AnswerGroup;
-import edu.ahut.domain.Student;
+import edu.ahut.domain.Archive;
+import edu.ahut.domain.Subject;
+import edu.ahut.domain.Thesis;
 import edu.ahut.utils.HibernateUtil;
 import org.junit.After;
 import org.junit.Before;
@@ -18,26 +19,22 @@ import org.junit.Test;
  * @author Haven
  * @date Jun 2, 2013
  */
-public class AnswerGroupDaoTest {
+public class ArchiveDaoTest {
 
-    AnswerGroupDao answerGroupDao = null;
+    ArchiveDao archiveDao = null;
 
     @Before
     public void setUp() throws Exception {
         HibernateUtil.getCurrentSession().beginTransaction();
-        answerGroupDao = DaoFactory.getAnswerGroupDao();
+        archiveDao = DaoFactory.getArchiveDao();
     }
 
     @Test
-    public void testClear() {
-        answerGroupDao.clearDate();
-    }
-
-    @Test
-    public void testGetByUser() {
-        AnswerGroup groupByUser = answerGroupDao.getGroupByUser(new Student(196608));
-        System.out.println(groupByUser.getStartTime());
-        System.out.println(groupByUser.getSequence());
+    public void testAdd() {
+        Archive archive = new Archive();
+        archive.setSubject(new Subject(2));
+        archive.setThesis(new Thesis(13));
+        archiveDao.save(archive);
     }
 
     @After

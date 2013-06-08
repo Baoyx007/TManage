@@ -47,12 +47,15 @@ public class SelectSubjectServlet extends HttpServlet {
         try {
             int sId = Integer.parseInt(subjectId);
             SubjectService subjectService = ServiceFactory.getSubjectService();
-            subjectService.selectSubject((Student) user, null, new Subject(sId));
+            Subject byId = subjectService.getById(sId);
+            subjectService.selectSubject((Student) user, null, byId);
             request.setAttribute("message", "选择成功");
+            request.setAttribute("success", "success");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } catch (Exception e) {
             request.setAttribute("message", "选择出错");
+            request.setAttribute("error", "error");
             e.printStackTrace();
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);

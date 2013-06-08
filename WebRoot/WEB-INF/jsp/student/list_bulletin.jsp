@@ -27,7 +27,6 @@
         <link href="./css/bootstrap-responsive.css" rel="stylesheet">
     </head>
     <body >
-
         <!--header导航栏-->
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
@@ -40,31 +39,38 @@
                     <a class="brand" href="${myContext}/">毕业设计管理系统</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="active"><a href="#">主页</a></li>
-                            <li><a href="#about">选题</a></li>
-                            <li><a href="#about">论文</a></li>
-                            <li><a href="#contact">邮件</a></li>
-                            <li><a href="#contact">周志</a></li>
-                            <li><a href="#contact">答辩</a></li>
+                            <li ><a href="${myContext}/StudentIndexUIServlet">主页</a></li>
+                            <li class="active"><a href="${myContext}/ListBulletinServlet">公告</a></li>
+                            <li><a href="${myContext}/ListSubjectServlet">选题</a></li>
+
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">杂项 <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">论文 <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
+                                    <li><a href="${myContext}/SubmitThesisUIServlet">提交论文</a></li>
+                                    <li><a href="${myContext}/ShowThesisInfoServlet?userId=${user.id}">我的论文</a></li>
+                                    <li><a href="#">确定终稿</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="${myContext}/SubmitJournalUIServlet">周志</a></li>
+                            <li><a href="${myContext}/AnswerInfoUIServlet">答辩</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">邮件 <span class="badge badge-info"><jsp:include page="/GetUnreadMailCount" /></span> <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">发邮件</a></li>
+                                    <li><a href="${myContext}/ListMailServlet">收件箱</a></li>
+                                    <li><a target="_blank" href="javascript:;" onclick="openwin();">联系老师</a></li>
                                     <li class="divider"></li>
-                                    <li class="nav-header">Nav header</li>
-                                    <li><a href="#">Separated link</a></li>
-                                    <li><a href="#">One more separated link</a></li>
+                                    <li class="nav-header">其他方式</li>
+                                    <li><a href="mailto:<jsp:include page="/GetMyTeacherEmail"/>">E-mail</a></li>
                                 </ul>
                             </li>
                         </ul>
-                        <form class="navbar-form pull-right" action="${pageContext.servletContext.contextPath }/LoginServlet"
-                              method="post">
-                            <input class="span2" type="text" name="username" placeholder="用户名">
-                            <input class="span2" type="password" name="password" placeholder="密码">
-                            <button type="submit" class="btn">登陆</button>
-                        </form>
+                        <ul class="nav pull-right">
+                            <li><a href="#about">${user.name }</a></li>
+                            <li class="divider-vertical">
+                            <li><a href="#">设置</a></li>
+                            <li><a href="${myContext}/LogoutServlet">注销</a></li>
+                        </ul>
                     </div><!--/.nav-collapse -->
                 </div>
             </div>
@@ -88,9 +94,6 @@
                                 <th>
                                     时间
                                 </th>
-                                <th>
-                                    操作
-                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,7 +102,6 @@
                                     <td >${status.count}</td> 
                                     <td><a href="${pageContext.servletContext.contextPath}/ShowBulletionUIServlet?id=${bulletin.id}"> ${bulletin.topic}</a></td> 
                                     <td> <fmt:formatDate type="date"   value="${bulletin.time}" /></td>
-                                    <td><a href="${myContext}/DeleteBulletinServlet?id=${bulletin.id}">删除</a>/<a href="${myContext}/PublishBulletinUIServlet?id=${bulletin.id}">修改</a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -136,5 +138,7 @@
                 </div>
             </div>
         </div>
+        <script src="./js/jquery.js"></script>
+        <script src="./js/bootstrap.js"></script>
     </body>
 </html>

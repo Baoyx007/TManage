@@ -108,6 +108,6 @@ public class UserDaoHibImpl extends BasicDaoHibImpl<User> implements UserDao {
     public Long getAllStudentCount() {
         Session s = HibernateUtil.getCurrentSession();
         Query query = s.createQuery("SELECT COUNT(*) from Student");
-        return  (Long) query.uniqueResult();
+        return (Long) query.uniqueResult();
     }
 }

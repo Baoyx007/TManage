@@ -25,6 +25,10 @@ public class Thesis {
         super();
     }
 
+    public Thesis(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

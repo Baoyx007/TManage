@@ -196,6 +196,26 @@
         <servlet-name>DeleteBulletinServlet</servlet-name>
         <servlet-class>edu.ahut.web.controller.DeleteBulletinServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AnswerManageServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.AnswerManageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SetMasterServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.SetMasterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaveMasterServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.SaveMasterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AnswerInfoUIServlet</servlet-name>
+        <servlet-class>edu.ahut.web.UI.AnswerInfoUIServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UnselectSubjectServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.UnselectSubjectServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DownloadThesisServlet</servlet-name>
         <url-pattern>/DownloadThesisServlet</url-pattern>
@@ -364,6 +384,26 @@
         <servlet-name>ShowThesisInfoServlet</servlet-name>
         <url-pattern>/ShowThesisInfoServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AnswerManageServlet</servlet-name>
+        <url-pattern>/AnswerManageServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SetMasterServlet</servlet-name>
+        <url-pattern>/SetMasterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaveMasterServlet</servlet-name>
+        <url-pattern>/SaveMasterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AnswerInfoUIServlet</servlet-name>
+        <url-pattern>/AnswerInfoUIServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UnselectSubjectServlet</servlet-name>
+        <url-pattern>/UnselectSubjectServlet</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>gate.jsp</welcome-file>
     </welcome-file-list>
@@ -375,7 +415,6 @@
             <scripting-invalid>false</scripting-invalid>
             <is-xml>false</is-xml>
             <include-prelude>/header.jsp</include-prelude>
-            <include-coda>/footer.html</include-coda>
         </jsp-property-group>
     </jsp-config>
     <absolute-ordering/>

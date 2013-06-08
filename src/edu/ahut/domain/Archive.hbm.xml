@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="edu.ahut.domain.Archive" table="archive">
+        <id name="id" column="id" >
+            <generator class="native" />
+        </id>
+        <property name="count" />
+        <property name="score"  />
+        <many-to-one name="subject" />
+        <many-to-one name="thesis"  />
+    </class>
+</hibernate-mapping>

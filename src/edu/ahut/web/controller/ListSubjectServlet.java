@@ -62,15 +62,19 @@ public class ListSubjectServlet extends HttpServlet {
                 }
                 //未选过，显示所有
                 findSubjectByUser = ss.getCheckedSubjects();
-            } else if(user instanceof Admin) {
+                request.setAttribute("subjects", findSubjectByUser);
+                request.getRequestDispatcher("/WEB-INF/jsp/student/list_subject.jsp")
+                        .forward(request, response);
+            } else if (user instanceof Admin) {
                 findSubjectByUser = ss.getCheckedSubjects();
             }
-            request.setAttribute("subjects", findSubjectByUser);
-            request.getRequestDispatcher("/WEB-INF/jsp/list_subject.jsp")
-                    .forward(request, response);
+//            request.setAttribute("subjects", findSubjectByUser);
+//            request.getRequestDispatcher("/WEB-INF/jsp/list_subject.jsp")
+//                    .forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("message", "列出用户出错");
+            request.setAttribute("error", "error");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }

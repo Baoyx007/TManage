@@ -70,14 +70,16 @@
         <div class="container">
 
             <!-- Main hero unit for a primary marketing message or call to action -->
-            <div class="hero-unit">
+            <div class="hero-unit ">
                 <h1>当前进度</h1>
                 <p>登陆后可查看详细进度</p>
-                <div id="begin" >开始：${thesisStart}</div>
-                <div class="progress progress-striped active">
-                    <div class="bar" style="width: ${percentage}%;"></div>抓紧时间啦！
+                <div id="begin" data-toggle="tooltip" data-placement="left" data-original-title="${thesisStart}" class="span1">开始</div>
+                <div class="progress progress-striped active span8 ">
+                    <div class="bar" style="width: ${percentage}%;">${percentage}%</div>
+                    <div id="percentage"></div>
                 </div>
-                结束：${thesisEnd}
+                <div id="end" data-toggle="tooltip" data-placement="top" data-original-title="${thesisEnd}" class="span1">结束</div>
+                <div class="clearfix"></div>
                 <p><a href="#" class="btn btn-primary btn-large">详情 &raquo;</a></p>
             </div>
 
@@ -107,18 +109,24 @@
 
         </div> <!-- /container -->
         <script src="./js/jquery.js"></script>
+        <script src="./js/bootstrap.js"></script>
         <script src="./js/Bubble.js"></script>
         <script src="./js/jquery.grumble.js"></script>
-
         <script type="text/javascript">
-            $('#begin').grumble(
+            $('#percentage').grumble(
                     {
-                        text: 'Bubble-tastic!',
-                        angle: 85,
-                        distance: 100,
-                        showAfter: 500
+                        text: '抓紧时间了！',
+                        angle: 40,
+                        distance: 0,
+                        showAfter: 2000,
+                        hideAfter: false,
+                        type: 'alt-',
+                        hasHideButton: true,
+                        buttonHideText: '关闭'
                     }
             );
+            $('#begin').tooltip();
+            $('#end').tooltip();
         </script>
     </body>
 </html>

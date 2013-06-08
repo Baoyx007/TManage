@@ -25,6 +25,7 @@
         <c:forEach items="${requestScope.subject.theses }" var="thesis">
             <hr>
             文件名:${thesis.realFileName}<br>
+            <a>MARK终稿</a>
             提交日期： <fmt:formatDate type="both" dateStyle="default" timeStyle="default" 
                             value="${thesis.submitDate}"/><br>
             <div style="float: left;width: 40%;">学生留言：  <textarea readonly="true" cols="50" rows="5"> ${thesis.studentComment}</textarea></div>

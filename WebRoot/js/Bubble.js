@@ -1,7 +1,7 @@
 /**   (c) 2011 James Cryer, Huddle (www.huddle.com) 	*/
 /**   http://jamescryer.github.com/grumble.js/ 		*/
 
-(function($, window){
+(function($, window) {
 
     var defaults = {
         type: '',
@@ -16,49 +16,45 @@
         context: null
     };
 
-    window.GrumbleBubble = function(options){
-    	
-        this.options = $.extend({},defaults,options);
-        this.context = $(this.options.context || $('body')); 
+    window.GrumbleBubble = function(options) {
+
+        this.options = $.extend({}, defaults, options);
+        this.context = $(this.options.context || $('body'));
         this.css = {};
         this.create();
     };
 
     window.GrumbleBubble.prototype = {
-
-        create: function(){
-    	    var tmpl = window.GrumbleBubble.prototype.tmpl;
-            this.bubble = $( tmpl(this.options.template) );
-            this.text = $( tmpl(this.options.textTemplate, { text:this.options.text }));
+        create: function() {
+            var tmpl = window.GrumbleBubble.prototype.tmpl;
+            this.bubble = $(tmpl(this.options.template));
+            this.text = $(tmpl(this.options.textTemplate, {text: this.options.text}));
             this.prepare();
         },
-
         /*
-          the rotation is adjusted because the background image defaults to what would look like 45 degrees
-          I dont like this, the code should be agnostic of the image and style
-        */
-        setBubbleRotation: function(){
+         the rotation is adjusted because the background image defaults to what would look like 45 degrees
+         I dont like this, the code should be agnostic of the image and style
+         */
+        setBubbleRotation: function() {
             this.rotateDeg = this.options.angle - 45;
-            if( this.rotateDeg < 0 ){
+            if (this.rotateDeg < 0) {
                 this.rotateDeg += 360;
             }
         },
-
-        prepare: function(){
+        prepare: function() {
             var isAlreadyInserted = this.bubble.get(0).parentNode;
 
-			this.setBubbleRotation();
+            this.setBubbleRotation();
 
             this.applyStyles();
 
-            if( isAlreadyInserted !== this.context){
+            if (isAlreadyInserted !== this.context) {
                 this.append();
             }
 
             this.rotate();
         },
-
-        applyStyles: function(){
+        applyStyles: function() {
 
             this.setPosition();
 
@@ -66,63 +62,54 @@
             this.css.height = this.options.size;
 
             this.text
-                .css(this.css)
-                .addClass('grumble-text'+this.options.size);
+                    .css(this.css)
+                    .addClass('grumble-text' + this.options.size);
 
             this.bubble
-                .css(this.css)
-                .addClass(this.options.type+'grumble'+this.options.size);
+                    .css(this.css)
+                    .addClass(this.options.type + 'grumble' + this.options.size);
 
             // remember calculated position for use by external components
             this.realLeft = this.css.left;
             this.realTop = this.css.top;
         },
-
-        setPosition: function(){
-            var ratio = this.options.angle/-360,
-                xRadius = Math.cos(ratio*2*Math.PI),
-                yRadius = Math.sin(ratio*2*Math.PI),
-                halfSize = this.options.size/2,
-                sizeSquared = this.options.size*this.options.size,
-                halfedHypotenuse = Math.sqrt(sizeSquared + sizeSquared)/2,
-                top = (this.options.top+halfSize) - xRadius * (this.options.distance + halfedHypotenuse),
-                left = (this.options.left-halfSize) - yRadius * (this.options.distance + halfedHypotenuse);
+        setPosition: function() {
+            var ratio = this.options.angle / -360,
+                    xRadius = Math.cos(ratio * 2 * Math.PI),
+                    yRadius = Math.sin(ratio * 2 * Math.PI),
+                    halfSize = this.options.size / 2,
+                    sizeSquared = this.options.size * this.options.size,
+                    halfedHypotenuse = Math.sqrt(sizeSquared + sizeSquared) / 2,
+                    top = (this.options.top + halfSize) - xRadius * (this.options.distance + halfedHypotenuse),
+                    left = (this.options.left - halfSize) - yRadius * (this.options.distance + halfedHypotenuse);
 
             this.css.top = top - this.options.size;
             this.css.left = left;
         },
-
-        append: function(){
+        append: function() {
             var body = this.context;
             this.bubble.appendTo(body);
             this.text.appendTo(body);
         },
-
-        rotate: function(){
-            if($.browser.msie === true && window.document.documentMode < 10){
-                this.ieRotate();
-            } else {
-                this.cssRotate();
-            }
+        rotate: function() {
+            this.cssRotate();
         },
-
-        cssRotate: function(){
+        cssRotate: function() {
             this.bubble.css({
-                '-moz-transform': 'rotate('+this.rotateDeg+'deg)',
-                '-webkit-transform': 'rotate('+this.rotateDeg+'deg)',
-				'-o-transform': 'rotate('+this.rotateDeg+'deg)',
-                'transform': 'rotate('+this.rotateDeg+'deg)'
+                '-moz-transform': 'rotate(' + this.rotateDeg + 'deg)',
+                '-webkit-transform': 'rotate(' + this.rotateDeg + 'deg)',
+                '-o-transform': 'rotate(' + this.rotateDeg + 'deg)',
+                'transform': 'rotate(' + this.rotateDeg + 'deg)'
             });
         },
-
-        ieRotate: function(){
+        ieRotate: function() {
             var deg = this.rotateDeg,
-                deg2radians = Math.PI * 2 / 360,
-                rad = deg * deg2radians,
-                costheta = Math.cos(rad),
-                sintheta = Math.sin(rad),
-                element = this.bubble.get(0),
-                width, height;
+                    deg2radians = Math.PI * 2 / 360,
+                    rad = deg * deg2radians,
+                    costheta = Math.cos(rad),
+                    sintheta = Math.sin(rad),
+                    element = this.bubble.get(0),
+                    width, height;
 
             // use Matrix filter
             element.filters.item(0).M11 = costheta;
@@ -135,24 +122,25 @@
 
             // adjust position, IE rotates from center but also increases the width and height
             this.bubble.css({
-                left: this.css.left - ((width - this.options.size)/2),
-                top: this.css.top - ((height - this.options.size)/2)
+                left: this.css.left - ((width - this.options.size) / 2),
+                top: this.css.top - ((height - this.options.size) / 2)
             });
         },
-
-        adjust: function(options){
-            $.extend(this.options,options);
+        adjust: function(options) {
+            $.extend(this.options, options);
             this.prepare();
         },
-		
-		tmpl: function(template, obj, escapeContent) {
-			for (var key in obj) {
-				if (obj[key] === null) obj[key] = '';
-				if (typeof (obj[key]) === 'object' && obj[key].length) { obj[key] = obj[key].join(', '); }
-				template = template.replace(new RegExp('{' + key + '}', 'g'), escapeContent ? escape(obj[key]) : obj[key]);
-			}
-			return template;
-		}
-		
+        tmpl: function(template, obj, escapeContent) {
+            for (var key in obj) {
+                if (obj[key] === null)
+                    obj[key] = '';
+                if (typeof (obj[key]) === 'object' && obj[key].length) {
+                    obj[key] = obj[key].join(', ');
+                }
+                template = template.replace(new RegExp('{' + key + '}', 'g'), escapeContent ? escape(obj[key]) : obj[key]);
+            }
+            return template;
+        }
+
     };
 }($, window));

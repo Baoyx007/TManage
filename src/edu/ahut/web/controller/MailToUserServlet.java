@@ -5,9 +5,12 @@
 package edu.ahut.web.controller;
 
 import edu.ahut.domain.User;
+import edu.ahut.exceptions.NotConnectException;
 import edu.ahut.service.impl.ServiceFactory;
 import edu.ahut.utils.ServiceUtils;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,17 +43,22 @@ public class MailToUserServlet extends HttpServlet {
             //发给自己老师
             if ("MyTeacher".equals(toWho)) {
                 User user = (User) request.getSession(false).getAttribute("user");
-                if (user == null) {
-                    throw new IllegalArgumentException("尚未登录");
-                }
                 //找到自己老师
                 User toUser = ServiceFactory.getSubjectService().getTeacherByStudent(user);
+                if (toUser == null) {
+                    throw new NotConnectException("尚未选择老师!");
+                }
                 request.setAttribute("toUser", toUser);
                 request.getRequestDispatcher("/WEB-INF/jsp/SendMail.jsp")
                         .forward(request, response);
             }
         } catch (IllegalArgumentException e) {
             request.setAttribute("message", e.getMessage());
+            request.getRequestDispatcher("/message.jsp").forward(request,
+                    response);
+        } catch (NotConnectException ex) {
+            request.setAttribute("message", ex.getMessage());
+            request.setAttribute("info", "info");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }

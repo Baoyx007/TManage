@@ -11,7 +11,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.Properties;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +38,6 @@ public class SetSystemConfigServlet extends HttpServlet {
         InputStream in = null;
         OutputStream out = null;
         try {
-            ServletContext servletContext = request.getServletContext();
             Enumeration<String> attributeNames = request.getParameterNames();
             Properties properties = new Properties();
             in = SetSystemConfigServlet.class.getClassLoader().getResourceAsStream("general.properties");
@@ -54,6 +52,7 @@ public class SetSystemConfigServlet extends HttpServlet {
             out = new FileOutputStream(SetSystemConfigServlet.class.getClassLoader().getResource("general.properties").getPath());
             properties.store(out, "general manage");
             request.setAttribute("message", " 成功修改");
+            request.setAttribute("success", " success");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } catch (Exception e) {

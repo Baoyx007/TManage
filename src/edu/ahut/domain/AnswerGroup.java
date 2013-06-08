@@ -6,7 +6,6 @@ package edu.ahut.domain;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 答辩组

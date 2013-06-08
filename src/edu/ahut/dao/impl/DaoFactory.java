@@ -4,6 +4,7 @@
 package edu.ahut.dao.impl;
 
 import edu.ahut.dao.AnswerGroupDao;
+import edu.ahut.dao.ArchiveDao;
 import edu.ahut.dao.BasicDao;
 import edu.ahut.dao.BulletinDao;
 import edu.ahut.dao.JournalDao;
@@ -49,5 +50,9 @@ public class DaoFactory {
 
     public static AnswerGroupDao getAnswerGroupDao() {
         return new AnswerGroupDaoHibImpl();
+    }
+
+    public static ArchiveDao getArchiveDao() {
+        return new ArchiveDaoHibImpl();
     }
 }

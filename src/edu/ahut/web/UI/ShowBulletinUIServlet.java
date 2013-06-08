@@ -5,6 +5,7 @@
 package edu.ahut.web.UI;
 
 import edu.ahut.domain.Bulletin;
+import edu.ahut.domain.Student;
 import edu.ahut.service.impl.ServiceFactory;
 import edu.ahut.utils.ServiceUtils;
 import java.io.IOException;
@@ -37,8 +38,11 @@ public class ShowBulletinUIServlet extends HttpServlet {
             if (ServiceUtils.checkStringParam(id)) {
                 Bulletin bulletin = ServiceFactory.getBulletinService().getBulletinById(Integer.parseInt(id));
                 request.setAttribute("bulletin", bulletin);
-                request.getRequestDispatcher("/WEB-INF/jsp/bulletin_info.jsp").forward(request,
-                        response);
+                if (request.getSession().getAttribute("user") instanceof Student) {
+                    request.getRequestDispatcher("/WEB-INF/jsp/student/bulletin_info.jsp").forward(request,
+                            response);
+                }
+
             } else {
                 //这是页面上的内容，不在数据库中！
                 //在session中

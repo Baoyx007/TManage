@@ -5,6 +5,7 @@
 package edu.ahut.dao;
 
 import edu.ahut.domain.AnswerGroup;
+import edu.ahut.domain.User;
 
 /**
  *
@@ -14,4 +15,6 @@ import edu.ahut.domain.AnswerGroup;
 public interface AnswerGroupDao extends BasicDao<AnswerGroup> {
 
     public void clearDate();
+
+    public AnswerGroup getGroupByUser(User user);
 }

@@ -17,6 +17,8 @@ import edu.ahut.domain.User;
 import edu.ahut.service.UserService;
 import edu.ahut.service.impl.ServiceFactory;
 import edu.ahut.utils.ServiceUtils;
+import java.util.Enumeration;
+import java.util.Properties;
 
 /**
  * @author Haven
@@ -52,8 +54,15 @@ public class LoginServlet extends HttpServlet {
             if (!ServiceUtils.checkStringParam(username, password)) {
                 throw new IllegalArgumentException("用户名，密码不能为空！！！" + username + password);
             }
-            UserService service = ServiceFactory.getUserService();
+            //把一般设置都放入session中
+            Properties properties = ServiceUtils.loadSystemProperties();
+            Enumeration<?> propertyNames = properties.propertyNames();
+            while (propertyNames.hasMoreElements()) {
+                String nextElement = (String) propertyNames.nextElement();
+                request.getSession().setAttribute(nextElement, properties.getProperty(nextElement));
+            }
 
+            UserService service = ServiceFactory.getUserService();
             //所有人都可以通过这个登录
             User user = service.login(username, password);
 

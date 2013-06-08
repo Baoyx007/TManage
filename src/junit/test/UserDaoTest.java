@@ -58,41 +58,43 @@ public class UserDaoTest {
 
     @Test
     public void addStudent() {
-        Student student = new Student();
-        student.setName("鲍勇翔");
-        student.setUsername("byx");
-        student.setPassword(ServiceUtils.md5("123"));
-        student.setGender(Gender.MALE);
-        student.setBirthday(new Date());
-        student.setEmail("baoyx007@gmail.com");
-        student.setSchoolNumber("099074016");
-        student.setAddress("j3#4010");
-
         Qualification qualification = new Qualification();
         qualification.setCollege("安工大");
         qualification.setDegree("学士");
         qualification.setStartTime(2013);
-        student.setQualification(qualification);
+
         Unit unit = new Unit();
         unit.setSchool("安工大");
         unit.setDepartment("计算机");
         unit.setCalss("094");
-        student.setUnit(unit);
-        userDao.addUser(student);
-//        userDao.addStudent(student);
+        for (int i = 0; i < 30; i++) {
+            Student student = new Student();
+            student.setName("鲍勇翔" + i);
+            student.setUsername("byx" + i);
+            student.setPassword(ServiceUtils.md5("123"));
+            student.setGender(Gender.MALE);
+            student.setBirthday(new Date());
+            student.setEmail("baoyx00" + i + "@gmail.com");
+            student.setSchoolNumber("09907401" + i);
+            student.setAddress("j3#40" + i);
+            student.setQualification(qualification);
+            student.setUnit(unit);
+            userDao.addStudent(student);
+        }
     }
 
     @Test
     public void addTeacher() {
-        Teacher t = new Teacher();
-        t.setName("储岳中");
-        t.setUsername("chu");
-        t.setPassword(ServiceUtils.md5("123"));
-        t.setGender(Gender.MALE);
-        t.setBirthday(new Date());
-        t.setEmail("e@sdf.com");
-        t.setSchoolNumber("09907232416");
-        t.setAddress("j3#ewrfqe");
+        for (int i = 0; i < 30; i++) {
+            Teacher t = new Teacher();
+            t.setName("储岳中" + i);
+            t.setUsername("chu" + i);
+            t.setPassword(ServiceUtils.md5("123"));
+            t.setGender(Gender.MALE);
+            t.setBirthday(new Date());
+            t.setEmail("e@sdf.com");
+            t.setSchoolNumber("0990723241" + i);
+            t.setAddress("j3#ewrfqe" + i);
 //
 //        Qualification qualification = new Qualification();
 //        qualification.setCollege("安工大");
@@ -104,7 +106,8 @@ public class UserDaoTest {
 //        unit.setDepartment("计算机");
 //        unit.setCalss("094");
 //        t.setUnit(unit);
-        userDao.addUser(t);
+            userDao.addUser(t);
+        }
 //        userDao.addStudent(student);
     }
 

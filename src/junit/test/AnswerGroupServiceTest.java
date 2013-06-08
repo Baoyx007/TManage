@@ -28,7 +28,7 @@ public class AnswerGroupServiceTest {
 
     @Test
     public void testRandom() {
-        answerGroupService.setRandomGroups(7);
+        answerGroupService.setRandomGroups();
     }
 
     @After

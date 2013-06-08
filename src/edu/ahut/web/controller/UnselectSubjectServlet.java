@@ -2,17 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.ahut.web.UI;
+package edu.ahut.web.controller;
 
-import edu.ahut.domain.Bulletin;
+import edu.ahut.domain.Subject;
+import edu.ahut.service.SubjectService;
 import edu.ahut.service.impl.ServiceFactory;
-import edu.ahut.utils.ServiceUtils;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Properties;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author Haven
- * @date Jun 1, 2013
+ * @date Jun 8, 2013
  */
-public class CommonIndexUIServlet extends HttpServlet {
+public class UnselectSubjectServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -38,35 +33,18 @@ public class CommonIndexUIServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            List<Bulletin> top2 = ServiceFactory.getBulletinService().getTop2();
-            if (request.getSession().getAttribute("thesisStart") == null) {
-                //把一般设置都放入session中
-                Properties properties = ServiceUtils.loadSystemProperties();
-                Enumeration<?> propertyNames = properties.propertyNames();
-                while (propertyNames.hasMoreElements()) {
-                    String nextElement = (String) propertyNames.nextElement();
-                    request.getSession().setAttribute(nextElement, properties.getProperty(nextElement));
-                }
-            }
-            String thesisStart = (String) request.getSession().getAttribute("thesisStart");
-            String thesisEnd = (String) request.getSession().getAttribute("thesisEnd");
-
-            SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-            Date thesisStartDate = formatDate.parse(thesisStart);
-            Date thesisEndDate = formatDate.parse(thesisEnd);
-            long length = thesisEndDate.getTime() - thesisStartDate.getTime();
-            long now = new Date().getTime() - thesisStartDate.getTime();
-            int percentage = (int) ((now * 1.0 / length) * 100);
-//            System.out.println("" + length + "," + now + "," + percentage);
-            request.setAttribute("top2", top2);
-//            request.setAttribute("thesisStart", properties.getProperty("thesisStart"));
-//            request.setAttribute("thesisEnd", properties.getProperty("thesisEnd"));
-            request.setAttribute("percentage", percentage);
-            request.getRequestDispatcher("/index.jsp").forward(request,
-                    response);
+            String sId = request.getParameter("sId");
+            SubjectService subjectService = ServiceFactory.getSubjectService();
+            Subject byId = subjectService.getById(Integer.parseInt(sId));
+            byId.setStudent(null);
+            subjectService.update(byId);
+            request.setAttribute("message", "退选成功");
+            request.setAttribute("success", "success");
+            request.getRequestDispatcher("/message.jsp").forward(request, response);
         } catch (Exception e) {
-            request.setAttribute("error", "");
-            request.setAttribute("message", "I don't know!");
+            e.printStackTrace();
+            request.setAttribute("message", "退选失败");
+            request.setAttribute("error", "error");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }

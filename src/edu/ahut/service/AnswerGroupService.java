@@ -5,9 +5,7 @@
 package edu.ahut.service;
 
 import edu.ahut.domain.AnswerGroup;
-import edu.ahut.domain.Student;
-import java.util.Map;
-import java.util.Set;
+import edu.ahut.domain.User;
 
 /**
  *
@@ -18,5 +16,7 @@ public interface AnswerGroupService extends BasicService<AnswerGroup> {
 
     //每组对应的学生
     //groupCount:每组多少人
-    public void setRandomGroups(int groupStudents);
+    public void setRandomGroups();
+
+    public AnswerGroup getGroupByUser(User user);
 }
