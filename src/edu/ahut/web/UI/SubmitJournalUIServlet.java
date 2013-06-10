@@ -33,11 +33,16 @@ public class SubmitJournalUIServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if ("true".equals(request.getParameter("real"))) {
+            //确实提交
+            request.getRequestDispatcher("/WEB-INF/jsp/student/submit_journal.jsp").forward(request,
+                    response);
+        }
         try {
             Object user = request.getSession(false).getAttribute("user");
             List<Journal> myJournals = ServiceFactory.getJournalService().listJournalByStudent((Student) user);
             request.setAttribute("myJournals", myJournals);
-            request.getRequestDispatcher("/WEB-INF/jsp/student/sumbit_journal.jsp").forward(request,
+            request.getRequestDispatcher("/WEB-INF/jsp/student/list_journal.jsp").forward(request,
                     response);
         } catch (Exception e) {
             e.printStackTrace();

@@ -132,4 +132,15 @@ public class SubjectDaoHibImpl extends BasicDaoHibImpl<Subject> implements Subje
         query.setMaxResults(20);
         return query.list();
     }
+
+    @Override
+    public List<Subject> findChoosenSubjectByTeacher(Teacher teacher) {
+        Session s = HibernateUtil.getCurrentSession();
+        Query query = s.createQuery(
+                "from Subject as sb where sb.teacher=:teacher and sb.choosened=1");
+        query.setParameter("teacher", teacher);
+        query.setFirstResult(0);
+        query.setMaxResults(20);
+        return query.list();
+    }
 }

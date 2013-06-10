@@ -45,20 +45,23 @@ public class PublishSubjectServlet extends HttpServlet {
         User u = (User) request.getSession().getAttribute("user");
         try {
             SubjectService subjectService = ServiceFactory.getSubjectService();
-            if (id == null) {
+            if (id == null || id.trim().length() <= 0) {
                 subjectService.addSubject(title, description, u);
                 request.setAttribute("message", "添加成功,请等待管理员审核!");
+                request.setAttribute("success", "success");
                 request.getRequestDispatcher("/message.jsp").forward(request,
                         response);
             } else {
                 subjectService.updateSubject(Integer.parseInt(id), title, description, u);
                 request.setAttribute("message", "修改成功!");
+                request.setAttribute("success", "success");
                 request.getRequestDispatcher("/message.jsp").forward(request,
                         response);
             }
         } catch (Exception e) {
             // 其他问题
             request.setAttribute("message", "添加出错");
+            request.setAttribute("error", "error");
             e.printStackTrace();
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);

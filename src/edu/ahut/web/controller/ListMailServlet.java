@@ -5,6 +5,7 @@
 package edu.ahut.web.controller;
 
 import edu.ahut.domain.Mail;
+import edu.ahut.domain.Student;
 import edu.ahut.domain.User;
 import edu.ahut.service.MailService;
 import edu.ahut.service.impl.ServiceFactory;
@@ -45,13 +46,16 @@ public class ListMailServlet extends HttpServlet {
             if (unreadMail.size() <= 0) {
                 unreadMail = null;
             }
-            request.setAttribute("readedMailList", readedMail);
-            request.setAttribute("unreadMailList", unreadMail);
-            request.getRequestDispatcher("/WEB-INF/jsp/InBoxMail.jsp")
-                    .forward(request, response);
+            if (user instanceof Student) {
+                request.setAttribute("readedMailList", readedMail);
+                request.setAttribute("unreadMailList", unreadMail);
+                request.getRequestDispatcher("/WEB-INF/jsp/student/InBoxMail.jsp")
+                        .forward(request, response);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("message", "列出邮件出错");
+            request.setAttribute("error", "error");
             request.getRequestDispatcher("message.jsp").forward(request,
                     response);
         }

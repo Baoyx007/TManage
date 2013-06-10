@@ -12,6 +12,7 @@
         <meta name="author" content="haven">
         <!-- Le styles -->
         <link href="./css/bootstrap.css" rel="stylesheet">
+        <link href="./css/scojs.css" rel="stylesheet">
         <style type="text/css">
             body {
                 padding-top: 60px;
@@ -98,18 +99,20 @@
                                 </td>
                                 <td>
                                     <c:if test="${subject.student.id==user.id}">
-                                        <a  href="${myContext}/UnselectSubjectServlet?sId=${subject.id}">退选</a>
+                                        <a  class="btn btn-warning" data-trigger="confirm" data-content="是否确认退选!"  href="${myContext}/UnselectSubjectServlet?sId=${subject.id}">退选</a>
                                     </c:if>
                                 </td>
                             </c:otherwise>
                         </c:choose>
 
-
                     </tr>
                 </c:forEach>
             </table>
         </div>
+
         <script src="./js/jquery.js"></script>
         <script src="./js/bootstrap.js"></script>
+        <script src="./js/sco.modal.js"></script>
+        <script src="./js/sco.confirm.js"></script>
     </body>
 </html>

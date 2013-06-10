@@ -4,8 +4,11 @@
  */
 package edu.ahut.web.UI;
 
+import edu.ahut.domain.Admin;
 import edu.ahut.domain.Bulletin;
 import edu.ahut.domain.Student;
+import edu.ahut.domain.Teacher;
+import edu.ahut.domain.User;
 import edu.ahut.service.impl.ServiceFactory;
 import edu.ahut.utils.ServiceUtils;
 import java.io.IOException;
@@ -34,24 +37,32 @@ public class ShowBulletinUIServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            User user = (User) request.getSession().getAttribute("user");
             String id = request.getParameter("id");
             if (ServiceUtils.checkStringParam(id)) {
                 Bulletin bulletin = ServiceFactory.getBulletinService().getBulletinById(Integer.parseInt(id));
                 request.setAttribute("bulletin", bulletin);
-                if (request.getSession().getAttribute("user") instanceof Student) {
+                if (user instanceof Student) {
                     request.getRequestDispatcher("/WEB-INF/jsp/student/bulletin_info.jsp").forward(request,
+                            response);
+                } else if (user instanceof Teacher) {
+                    request.getRequestDispatcher("/WEB-INF/jsp/teacher/bulletin_info.jsp").forward(request,
+                            response);
+                } else if (user instanceof Admin) {
+                    request.getRequestDispatcher("/WEB-INF/jsp/admin/bulletin_info.jsp").forward(request,
                             response);
                 }
 
             } else {
                 //这是页面上的内容，不在数据库中！
                 //在session中
-                request.getRequestDispatcher("/WEB-INF/jsp/bulletin_info.jsp").forward(request,
+                request.getRequestDispatcher("/WEB-INF/jsp/admin/bulletin_info.jsp").forward(request,
                         response);
             }
 
         } catch (Exception e) {
             request.setAttribute("message", e.getMessage());
+            request.setAttribute("error", "error");
             request.getRequestDispatcher("message.jsp").forward(request,
                     response);
         }

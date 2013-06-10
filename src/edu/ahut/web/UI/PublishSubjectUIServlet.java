@@ -48,6 +48,7 @@ public class PublishSubjectUIServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("message", "显示发布界面出错");
+            request.setAttribute("error", "error");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }

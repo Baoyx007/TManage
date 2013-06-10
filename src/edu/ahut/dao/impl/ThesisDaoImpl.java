@@ -9,7 +9,6 @@ package edu.ahut.dao.impl;
  *
  */
 public class ThesisDaoImpl {
-
 //    /*
 //     * (non-Javadoc)
 //     * 
@@ -67,7 +66,7 @@ public class ThesisDaoImpl {
 //     */
 //    @Override
 //    public Thesis getThesis(String id) {
-//        // TODO subject没法映射
+//        
 //        return null;
 //    }
 }

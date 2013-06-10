@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ahut.domain.Subject;
+import edu.ahut.domain.Teacher;
 import edu.ahut.domain.User;
 import edu.ahut.service.SubjectService;
 import edu.ahut.service.impl.ServiceFactory;
@@ -44,25 +45,29 @@ public class SubmitThesisUIServlet extends HttpServlet {
         String subjectId = request.getParameter("subjectId");
         Subject subject = null;
         SubjectService ss = ServiceFactory.getSubjectService();
+        User user = (User) request.getSession(false).getAttribute("user");
         //已指定subject
         if (subjectId != null) {
             subject = ss.getById(Integer.parseInt(subjectId));
-
         }//根据学生找到对应的subject
         else {
-            User student = (User) request.getSession(false).getAttribute("user");
-            subject = ServiceFactory.getSubjectService().getStudentChoosenedSubject((Student) student);
+            subject = ServiceFactory.getSubjectService().getStudentChoosenedSubject((Student) user);
         }
         if (subject == null) {
             request.setAttribute("message", "你还没有选择论文题目，请尽快联系导师！");
+            request.setAttribute("info", "info");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } else {
 //            request.setAttribute("subject", subject);
             //设置session，在submitThesisSevlet获取并销毁
             request.getSession(false).setAttribute("subject", subject);
-            request.getRequestDispatcher("/WEB-INF/jsp/submit_thesis.jsp").forward(
-                    request, response);
+            if (user instanceof Student) {
+                request.getRequestDispatcher("/WEB-INF/jsp/student/submit_thesis.jsp").forward(
+                        request, response);
+            } else if (user instanceof Teacher) {
+                request.getRequestDispatcher("/WEB-INF/jsp/teacher/submit_thesis.jsp").forward(request, response);
+            }
         }
     }
 

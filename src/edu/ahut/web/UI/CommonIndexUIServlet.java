@@ -62,6 +62,8 @@ public class CommonIndexUIServlet extends HttpServlet {
 //            request.setAttribute("thesisStart", properties.getProperty("thesisStart"));
 //            request.setAttribute("thesisEnd", properties.getProperty("thesisEnd"));
             request.setAttribute("percentage", percentage);
+            long remain = thesisEndDate.getTime();
+            request.setAttribute("remain", remain / 1000);
             request.getRequestDispatcher("/index.jsp").forward(request,
                     response);
         } catch (Exception e) {

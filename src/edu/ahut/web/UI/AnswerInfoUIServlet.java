@@ -5,6 +5,9 @@
 package edu.ahut.web.UI;
 
 import edu.ahut.domain.AnswerGroup;
+import edu.ahut.domain.Archive;
+import edu.ahut.domain.Student;
+import edu.ahut.domain.Teacher;
 import edu.ahut.domain.User;
 import edu.ahut.service.impl.ServiceFactory;
 import java.io.IOException;
@@ -34,10 +37,19 @@ public class AnswerInfoUIServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             User u = (User) request.getSession().getAttribute("user");
-            AnswerGroup groupByUser = ServiceFactory.getAnswerGroupService().getGroupByUser(u);
-            request.setAttribute("group", groupByUser);
-            request.getRequestDispatcher("/WEB-INF/jsp/answer_info.jsp").forward(request,
-                    response);
+            if (u instanceof Student) {
+                AnswerGroup groupByUser = ServiceFactory.getAnswerGroupService().getGroupByUser(u);
+                Archive archive = ServiceFactory.getArchiveService().getByStudent((Student) u);
+                request.setAttribute("group", groupByUser);
+                request.setAttribute("archive", archive);
+                request.getRequestDispatcher("/WEB-INF/jsp/student/answer_info.jsp").forward(request,
+                        response);
+            } else if (u instanceof Teacher) {
+                AnswerGroup groupByUser = ServiceFactory.getAnswerGroupService().getGroupByUser(u);
+                request.setAttribute("group", groupByUser);
+                request.getRequestDispatcher("/WEB-INF/jsp/teacher/answer_info.jsp").forward(request,
+                        response);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("message", "列出答辩组出错");

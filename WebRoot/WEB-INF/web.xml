@@ -216,6 +216,34 @@
         <servlet-name>UnselectSubjectServlet</servlet-name>
         <servlet-class>edu.ahut.web.controller.UnselectSubjectServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MarkThesisArchiveServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.MarkThesisArchiveServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SubmitJournalServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.SubmitJournalServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConfirmSubjectServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.ConfirmSubjectServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetUnreadJournalServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.GetUnreadJournalServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SubmitJournalCommentServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.SubmitJournalCommentServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StartAnswerUIServlet</servlet-name>
+        <servlet-class>edu.ahut.web.UI.StartAnswerUIServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MarkGradeServlet</servlet-name>
+        <servlet-class>edu.ahut.web.controller.MarkGradeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DownloadThesisServlet</servlet-name>
         <url-pattern>/DownloadThesisServlet</url-pattern>
@@ -403,6 +431,34 @@
     <servlet-mapping>
         <servlet-name>UnselectSubjectServlet</servlet-name>
         <url-pattern>/UnselectSubjectServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarkThesisArchiveServlet</servlet-name>
+        <url-pattern>/MarkThesisArchiveServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubmitJournalServlet</servlet-name>
+        <url-pattern>/SubmitJournalServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfirmSubjectServlet</servlet-name>
+        <url-pattern>/ConfirmSubjectServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetUnreadJournalServlet</servlet-name>
+        <url-pattern>/GetUnreadJournalServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubmitJournalCommentServlet</servlet-name>
+        <url-pattern>/SubmitJournalCommentServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StartAnswerUIServlet</servlet-name>
+        <url-pattern>/StartAnswerUIServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarkGradeServlet</servlet-name>
+        <url-pattern>/MarkGradeServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>gate.jsp</welcome-file>

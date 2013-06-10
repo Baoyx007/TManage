@@ -44,4 +44,6 @@ public interface SubjectService extends BasicService<Subject> {
     public List<Subject> getUncheckedSubjects();
 
     public List<Subject> getCheckedSubjects();
+
+    public void markAsChoosen(String subjectId);
 }

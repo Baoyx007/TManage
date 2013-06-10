@@ -8,7 +8,9 @@ import edu.ahut.dao.AnswerGroupDao;
 import edu.ahut.dao.UserDao;
 import edu.ahut.dao.impl.DaoFactory;
 import edu.ahut.domain.AnswerGroup;
+import edu.ahut.domain.Archive;
 import edu.ahut.domain.Student;
+import edu.ahut.domain.Subject;
 import edu.ahut.domain.Teacher;
 import edu.ahut.domain.User;
 import edu.ahut.service.AnswerGroupService;
@@ -118,5 +120,20 @@ public class AnswerGroupServiceImpl extends BasicServiceImpl<AnswerGroup> implem
     @Override
     public AnswerGroup getGroupByUser(User user) {
         return answerGroupDao.getGroupByUser(user);
+    }
+
+    @Override
+    public List<Archive> startAnswer(Teacher teacher) {
+        AnswerGroup groupByUser = answerGroupDao.getGroupByUser(teacher);
+        ArrayList<Archive> arrayList = new ArrayList<Archive>();
+        List<Student> students = groupByUser.getStudents();
+        for (Iterator<Student> it = students.iterator(); it.hasNext();) {
+            Student student = it.next();
+            student.getName();
+            Subject studentChoosenedSubject = DaoFactory.getSubjectDao().getStudentChoosenedSubject(student);
+            Archive findBySubject = DaoFactory.getArchiveDao().findBySubject(studentChoosenedSubject);
+            arrayList.add(findBySubject);
+        }
+        return arrayList;
     }
 }

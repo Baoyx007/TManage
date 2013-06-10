@@ -40,7 +40,8 @@ public class DownloadThesisServlet extends HttpServlet {
         String uuidFilePath = request.getParameter("uuidFilePath");
         //设置mime类型
         String realName = uuidFileName.substring(uuidFileName.lastIndexOf('_') + 1);
-        response.setHeader("Content-Disposition", "attachment; filename=" + realName);
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; filename=" + java.net.URLEncoder.encode(realName, "utf-8"));
         try {
 //若乱码:
 //            String uuidFilePath = new String(request.getParameter("uuidFilePath").getBytes("iso-8859-1"), "UTF-8");

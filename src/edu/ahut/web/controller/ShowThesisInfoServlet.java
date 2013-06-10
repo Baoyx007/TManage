@@ -3,6 +3,7 @@
  */
 package edu.ahut.web.controller;
 
+import edu.ahut.domain.Admin;
 import edu.ahut.domain.Student;
 import java.io.IOException;
 
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.ahut.domain.Subject;
+import edu.ahut.domain.Teacher;
+import edu.ahut.domain.Thesis;
 import edu.ahut.service.SubjectService;
 import edu.ahut.service.impl.ServiceFactory;
 import edu.ahut.utils.ServiceUtils;
@@ -57,14 +60,28 @@ public class ShowThesisInfoServlet extends HttpServlet {
             if (subject != null) {
                 // 这个界面应该是这个项目的核心了把!!!
                 request.setAttribute("subject", subject);
-                request.getRequestDispatcher("/WEB-INF/jsp/thesis_info.jsp")
-                        .forward(request, response);
+                Thesis archiveThesis = ServiceFactory.getArchiveService().getArchiveThesisBySubjcet(subject);
+                request.setAttribute("archiveThesis", archiveThesis);
+                Object user = request.getSession().getAttribute("user");
+                if (user instanceof Student) {
+                    request.getRequestDispatcher("/WEB-INF/jsp/student/thesis_info.jsp")
+                            .forward(request, response);
+                } else if (user instanceof Teacher) {
+                    request.getRequestDispatcher("/WEB-INF/jsp/teacher/thesis_info.jsp")
+                            .forward(request, response);
+                } else if (user instanceof Admin) {
+                    request.getRequestDispatcher("/WEB-INF/jsp/admin/thesis_info.jsp")
+                            .forward(request, response);
+                } else {
+                    throw new RuntimeException();
+                }
             } else {
                 throw new RuntimeException();
             }
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("message", "显示论文信息出错");
+            request.setAttribute("error", "error");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }

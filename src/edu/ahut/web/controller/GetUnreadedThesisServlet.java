@@ -43,6 +43,7 @@ public class GetUnreadedThesisServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("message", "获取出错");
+            request.setAttribute("error", "error");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }

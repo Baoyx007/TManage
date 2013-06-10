@@ -5,7 +5,10 @@
 package edu.ahut.service;
 
 import edu.ahut.domain.AnswerGroup;
+import edu.ahut.domain.Archive;
+import edu.ahut.domain.Teacher;
 import edu.ahut.domain.User;
+import java.util.List;
 
 /**
  *
@@ -19,4 +22,6 @@ public interface AnswerGroupService extends BasicService<AnswerGroup> {
     public void setRandomGroups();
 
     public AnswerGroup getGroupByUser(User user);
+
+    public List<Archive> startAnswer(Teacher teacher);
 }

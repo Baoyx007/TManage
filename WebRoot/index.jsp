@@ -22,6 +22,7 @@
         </style>
         <link href="./css/bootstrap-responsive.css" rel="stylesheet">
         <link rel="stylesheet" href="./css/grumble.css">
+        <link rel="stylesheet" href="./css/scojs.css">
     </head>
 
     <body>
@@ -71,11 +72,17 @@
 
             <!-- Main hero unit for a primary marketing message or call to action -->
             <div class="hero-unit ">
-                <h1>当前进度</h1>
-                <p>登陆后可查看详细进度</p>
+                <h1>当前进度 </h1>
+                <script src="./js/jquery.js"></script>
+                <script>
+                    $(function() {
+                        var tt = ${remain};
+                        $('#countdowner').scojs_countdown({until: tt});
+                    });</script>
+                还剩： <div id="countdowner" ></div>
                 <div id="begin" data-toggle="tooltip" data-placement="left" data-original-title="${thesisStart}" class="span1">开始</div>
                 <div class="progress progress-striped active span8 ">
-                    <div class="bar" style="width: ${percentage}%;">${percentage}%</div>
+                    <div class="bar" style="width: ${percentage}%;">${percentage}% </div>
                     <div id="percentage"></div>
                 </div>
                 <div id="end" data-toggle="tooltip" data-placement="top" data-original-title="${thesisEnd}" class="span1">结束</div>
@@ -108,25 +115,24 @@
             </footer>
 
         </div> <!-- /container -->
-        <script src="./js/jquery.js"></script>
         <script src="./js/bootstrap.js"></script>
         <script src="./js/Bubble.js"></script>
         <script src="./js/jquery.grumble.js"></script>
+        <script src="./js/sco.countdown.js"></script>
         <script type="text/javascript">
-            $('#percentage').grumble(
-                    {
-                        text: '抓紧时间了！',
-                        angle: 40,
-                        distance: 0,
-                        showAfter: 2000,
-                        hideAfter: false,
-                        type: 'alt-',
-                        hasHideButton: true,
-                        buttonHideText: '关闭'
-                    }
-            );
-            $('#begin').tooltip();
-            $('#end').tooltip();
+                    $('#begin').tooltip();
+                    $('#end').tooltip();
+                    $('#percentage').grumble(
+                            {
+                                text: '抓紧时间了！',
+                                angle: 40,
+                                distance: 0,
+                                showAfter: 2000,
+                                hideAfter: false,
+                                hasHideButton: true,
+                                buttonHideText: '关闭'
+                            }
+                    );
         </script>
     </body>
 </html>

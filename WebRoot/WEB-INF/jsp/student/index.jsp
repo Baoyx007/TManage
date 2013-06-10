@@ -39,7 +39,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="${myContext}/SubmitThesisUIServlet">提交论文</a></li>
                                     <li><a href="${myContext}/ShowThesisInfoServlet?userId=${user.id}">我的论文</a></li>
-                                    <li><a href="#">确定终稿</a></li>
+                                    <li><a href="#myArchive">确定终稿</a></li>
                                 </ul>
                             </li>
                             <li><a href="${myContext}/SubmitJournalUIServlet">周志</a></li>

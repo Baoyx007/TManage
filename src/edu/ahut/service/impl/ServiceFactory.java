@@ -4,6 +4,7 @@
 package edu.ahut.service.impl;
 
 import edu.ahut.service.AnswerGroupService;
+import edu.ahut.service.ArchiveService;
 import edu.ahut.service.BulletinService;
 import edu.ahut.service.JournalService;
 import edu.ahut.service.MailService;
@@ -44,5 +45,9 @@ public class ServiceFactory {
 
     public static AnswerGroupService getAnswerGroupService() {
         return new AnswerGroupServiceImpl();
+    }
+
+    public static ArchiveService getArchiveService() {
+        return new ArchiveServiceImpl();
     }
 }

@@ -59,8 +59,9 @@ public class SubmitThesisServlet extends HttpServlet {
 //            Subject subject = ServiceFactory.getSubjectService().getById(Integer.parseInt(subjectId));
             thesis.setSubject(subject);
             ServiceFactory.getThesisService().save(thesis);
-            
+
             request.setAttribute("message", "上传成功");
+            request.setAttribute("success", "success");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
             // 以下都是呕心的异常
@@ -105,7 +106,7 @@ public class SubmitThesisServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         doGet(request, response);
     }
 }

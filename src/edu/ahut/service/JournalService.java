@@ -6,6 +6,7 @@ package edu.ahut.service;
 
 import edu.ahut.domain.Journal;
 import edu.ahut.domain.Student;
+import edu.ahut.domain.Teacher;
 import java.util.List;
 
 /**
@@ -16,4 +17,6 @@ import java.util.List;
 public interface JournalService extends BasicService<Journal> {
 
     public List<Journal> listJournalByStudent(Student student);
+
+    public List<Journal> getUnreadedJournal(Teacher teacher);
 }

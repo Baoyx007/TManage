@@ -38,6 +38,8 @@ public interface SubjectDao extends BasicDao<Subject> {
 
     public List<Subject> findSubjectByTeacher(Teacher teacher);
 
+    public List<Subject> findChoosenSubjectByTeacher(Teacher teacher);
+
     public User getTeacherByStudent(User user);
 
     public Subject getStudentChoosenedSubject(Student student);

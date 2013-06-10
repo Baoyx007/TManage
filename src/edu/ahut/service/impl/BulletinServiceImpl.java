@@ -63,10 +63,6 @@ public class BulletinServiceImpl extends BasicServiceImpl<Bulletin> implements B
     public List<Bulletin> getAllBulletin() {
         List<Bulletin> allBulletin = bulletinDao.getAllBulletin();
 
-//        //TODO 太浪费内存了，admin其实都是一个人
-//        for (Bulletin b : allBulletin) {
-//            b = bulletinDao.fillAdmin(b);
-//        }
         return allBulletin;
     }
 

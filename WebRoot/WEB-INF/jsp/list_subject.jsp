@@ -26,19 +26,15 @@
                     <td><a href="${myContext }/UserInfoServlet?userId=${subject.teacher.id}">${ subject.teacher.name}</a></td>
                     <td>
                         <c:if test="${subject.checked == true}">
-                            已通过
+                            已通过审核！
                         </c:if>
                         <c:choose>  
                             <c:when test="${subject.student==null}">尚未有学生选择</c:when>  
                             <c:otherwise><a href="${myContext}/UserInfoServlet?userId=${subject.student.id}">${ subject.student.name}</a>   同学选择了此题</c:otherwise>
                         </c:choose>
                     </td>
-                    <td><c:url var="urlForStu" value="/SelectSubjectServlet" >
-                            <c:param name="subjectId" value="${subject.id }">
-                            </c:param>
-                        </c:url> 
-                        <a href="${myContext}/PublishSubjectUIServlet?id=${subject.id}">修改论题(TODO：确认是否已选)</a>
-                        <a href="${urlForStu}" style="display:${sessionScope.user.getClass().simpleName=='Student'?'':'none' } ">选此论文题目</a>
+                    <td>
+                        <a href="${myContext}/PublishSubjectUIServlet?id=${subject.id}">修改论题</a>
                         <c:choose>  
                             <c:when test="${subject.student==null}">  
                                 <a href="${myContext}/DeleteSubjectServlet?id=${subject.id}">删除论题(弹出确认)</a>
@@ -46,7 +42,6 @@
                             <c:otherwise>  <a href="${myContext }/ShowThesisInfoServlet?subjectId=${subject.id}" 
                                style="display:${sessionScope.user.getClass().simpleName=='Teacher'?'':'none' } ">查看已提交的论文</a></c:otherwise>
                         </c:choose>
-
                     </td>
                 </tr>
             </c:forEach>

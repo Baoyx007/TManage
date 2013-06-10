@@ -104,4 +104,11 @@ public class SubjectServiceImpl extends BasicServiceImpl<Subject> implements Sub
         subject.setTeacher((Teacher) teacher);
         subjectdao.update(subject);
     }
+
+    @Override
+    public void markAsChoosen(String subjectId) {
+        Subject byId = subjectdao.getById(Integer.parseInt(subjectId));
+        byId.setChoosened(true);
+        subjectdao.update(byId);
+    }
 }

@@ -43,6 +43,9 @@ public class ListBulletinServlet extends HttpServlet {
             } else if (request.getSession().getAttribute("user") instanceof Admin) {
                 request.getRequestDispatcher("/WEB-INF/jsp/admin/list_bulletin.jsp")
                         .forward(request, response);
+            } else {
+                request.getRequestDispatcher("/WEB-INF/jsp/teacher/list_bulletin.jsp")
+                        .forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace();

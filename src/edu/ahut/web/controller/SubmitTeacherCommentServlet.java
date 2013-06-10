@@ -8,7 +8,6 @@ import edu.ahut.domain.Thesis;
 import edu.ahut.service.ThesisService;
 import edu.ahut.service.impl.ServiceFactory;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,10 +39,7 @@ public class SubmitTeacherCommentServlet extends HttpServlet {
             Thesis byId = thesisService.getById(Integer.parseInt(thesisId));
             byId.setTeacherComment(teacherComment);
             thesisService.update(byId);
-            request.setAttribute("thesis", byId);
-            request.setAttribute("success", "修改成功");
-            request.getRequestDispatcher("/WEB-INF/jsp/teacher/review_thesis.jsp").forward(request,
-                    response);
+            response.sendRedirect(request.getContextPath() + "/GetUnreadedThesisServlet");
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("message", "审查论文出错");
