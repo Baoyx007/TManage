@@ -27,7 +27,43 @@ public class RegisterForm {
     private String comment;
     private String userType;
     private String name;
+    private String schoolNumber;
+    private String address;
+    private String qulif;
+    private String unit;
     private Map<String, String> errors = new HashMap<String, String>();
+
+    public String getSchoolNumber() {
+        return schoolNumber;
+    }
+
+    public void setSchoolNumber(String schoolNumber) {
+        this.schoolNumber = schoolNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getQulif() {
+        return qulif;
+    }
+
+    public void setQulif(String qulif) {
+        this.qulif = qulif;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
 
     public String getUsername() {
         return username;
@@ -59,6 +95,14 @@ public class RegisterForm {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public void setGender(String gender) {
+        if ("MALE".equals(gender)) {
+            this.gender = Gender.MALE;
+        } else {
+            this.gender = Gender.FEMALE;
+        }
     }
 
     public String getBirthday() {
@@ -131,10 +175,10 @@ public class RegisterForm {
         if (password == null || password.trim().equals("")) {
             isOK = false;
             errors.put("password", "密码不能为空");
-        } else if (!password.trim().matches("[A-Za-z0-9]{3,8}")) {
+        } else if (!password.trim().matches(".{3,50}")) {
             // System.out.println(password.trim());
             isOK = false;
-            errors.put("password", "密码必须是3-8位");
+            errors.put("password", "密码必须是3-50位");
         }
 
         if (password2 == null || password2.trim().equals("")) {
@@ -168,10 +212,10 @@ public class RegisterForm {
         // System.out.println(nickname);// ??°??? 乱码？？
         if (name == null || name.trim().equals("")) {
             isOK = false;
-            errors.put("name", "昵称不能为空");
+            errors.put("name", "姓名不能为空");
         } else if (!name.matches("^[\u4e00-\u9fa5]+$")) {
             isOK = false;
-            errors.put("name", "昵称不是汉字");
+            errors.put("name", "姓名不是汉字");
         }
 
         return isOK;

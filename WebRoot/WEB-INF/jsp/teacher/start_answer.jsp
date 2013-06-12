@@ -120,9 +120,9 @@
                                     <h3>${archive.thesis.realFileName}</h3>
                                     提交日期： <fmt:formatDate type="date" dateStyle="default"  value="${archive.thesis.submitDate}"/>
                                     <c:url var="downloadURL" value="/DownloadThesisServlet">
-                                        <c:param name="uuidFilePath" value="${thesis.realFilePath}">
+                                        <c:param name="uuidFilePath" value="${archive.thesis.realFilePath}">
                                         </c:param>
-                                        <c:param name="uuidFileName" value="${thesis.uuidFileName}">
+                                        <c:param name="uuidFileName" value="${archive.thesis.uuidFileName}">
                                         </c:param>
                                     </c:url>
                                     <a class="btn" href="${downloadURL}">下载</a>

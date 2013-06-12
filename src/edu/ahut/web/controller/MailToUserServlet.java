@@ -9,8 +9,6 @@ import edu.ahut.exceptions.NotConnectException;
 import edu.ahut.service.impl.ServiceFactory;
 import edu.ahut.utils.ServiceUtils;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,18 +38,22 @@ public class MailToUserServlet extends HttpServlet {
             if (!ServiceUtils.checkStringParam(toWho)) {
                 throw new IllegalArgumentException("别瞎点");
             }
+            User toUser = null;
             //发给自己老师
             if ("MyTeacher".equals(toWho)) {
                 User user = (User) request.getSession(false).getAttribute("user");
                 //找到自己老师
-                User toUser = ServiceFactory.getSubjectService().getTeacherByStudent(user);
+                toUser = ServiceFactory.getSubjectService().getTeacherByStudent(user);
                 if (toUser == null) {
                     throw new NotConnectException("尚未选择老师!");
                 }
-                request.setAttribute("toUser", toUser);
-                request.getRequestDispatcher("/WEB-INF/jsp/SendMail.jsp")
-                        .forward(request, response);
+
+            } else if ("any".equals(toWho)) {
+                String id = request.getParameter("id");
+                toUser = ServiceFactory.getUserService().getById(Integer.parseInt(id));
             }
+            request.setAttribute("toUser", toUser);
+            request.getRequestDispatcher("/WEB-INF/jsp/SendMail.jsp").forward(request, response);
         } catch (IllegalArgumentException e) {
             request.setAttribute("message", e.getMessage());
             request.getRequestDispatcher("/message.jsp").forward(request,

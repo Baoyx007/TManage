@@ -12,7 +12,7 @@ import java.util.List;
  * @date 2013-3-20
  *
  */
-public interface UserService {
+public interface UserService extends BasicService<User> {
 
     public void register(User user);
 
@@ -20,8 +20,6 @@ public interface UserService {
 
 //包括包涵的类
     public User getUserFullInfo(int id);
-
-    public void update(User user);
 
     public User getUserById(int id);
 

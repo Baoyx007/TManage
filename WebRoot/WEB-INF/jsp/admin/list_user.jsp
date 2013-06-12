@@ -1,18 +1,15 @@
 <%-- 
-    Document   : list_bulletin
-    Created on : May 14, 2013, 9:57:38 PM
+    Document   : ListUserUIServlet
+    Created on : Jun 12, 2013, 10:14:41 PM
     Author     : Haven
 --%>
 
 <%@page contentType="text/html" pageEncoding="utf-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>所有公告</title>
+        <title>所有用户</title>
         <meta charset="utf-8">
         <meta name="description" content="毕设">
         <meta name="author" content="haven">
@@ -26,8 +23,7 @@
         </style>
         <link href="./css/bootstrap-responsive.css" rel="stylesheet">
     </head>
-    <body >
-
+    <body>
         <!--header导航栏-->
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
@@ -44,25 +40,25 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">论题管理<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="${myContext}/PublishBulletinUIServlet">审核论题</a></li>
+                                    <li><a href="${myContext}/CheckSubjectServlet">审核论题</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="${myContext}/ListBulletinServlet">已通过的论题</a></li>
+                                    <li><a href="${myContext}/ListSubjectServlet">已通过的论题</a></li>
                                     <li><a href="${myContext}/ListBulletinServlet">查找论题</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">答辩 <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="${myContext}/PublishBulletinUIServlet">安排答辩</a></li>
+                                    <li><a href="${myContext}/AnswerManageServlet">安排答辩</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="${myContext}/ListBulletinServlet">所有答辩论文</a></li>
+                                    <li><a href="${myContext}/ListArchiveUIServlet">所有答辩论文</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">用户管理 <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="${myContext}/PublishBulletinUIServlet">注册用户</a></li>
-                                    <li><a href="${myContext}/ListBulletinServlet">所有用户</a></li>
+                                    <li><a href="${myContext}/RegisterUIServlet">注册用户</a></li>
+                                    <li><a href="${myContext}/ListUserUIServlet">所有用户</a></li>
                                     <li><a href="${myContext}/ListBulletinServlet">查找用户</a></li>
                                 </ul>
                             </li>
@@ -87,44 +83,47 @@
                 </div><!--/.nav-collapse -->
             </div>
         </div>
-
-        <div class="container " >
-            <div class="row " >
-                <div class="span8 offset2"  >
-                    <h3 class="text-center">
-                        公告列表
-                    </h3>
-                    <table class="table table-striped table-hover text-center ">
-                        <thead>
-                            <tr>
-                                <th>
-                                    编号
-                                </th>
-                                <th>
-                                    主题
-                                </th>
-                                <th>
-                                    时间
-                                </th>
-                                <th>
-                                    操作
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${requestScope.bulletins }" var="bulletin" varStatus="status">
-                                <tr >
-                                    <td >${status.count}</td> 
-                                    <td><a href="${pageContext.servletContext.contextPath}/ShowBulletionUIServlet?id=${bulletin.id}"> ${bulletin.topic}</a></td> 
-                                    <td> <fmt:formatDate type="date"   value="${bulletin.time}" /></td>
-                                    <td> <div class="btn-group">
-                                            <a  class="btn  btn-warning" data-trigger="confirm" data-content="是否确认删除此公告!" href="${myContext}/DeleteBulletinServlet?id=${bulletin.id}">删除</a><a class="btn btn-primary" href="${myContext}/PublishBulletinUIServlet?id=${bulletin.id}">修改</a></div></td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            编号
+                        </th>
+                        <th>
+                            用户名
+                        </th>
+                        <th>
+                            姓名
+                        </th>
+                        <th>
+                            邮箱
+                        </th>
+                        <th>
+                            类型
+                        </th>
+                        <th>
+                            操作
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${users}" var="user" varStatus="status">
+                        <tr>
+                            <td>${status.count}</td>
+                            <td><a href="${myContext}/UserInfoServlet?userId=${user.id}">${user.username}</a></td>
+                            <td>${user.name}</td>
+                            <td> <a href="mailto:${user.email}">${user.email}</a></td>
+                            <td>${user.getClass().simpleName}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a  class="btn  btn-warning" data-trigger="confirm" data-content="是否确认删除此用户!" href="${myContext}/DeleteUserServlet?id=${user.id}">删除</a>
+                                    <a class="btn btn-primary" href="${myContext}/RegisterUIServlet?id=${user.id}">修改</a>
+                            </td>
+                        </tr>  
+                    </c:forEach>
+                </tbody>
+            </table>
             <div class="row-fluid">
                 <div class="span12">
                     <div class="pagination pagination-right">

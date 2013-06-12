@@ -74,58 +74,48 @@
         </div>
         <!--container-->
         <div class="container">
-            <h1 >我的邮箱</h1>
-            <div class="row-fluid">
-                <div class="span2">
-                    <!--Sidebar content-->
-                    <ul class="nav nav-list affix">
-                        <li><a href="#"><i class="icon-chevron-right"></i> 发邮件</a></li>
-                    </ul>
+            <div class="page-header"><h1 >我的邮箱</h1></div>
 
-                </div>
-                <div class="span10">
-                    <!--Body content-->
-                    <span class="label label-important">未读</span>
-                    <br><br>
-                    <c:choose >
-                        <c:when test="${requestScope.unreadMailList==null}">没有未读邮件</c:when>
-                        <c:otherwise >
-                            <table class="table table-hover">
-                                <c:forEach items="${requestScope.unreadMailList}" var="unreadMail">
-                                    <tr>
-                                        <td><a href="${pageContext.servletContext.contextPath}/ShowMailInfoServlet?mailId=${unreadMail.id}">    
-                                                ${unreadMail.topic} </a>
-                                        </td>
-                                        <td>
-                                            ${unreadMail.sendTime}
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </table>
-                        </c:otherwise>
-                    </c:choose>
+            <!--Body content-->
+            <span class="label label-important">未读</span>
+            <br><br>
+            <c:choose >
+                <c:when test="${requestScope.unreadMailList==null}">没有未读邮件</c:when>
+                <c:otherwise >
+                    <table class="table table-hover">
+                        <c:forEach items="${requestScope.unreadMailList}" var="unreadMail">
+                            <tr>
+                                <td><a href="${pageContext.servletContext.contextPath}/ShowMailInfoServlet?mailId=${unreadMail.id}">    
+                                        ${unreadMail.topic} </a>
+                                </td>
+                                <td>
+                                    ${unreadMail.sendTime}
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:otherwise>
+            </c:choose>
 
-                    <br>
-                    <br>
-                    <span class="label label-success">已读</span>
-                    <br><br>
-                    <c:choose >
-                        <c:when test="${requestScope.readedMailList==null}">没有已读邮件</c:when>
-                        <c:otherwise > 
-                            <table class="table table-hover">
-                                <c:forEach items="${readedMailList}" var="readedMail">
-                                    <tr>  <td> <a href="${pageContext.servletContext.contextPath}/ShowMailInfoServlet?mailId=${readedMail.id}">    
-                                                ${readedMail.topic}</a> 
-                                        </td><td>
-                                            ${readedMail.sendTime}
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </table>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </div>
+            <br>
+            <br>
+            <span class="label label-success">已读</span>
+            <br><br>
+            <c:choose >
+                <c:when test="${requestScope.readedMailList==null}">没有已读邮件</c:when>
+                <c:otherwise > 
+                    <table class="table table-hover">
+                        <c:forEach items="${readedMailList}" var="readedMail">
+                            <tr>  <td> <a href="${pageContext.servletContext.contextPath}/ShowMailInfoServlet?mailId=${readedMail.id}">    
+                                        ${readedMail.topic}</a> 
+                                </td><td>
+                                    ${readedMail.sendTime}
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:otherwise>
+            </c:choose>
         </div>
         <script src="./js/jquery.js"></script>
         <script src="./js/bootstrap.js"></script>

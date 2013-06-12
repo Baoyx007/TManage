@@ -4,10 +4,7 @@
  */
 package edu.ahut.web.controller;
 
-import edu.ahut.domain.AnswerGroup;
-import edu.ahut.domain.Archive;
-import edu.ahut.domain.Teacher;
-import edu.ahut.service.ArchiveService;
+import edu.ahut.service.UserService;
 import edu.ahut.service.impl.ServiceFactory;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -18,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author Haven
- * @date Jun 11, 2013
+ * @date Jun 12, 2013
  */
-public class MarkGradeServlet extends HttpServlet {
+public class DeleteUserServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -34,29 +31,18 @@ public class MarkGradeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String archiveId = request.getParameter("archiveId");
-        String grade = request.getParameter("grade");
-        Teacher teacher = (Teacher) request.getSession().getAttribute("user");
+        String id = request.getParameter("id");
+        UserService us = ServiceFactory.getUserService();
         try {
-            ArchiveService archiveService = ServiceFactory.getArchiveService();
-            Archive byId = archiveService.getById(Integer.parseInt(archiveId));
-            AnswerGroup groupByUser = ServiceFactory.getAnswerGroupService().getGroupByUser(teacher);
-
-            if (groupByUser.getMaster().equals(teacher)) {
-                byId.setCount(byId.getCount() + 2);
-                byId.setScore((Integer.parseInt(grade) * 2 + byId.getScore()) / byId.getCount());
-            } else {
-                byId.setCount(byId.getCount() + 1);
-                byId.setScore((Integer.parseInt(grade) + byId.getScore()) / byId.getCount());
-            }
-            archiveService.update(byId);
-            request.setAttribute("message", "评分成功");
+            us.delete(Integer.parseInt(id));
+            request.setAttribute("message", "删除成功!");
             request.setAttribute("success", "success");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("message", "审查论文出错");
+            request.setAttribute("message", "删除出错");
+            request.setAttribute("error", "error");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }

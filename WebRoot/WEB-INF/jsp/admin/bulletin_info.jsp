@@ -1,18 +1,17 @@
 <%-- 
-    Document   : list_bulletin
-    Created on : May 14, 2013, 9:57:38 PM
+    Document   : bulletin_info
+    Created on : May 13, 2013, 9:13:09 PM
     Author     : Haven
 --%>
 
 <%@page contentType="text/html" pageEncoding="utf-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>所有公告</title>
+        <title>公告</title>   
         <meta charset="utf-8">
         <meta name="description" content="毕设">
         <meta name="author" content="haven">
@@ -27,7 +26,6 @@
         <link href="./css/bootstrap-responsive.css" rel="stylesheet">
     </head>
     <body >
-
         <!--header导航栏-->
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
@@ -87,77 +85,38 @@
                 </div><!--/.nav-collapse -->
             </div>
         </div>
-
-        <div class="container " >
-            <div class="row " >
-                <div class="span8 offset2"  >
-                    <h3 class="text-center">
-                        公告列表
-                    </h3>
-                    <table class="table table-striped table-hover text-center ">
-                        <thead>
-                            <tr>
-                                <th>
-                                    编号
-                                </th>
-                                <th>
-                                    主题
-                                </th>
-                                <th>
-                                    时间
-                                </th>
-                                <th>
-                                    操作
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${requestScope.bulletins }" var="bulletin" varStatus="status">
-                                <tr >
-                                    <td >${status.count}</td> 
-                                    <td><a href="${pageContext.servletContext.contextPath}/ShowBulletionUIServlet?id=${bulletin.id}"> ${bulletin.topic}</a></td> 
-                                    <td> <fmt:formatDate type="date"   value="${bulletin.time}" /></td>
-                                    <td> <div class="btn-group">
-                                            <a  class="btn  btn-warning" data-trigger="confirm" data-content="是否确认删除此公告!" href="${myContext}/DeleteBulletinServlet?id=${bulletin.id}">删除</a><a class="btn btn-primary" href="${myContext}/PublishBulletinUIServlet?id=${bulletin.id}">修改</a></div></td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="pagination pagination-right">
-                        <ul>
-                            <li>
-                                <a href="#">上一页</a>
-                            </li>
-                            <li>
-                                <a href="#">1</a>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#">5</a>
-                            </li>
-                            <li>
-                                <a href="#">下一页</a>
-                            </li>
-                        </ul>
+        <div class="container">
+            <div class="page-header">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <h3 class="text-center">
+                            ${bulletin.topic}
+                        </h3> 
+                        <div class="text-center">
+                            <span class="label badge-info ">时间</span>
+                            <fmt:formatDate type="both" dateStyle="default" timeStyle="default" value="${bulletin.time}"/>
+                            &nbsp;&nbsp;&nbsp;
+                            <span class="label badge-success">来源</span>${bulletin.admin.name}
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="row-fluid">
+                <div class="span12" >
+                    ${bulletin.content}
+                </div>
+            </div>
+            <div class="row-fluid">
+                附件：${bulletin.attachment}
+            </div>
+            <a href="javascript:history.go(-1);">返回</a>
+            <c:choose >
+                <%-- for preview --%>
+                <c:when test="${sessionScope.user!=null and requestScope.preview==true}"><a href="${pageContext.servletContext.contextPath}/PublishBulletinUIServlet">修改</a>，<a href="${pageContext.servletContext.contextPath}/SubmitBulletinServlet">提交</a></c:when>
+                <%-- for admin --%>
+                <c:when test="${sessionScope.user!=null }"><a href="${MyContext}/PublishBulletinUIServlet">修改??</a></c:when>
+            </c:choose> 
         </div>
         <script src="./js/jquery.js"></script>
-        <script src="./js/bootstrap.js"></script>
-        <script src="./js/sco.modal.js"></script>
-        <script src="./js/sco.confirm.js"></script>
     </body>
 </html>

@@ -9,22 +9,38 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>JSP Page</title>
-        <script src="js/ckeditor/ckeditor.js"></script>
+        <title>邮件</title>
+        <meta charset="utf-8">
+        <meta name="description" content="毕设">
+        <meta name="author" content="haven">
+        <!-- Le styles -->
+        <link href="./css/bootstrap.css" rel="stylesheet">
+        <style type="text/css">
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+            .help-block{
+                color: red;
+            }
+        </style>
+        <link href="./css/bootstrap-responsive.css" rel="stylesheet">
     </head>
-    <body style="width: 60%">
-        发件人:${mail.sendUser.name}
-        <hr>
-        收件人:${mail.recvUser.name}
-        <hr>
-        主题：<strong>${mail.topic}</strong>——${mail.sendTime}
-        <hr>
-        <div id="content" name="content" contenteditable="false" >${mail.content}</div>
-        <script>
-            CKEDITOR.disableAutoInline = true;
-            CKEDITOR.inline('content');
-        </script>
-        <br> 
-        <a href="${pageContext.servletContext.contextPath}/ListMailServlet" >返回</a>
+    <body >
+        <div class="container"> 
+            <div class="page-header">
+                <h1>${mail.topic} &nbsp;<small>${mail.sendTime}</small></h1>
+            </div>
+            <span class="label label-info">发件人:</span>&nbsp;<a href="${myContext}/UserInfoServlet?userId=${mail.sendUser.id}">${mail.sendUser.name}</a>
+            <hr>
+            <span class="label label-info">收件人:</span>&nbsp;<a href="${myContext}/UserInfoServlet?userId=${mail.recvUser.id}">${mail.recvUser.name}</a>
+            <hr>
+            <div  name="content">${mail.content}</div>
+            <br> 
+            <a class="btn" href="${pageContext.servletContext.contextPath}/ListMailServlet" >返回</a>
+        </div>
+
+        <script src="./js/jquery.js"></script>
+        <script src="./js/bootstrap.js"></script>
     </body>
 </html>

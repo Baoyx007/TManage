@@ -16,16 +16,21 @@ import java.util.List;
  * @date 2013-3-20
  *
  */
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends BasicServiceImpl<User> implements UserService {
 
-    UserDao userDao = DaoFactory.getUserDao();
+    private UserDao userDao = null;
+
+    public UserServiceImpl() {
+        userDao = DaoFactory.getUserDao();
+        basicDao = userDao;
+    }
+
     /*
      * (non-Javadoc)
      * 
      * @see edu.ahut.service.UserService#login(java.lang.String,
      * java.lang.String)
      */
-
     @Override
     public User login(String loginName, String password) {
         if (ServiceUtils.checkStringParam(loginName, password)) {

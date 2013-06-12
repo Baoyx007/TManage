@@ -34,6 +34,7 @@ public class DeleteBulletinServlet extends HttpServlet {
         try {
             ServiceFactory.getBulletinService().delete(Integer.parseInt(bulletinId));
             request.setAttribute("message", "删除公告成功");
+            request.setAttribute("success", "success");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } catch (Exception e) {

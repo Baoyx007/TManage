@@ -11,6 +11,7 @@ import edu.ahut.domain.Student;
 import edu.ahut.domain.Subject;
 import edu.ahut.domain.Thesis;
 import edu.ahut.service.ArchiveService;
+import edu.ahut.utils.ServiceUtils;
 
 /**
  *
@@ -57,5 +58,13 @@ public class ArchiveServiceImpl extends BasicServiceImpl<Archive> implements Arc
     public Archive getByStudent(Student student) {
         Subject studentChoosenedSubject = DaoFactory.getSubjectDao().getStudentChoosenedSubject(student);
         return archiveDao.findBySubject(studentChoosenedSubject);
+    }
+
+    @Override
+    public Archive getBySubject(String subjectId) {
+        if (!ServiceUtils.checkStringParam(subjectId)) {
+            throw new IllegalArgumentException("不要瞎点！");
+        }
+        return archiveDao.findBySubject(new Subject(Integer.parseInt(subjectId)));
     }
 }

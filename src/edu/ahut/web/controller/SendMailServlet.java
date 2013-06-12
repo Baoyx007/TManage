@@ -46,6 +46,7 @@ public class SendMailServlet extends HttpServlet {
             request.setAttribute("message", "发送成功 ,3秒后自动关闭<script>\n"
                     + "setTimeout(\"window.close()\",3000);\n"
                     + "</script>");
+            request.setAttribute("success", "success");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } catch (Exception e) {
@@ -53,6 +54,7 @@ public class SendMailServlet extends HttpServlet {
                     + "setTimeout(\"window.close()\",3000);\n"
                     + "</script>");
             e.printStackTrace();
+            request.setAttribute("error", "error");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }

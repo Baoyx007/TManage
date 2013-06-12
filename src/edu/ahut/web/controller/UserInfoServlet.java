@@ -4,6 +4,8 @@
  */
 package edu.ahut.web.controller;
 
+import edu.ahut.domain.Student;
+import edu.ahut.domain.Teacher;
 import edu.ahut.domain.User;
 import edu.ahut.exceptions.NotLoginException;
 import edu.ahut.service.UserService;
@@ -40,22 +42,22 @@ public class UserInfoServlet extends HttpServlet {
             if (user == null) {
                 throw new NotLoginException();
             }
-            //要显示的用户
-            User thisUser;
-            //若与登陆的id相同
-            if (user.getId() == userId) {
-                thisUser = user;
-                //不需要你，open session in view
-//                userService.fillAllInfo(user);
-            } else {
-                thisUser = userService.getUserFullInfo(userId);
-            }
+            User thisUser = userService.getById(userId);
             request.setAttribute("thisUser", thisUser);
-            request.getRequestDispatcher("/WEB-INF/jsp/user_info.jsp")
-                    .forward(request, response);
+            if (user instanceof Student) {
+                request.getRequestDispatcher("/WEB-INF/jsp/student/user_info.jsp")
+                        .forward(request, response);
+            } else if (user instanceof Teacher) {
+                request.getRequestDispatcher("/WEB-INF/jsp/teacher/user_info.jsp")
+                        .forward(request, response);
+            } else {
+                request.getRequestDispatcher("/WEB-INF/jsp/admin/user_info.jsp")
+                        .forward(request, response);
+            }
         } catch (NotLoginException e) {
             e.printStackTrace();
             request.setAttribute("message", "尚未登陆");
+            request.setAttribute("info", "info");
             request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }

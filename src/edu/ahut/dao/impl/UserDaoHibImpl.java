@@ -25,7 +25,14 @@ public class UserDaoHibImpl extends BasicDaoHibImpl<User> implements UserDao {
     @Override
     public void addUser(User user) {
         Session s = HibernateUtil.getCurrentSession();
-        s.save(user);
+        if (user instanceof Student) {
+            s.save(((Student) user).getUnit());
+            s.save(((Student) user).getQualification());
+        } else if (user instanceof Teacher) {
+            s.save(((Teacher) user).getUnit());
+            s.save(((Teacher) user).getQualification());
+        }
+        s.saveOrUpdate(user);
     }
 
     @Override

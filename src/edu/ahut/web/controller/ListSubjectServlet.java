@@ -54,15 +54,16 @@ public class ListSubjectServlet extends HttpServlet {
             String thesisEnd = (String) request.getSession().getAttribute("thesisEnd");
             SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
             Date thesisEndDate = formatDate.parse(thesisEnd);
-            if (System.currentTimeMillis() > thesisEndDate.getTime()) {
-                request.setAttribute("message", "选题时间已过!若尚未选题，请联系管理员！");
-                request.setAttribute("error", "error");
-                request.getRequestDispatcher("/message.jsp")
-                        .forward(request, response);
-                return;
-            }
+
             //若是学生，则被选中的就不能再看其他人的了
             if (user instanceof Student) {
+                if (System.currentTimeMillis() > thesisEndDate.getTime()) {
+                    request.setAttribute("message", "选题时间已过!若尚未选题，请联系管理员！");
+                    request.setAttribute("error", "error");
+                    request.getRequestDispatcher("/message.jsp")
+                            .forward(request, response);
+                    return;
+                }
                 //已选过
                 for (Iterator<Subject> it = findSubjectByUser.iterator(); it.hasNext();) {
                     Subject subject = it.next();

@@ -1,16 +1,17 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <c:set var="myContext" value="${pageContext.servletContext.contextPath}"/>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>待审核论题列表</title>
+        <title>论文列表</title>
         <meta charset="utf-8">
         <meta name="description" content="毕设">
         <meta name="author" content="haven">
         <!-- Le styles -->
         <link href="./css/bootstrap.css" rel="stylesheet">
+        <link href="./css/scojs.css" rel="stylesheet">
         <style type="text/css">
             body {
                 padding-top: 60px;
@@ -18,6 +19,7 @@
             }
         </style>
         <link href="./css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="./css/scojis.css" rel="stylesheet">
     </head>
     <body>
         <!--header导航栏-->
@@ -38,7 +40,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="${myContext}/CheckSubjectServlet">审核论题</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="${myContext}/ListBulletinServlet">已通过的论题</a></li>
+                                    <li><a href="${myContext}/ListSubjectServlet">已通过的论题</a></li>
                                     <li><a href="${myContext}/ListBulletinServlet">查找论题</a></li>
                                 </ul>
                             </li>
@@ -79,34 +81,48 @@
                 </div><!--/.nav-collapse -->
             </div>
         </div>
+
         <div class="container">
-            <div class="page-header">
-                <h1>待审核论题列表</h1>
-            </div>
-            <table class="table table-hover">
-                <tr>
-                    <th>论文名</th>
-                    <th>发布者</th>
-                    <th>操作</th>
-                </tr>
-                <c:forEach items="${requestScope.uncheckedSubjects }" var="subject">
+            <table class="table table-hover ">
+                <thead>
+                    <tr>
+                        <th>论文名</th>
+                        <th>发布人</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <c:forEach items="${requestScope.subjects }" var="subject">
                     <tr>
                         <td><a
-                                href="${myContext }/servlet/ShowThesisInfoServlet?subjectId=${subject.id}">${subject.title
+                                href="${myContext }/ShowThesisInfoServlet?subjectId=${subject.id}">${subject.title
                                 }</a>
                         </td>
                         <td><a href="${myContext }/UserInfoServlet?userId=${subject.teacher.id}">${ subject.teacher.name}</a></td>
-                        <td>
-                            <div class="btn-group">
-                                <a class="btn btn-primary" href="${myContext }/PassSubjectServlet?pass=true&id=${subject.id}">通过</a>
-                                <a  class="btn  btn-warning" data-content="是否否决此论题!"  href="${myContext }/PassSubjectServlet?pass=false&id=${subject.id}">拒绝</a>
-                            </div>
-                        </td>
+                            <c:choose>  
+                                <c:when test="${subject.student==null}">
+                                <td>尚未有学生选择</td>
+                                <td>
+                                    <a data-trigger="confirm" data-content="是否确认删除此论题!" class="btn  btn-warning" href="${myContext}/DeleteSubjectServlet?id=${subject.id}">删除论题</a>
+                                </td>
+                            </c:when>  
+                            <c:otherwise>
+                                <td><a href="${myContext}/UserInfoServlet?userId=${subject.student.id}">${ subject.student.name}</a>   同学选择了此题
+                                </td>
+                                <td>
+                                    <a  class="btn " href="${myContext }/ArchiveInfoUIServlet?subjectId=${subject.id}" >查看论文</a>
+                                </td>
+                            </c:otherwise>
+                        </c:choose>
+
                     </tr>
                 </c:forEach>
             </table>
         </div>
+
         <script src="./js/jquery.js"></script>
         <script src="./js/bootstrap.js"></script>
+        <script src="./js/sco.modal.js"></script>
+        <script src="./js/sco.confirm.js"></script>
     </body>
 </html>

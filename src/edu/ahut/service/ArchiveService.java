@@ -23,4 +23,6 @@ public interface ArchiveService extends BasicService<Archive> {
     public Thesis getArchiveThesisBySubjcet(Subject subject);
 
     public Archive getByStudent(Student student);
+
+    public Archive getBySubject(String subjectId);
 }

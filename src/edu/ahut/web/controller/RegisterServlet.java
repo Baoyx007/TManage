@@ -4,8 +4,10 @@
 package edu.ahut.web.controller;
 
 import edu.ahut.domain.Admin;
+import edu.ahut.domain.Qualification;
 import edu.ahut.domain.Student;
 import edu.ahut.domain.Teacher;
+import edu.ahut.domain.Unit;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -51,7 +53,7 @@ public class RegisterServlet extends HttpServlet {
         // 2.失败，回显失败信息
         if (!b) {
             request.setAttribute("form", form);
-            request.getRequestDispatcher("/WEB-INF/jsp/admin/register.jsp").forward(
+            request.getRequestDispatcher("/WEB-INF/jsp/admin/register2.jsp").forward(
                     request, response);
             return;
         }
@@ -60,37 +62,54 @@ public class RegisterServlet extends HttpServlet {
         UserService service = ServiceFactory.getUserService();
         User user = null;
         try {
-            if (form.getUserType().equalsIgnoreCase("student")) {
-                user = new Student();
-            } else if (form.getUserType().equalsIgnoreCase("teacher")) {
-                user = new Teacher();
-            } else if (form.getUserType().equalsIgnoreCase("admin")) {
-                user = new Admin();
+            if (request.getSession().getAttribute("alterUser") != null) {
+                user = (User) request.getSession().getAttribute("alterUser");
             } else {
-                throw new IllegalArgumentException("用户类型");
+                if (form.getUserType().equalsIgnoreCase("student")) {
+                    user = new Student();
+                } else if (form.getUserType().equalsIgnoreCase("teacher")) {
+                    user = new Teacher();
+                } else if (form.getUserType().equalsIgnoreCase("admin")) {
+                    user = new Admin();
+                } else {
+                    throw new IllegalArgumentException("用户类型");
+                }
             }
             WebUtils.copyBean(form, user);
-
-            //注册项目不够
-//            Qualification qualification = new Qualification();
-//            qualification.setId(1);
-//            user.setQualification(qualification);
-//            Unit unit = new Unit();
-//            unit.setId(1);
-//            user.setUnit(unit);
-            service.register(user);
-
-            //TODO 显示继续注册OR回到首页
-            //因为注册是给管理员注册的！不是给用户注册的
-            //应该提供从其他数据库导入数据
-            request.setAttribute("message", "注册成功,继续注册OR回到首页");
-            request.getRequestDispatcher("/WEB-INF/jsp/admin/message.jsp").forward(request,
+            user.setUsername(form.getUsername());
+            if (request.getSession().getAttribute("alterUser") != null) {
+                service.update(user);
+                request.getSession().removeAttribute("alterUser");
+            } else {
+                Qualification qualification = new Qualification();
+                qualification.setDegree(form.getQulif());
+                Unit unit = new Unit();
+                unit.setDepartment(form.getUnit());
+                if (user instanceof Teacher) {
+                    ((Teacher) user).setQualification(qualification);
+                    ((Teacher) user).setUnit(unit);
+                } else if (user instanceof Student) {
+                    ((Student) user).setQualification(qualification);
+                    ((Student) user).setUnit(unit);
+                }
+                service.register(user);
+            }
+            request.setAttribute("message", "注册成功!<a class='btn btn-primary' href='" + request.getContextPath() + "/RegisterUIServlet'>继续注册</a>");
+            request.setAttribute("success", "success");
+            request.getRequestDispatcher("/message.jsp").forward(request,
+                    response);
+        } catch (IllegalArgumentException e) {
+            request.setAttribute("message", e.getMessage());
+            request.setAttribute("error", "error");
+            e.printStackTrace();
+            request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         } catch (Exception e) {
             // 其他问题
             request.setAttribute("message", "注册用户出错");
+            request.setAttribute("error", "error");
             e.printStackTrace();
-            request.getRequestDispatcher("/WEB-INF/jsp/admin/message.jsp").forward(request,
+            request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }
     }

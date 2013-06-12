@@ -1,18 +1,15 @@
 <%-- 
-    Document   : list_bulletin
-    Created on : May 14, 2013, 9:57:38 PM
+    Document   : archive_info
+    Created on : Jun 12, 2013, 2:39:49 PM
     Author     : Haven
 --%>
 
 <%@page contentType="text/html" pageEncoding="utf-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>所有公告</title>
+        <title>论文信息</title>
         <meta charset="utf-8">
         <meta name="description" content="毕设">
         <meta name="author" content="haven">
@@ -26,8 +23,7 @@
         </style>
         <link href="./css/bootstrap-responsive.css" rel="stylesheet">
     </head>
-    <body >
-
+    <body>
         <!--header导航栏-->
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
@@ -44,9 +40,9 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">论题管理<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="${myContext}/PublishBulletinUIServlet">审核论题</a></li>
+                                    <li><a href="${myContext}/CheckSubjectServlet">审核论题</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="${myContext}/ListBulletinServlet">已通过的论题</a></li>
+                                    <li><a href="${myContext}/ListSubjectServlet">已通过的论题</a></li>
                                     <li><a href="${myContext}/ListBulletinServlet">查找论题</a></li>
                                 </ul>
                             </li>
@@ -87,77 +83,42 @@
                 </div><!--/.nav-collapse -->
             </div>
         </div>
-
-        <div class="container " >
-            <div class="row " >
-                <div class="span8 offset2"  >
-                    <h3 class="text-center">
-                        公告列表
-                    </h3>
-                    <table class="table table-striped table-hover text-center ">
-                        <thead>
-                            <tr>
-                                <th>
-                                    编号
-                                </th>
-                                <th>
-                                    主题
-                                </th>
-                                <th>
-                                    时间
-                                </th>
-                                <th>
-                                    操作
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${requestScope.bulletins }" var="bulletin" varStatus="status">
-                                <tr >
-                                    <td >${status.count}</td> 
-                                    <td><a href="${pageContext.servletContext.contextPath}/ShowBulletionUIServlet?id=${bulletin.id}"> ${bulletin.topic}</a></td> 
-                                    <td> <fmt:formatDate type="date"   value="${bulletin.time}" /></td>
-                                    <td> <div class="btn-group">
-                                            <a  class="btn  btn-warning" data-trigger="confirm" data-content="是否确认删除此公告!" href="${myContext}/DeleteBulletinServlet?id=${bulletin.id}">删除</a><a class="btn btn-primary" href="${myContext}/PublishBulletinUIServlet?id=${bulletin.id}">修改</a></div></td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="pagination pagination-right">
-                        <ul>
-                            <li>
-                                <a href="#">上一页</a>
-                            </li>
-                            <li>
-                                <a href="#">1</a>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#">5</a>
-                            </li>
-                            <li>
-                                <a href="#">下一页</a>
-                            </li>
-                        </ul>
+        <!--container-->
+        <div class="container">
+            <c:choose>
+                <c:when test="${archive==null}">
+                     <h1 class="label label-important ">该学生未提交论文终稿!</h1>
+                </c:when>
+                <c:otherwise>
+                    <div class="page-header">
+                        <h1>${archive.subject.title}</h1>
                     </div>
-                </div>
-            </div>
+                    <div class="hero-unit span7">${archive.subject.description}</div>
+                    <div class="span3" >
+                        <h4>老师信息：</h4>
+                        <span class="label label-info">姓名：</span>${archive.subject.teacher.name}&nbsp;&nbsp;<span class="label label-info">邮件：</span>${archive.subject.teacher.email}
+                    </div>
+                    <br>
+                    <div class="span3">
+                        <h4>学生信息：</h4>
+                        <span class="label label-info">姓名：</span>${archive.subject.student.name}&nbsp;&nbsp;<span class="label label-info">邮件：</span>${archive.subject.student.email}
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr>
+                    <h3>${archive.thesis.realFileName}</h3>
+                    提交日期： <fmt:formatDate type="date" dateStyle="default"  value="${archive.thesis.submitDate}"/>
+                    <c:url var="downloadURL" value="/DownloadThesisServlet">
+                        <c:param name="uuidFilePath" value="${archive.thesis.realFilePath}">
+                        </c:param>
+                        <c:param name="uuidFileName" value="${archive.thesis.uuidFileName}">
+                        </c:param>
+                    </c:url>
+                    <a class="btn" href="${downloadURL}">下载</a>
+
+                    <hr>
+                    <h1>成绩：${archive.score}<small>已有${archive.count}位老师评分</small></h1>
+                </c:otherwise>
+            </c:choose>
         </div>
-        <script src="./js/jquery.js"></script>
-        <script src="./js/bootstrap.js"></script>
-        <script src="./js/sco.modal.js"></script>
-        <script src="./js/sco.confirm.js"></script>
     </body>
 </html>
