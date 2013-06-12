@@ -1,16 +1,15 @@
 <%-- 
-    Document   : list_thesis
-    Created on : May 30, 2013, 5:20:51 AM
+    Document   : InBoxMail
+    Created on : May 19, 2013, 10:55:31 PM
     Author     : Haven
 --%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="utf-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>待审阅论文</title>
+        <title>我的邮箱</title>
         <meta charset="utf-8">
         <meta name="description" content="毕设">
         <meta name="author" content="haven">
@@ -25,7 +24,7 @@
         <link href="./css/bootstrap-responsive.css" rel="stylesheet">
     </head>
     <body>
-        <!--header导航栏-->
+      <!--header导航栏-->
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -84,62 +83,54 @@
         </div>
         <!--container-->
         <div class="container">
-            <div class="page-header"><h1>待审阅论文列表</h1></div>
-            <c:choose>
-                <c:when  test="${empty requestScope.unreadedThesises}">
-                    占无未审阅的论文!<br>
-                    <a href="${pageContext.servletContext.contextPath }/">返回首页</a>
-                </c:when>
-                <c:otherwise>
-                    <div class="accordion" id="accordion2">
-                        <c:forEach items="${requestScope.unreadedThesises}" var="thesis" varStatus="status">
-                            <div class="accordion-group">
-                                <div class="accordion-heading">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse${status.count}">
-                                        ${thesis.subject.title}——${thesis.realFileName}
-                                    </a>
-                                    <c:if test="${thesis.id==archiveThesis.id}"><span class="label label-success pull-right">终稿</span></c:if>
-                                    </div>
-                                    <div id="collapse${status.count}" class="accordion-body collapse in">
-                                    <div class="accordion-inner">
-                                        <h4>论文描述：</h4>
-                                        <div>${thesis.subject.description}</div>
-                                        <br>
-                                        <span class="label label-info">学生:</span>
-                                        <a> ${thesis.subject.student.name}</a>
-                                        <br>
-                                        提交日期： <fmt:formatDate type="both" dateStyle="default" timeStyle="default" 
-                                                        value="${thesis.submitDate}"/><br>
-                                        <div style="float: left;width: 40%;">学生留言：  <textarea readonly="true"  style="width: 250px;height: 100px;"  > ${thesis.studentComment}</textarea></div>
-                                        <form action="${myContext }/SubmitTeacherCommentServlet" method="post" >
-                                            <input type="hidden" name="thesisId" value="${thesis.id}">
-                                            <div>老师评语：<textarea id="teacherComment" name="teacherComment" style="width: 250px;height: 100px;" > ${thesis.teacherComment}</textarea></div>
-                                            <br><br>
-                                            <div class="btn-group">
-                                                <a class="btn" href="${downloadURL}">下载</a><a class="btn" href="${pageContext.servletContext.contextPath }/SubmitThesisUIServlet?subjectId=${thesis.subject.id}">上传已审阅的论文</a>
-                                                <input class="btn btn-primary" type="submit" value="提交评语"/>
-                                            </div>
-                                        </form>
-                                        <c:url var="downloadURL" value="/DownloadThesisServlet">
-                                            <c:param name="uuidFilePath" value="${thesis.realFilePath}">
-                                            </c:param>
-                                            <c:param name="uuidFileName" value="${thesis.uuidFileName}">
-                                            </c:param>
-                                        </c:url>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="page-header"><h1 >我的邮箱</h1></div>
+
+            <!--Body content-->
+            <span class="label label-important">未读</span>
+            <br><br>
+            <c:choose >
+                <c:when test="${requestScope.unreadMailList==null}">没有未读邮件</c:when>
+                <c:otherwise >
+                    <table class="table table-hover">
+                        <c:forEach items="${requestScope.unreadMailList}" var="unreadMail">
+                            <tr>
+                                <td><a href="${pageContext.servletContext.contextPath}/ShowMailInfoServlet?mailId=${unreadMail.id}">    
+                                        ${unreadMail.topic} </a>
+                                </td>
+                                <td>
+                                    ${unreadMail.sendTime}
+                                </td>
+                            </tr>
                         </c:forEach>
-                    </div>
+                    </table>
                 </c:otherwise>
             </c:choose>
 
+            <br>
+            <br>
+            <span class="label label-success">已读</span>
+            <br><br>
+            <c:choose >
+                <c:when test="${requestScope.readedMailList==null}">没有已读邮件</c:when>
+                <c:otherwise > 
+                    <table class="table table-hover">
+                        <c:forEach items="${readedMailList}" var="readedMail">
+                            <tr>  <td> <a href="${pageContext.servletContext.contextPath}/ShowMailInfoServlet?mailId=${readedMail.id}">    
+                                        ${readedMail.topic}</a> 
+                                </td><td>
+                                    ${readedMail.sendTime}
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:otherwise>
+            </c:choose>
         </div>
         <script src="./js/jquery.js"></script>
         <script src="./js/bootstrap.js"></script>
         <script type="text/javascript">
                                         function openwin() {
-                                            window.open("${myContext}/MailToUserServlet?toWho=MyTeacher", "mail", "height=600, width=800, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
+                                            window.open("${myContext}/MailToUserServlet?toWho=MyStudents", "mail", "height=600, width=800, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
 
                                         }
         </script>

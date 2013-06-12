@@ -26,4 +26,6 @@ public interface UserService extends BasicService<User> {
     public List<Student> getAllStudents();
 
     public int getAllStudentCount();
+
+    public User getAdmin();
 }

@@ -30,8 +30,8 @@ public class AuthorityFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         //登陆界面
         String url = req.getRequestURI().toLowerCase();
-//        System.out.println(url);
-        if (url.contains("login") || !url.endsWith("servlet")) {
+        System.out.println(url);
+        if (url.contains("mail") || url.contains("login") || !url.endsWith("servlet")) {
             chain.doFilter(request, response);
         } else {
             if (req.getSession().getAttribute("user") == null) {

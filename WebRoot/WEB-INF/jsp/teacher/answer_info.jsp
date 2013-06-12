@@ -58,13 +58,12 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">答辩 <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="${myContext}/AnswerInfoUIServlet">查看安排</a></li>
-                                    <li><a href="#">开始答辩</a></li>
+                                    <li><a href="${myContext}/StartAnswerUIServlet">开始答辩</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">邮件 <span class="badge badge-info"><jsp:include page="/GetUnreadMailCount" /></span> <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">发邮件</a></li>
                                     <li><a href="${myContext}/ListMailServlet">收件箱</a></li>
                                     <li><a target="_blank" href="javascript:;" onclick="openwin();">联系学生</a></li>
                                     <li class="divider"></li>
@@ -74,9 +73,9 @@
                             </li>
                         </ul>
                         <ul class="nav pull-right">
-                            <li><a href="#about">${user.name }</a></li>
+                            <li><a href="${myContext}/UserInfoServlet?userId=${user.id}">${user.name }</a></li>
                             <li class="divider-vertical">
-                            <li><a href="#">设置</a></li>
+                            <li><a href="${myContext}/RegisterUIServlet?id=${user.id}">设置</a></li>
                             <li><a href="${myContext}/LogoutServlet">注销</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
@@ -96,12 +95,12 @@
                 </tr>
                 <tr>
                     <td>   主答辩老师：</td>
-                    <td> ${group.master.name}</td>
+                    <td> <a href="${myContext}/UserInfoServlet?userId=${group.master.id}">${group.master.name}</a></td>
                 </tr>
                 <c:forEach items="${group.students}" var="t">
                     <tr>
                         <td>   该组的学生：</td>
-                        <td>   ${t.name}</td>
+                        <td> <a href="${myContext}/UserInfoServlet?userId=${t.id}">  ${t.name}</a></td>
                     </tr>
                 </c:forEach>
             </table>

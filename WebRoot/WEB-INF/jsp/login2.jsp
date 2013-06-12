@@ -61,7 +61,7 @@
         </div>
 
         <footer class="white navbar-fixed-bottom">
-            账户出错？<a href="register.html" class="btn btn-black">联系管理员 </a>
+            账户出错？<a href="${myContext}/ConnectAdminByMailUIServlet" class="btn btn-black">联系管理员 </a>
         </footer>
 
 

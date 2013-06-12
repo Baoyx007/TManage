@@ -21,7 +21,7 @@ import org.hibernate.Session;
  * @date May 25, 2013
  */
 public class UserDaoHibImpl extends BasicDaoHibImpl<User> implements UserDao {
-
+    
     @Override
     public void addUser(User user) {
         Session s = HibernateUtil.getCurrentSession();
@@ -34,7 +34,7 @@ public class UserDaoHibImpl extends BasicDaoHibImpl<User> implements UserDao {
         }
         s.saveOrUpdate(user);
     }
-
+    
     @Override
     public User findUser(String username, String password) {
         Session s = HibernateUtil.getCurrentSession();
@@ -42,10 +42,10 @@ public class UserDaoHibImpl extends BasicDaoHibImpl<User> implements UserDao {
                 "from User as u where u.username = :username and u.password=:password");
         query.setString("username", username);
         query.setString("password", password);
-
+        
         return (User) query.uniqueResult();
     }
-
+    
     @Override
     public User findUser(int id, boolean full) {
         Session s = HibernateUtil.getCurrentSession();
@@ -63,17 +63,17 @@ public class UserDaoHibImpl extends BasicDaoHibImpl<User> implements UserDao {
         }
         return u;
     }
-
+    
     @Override
     public Map<String, User> findUserBySubjectId(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void fillPhoto(String id, String photo) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void addStudent(Student student) {
         Session s = HibernateUtil.getCurrentSession();
@@ -81,28 +81,28 @@ public class UserDaoHibImpl extends BasicDaoHibImpl<User> implements UserDao {
         s.saveOrUpdate(student.getUnit());
         s.save(student);
     }
-
+    
     @Override
     public User findUser(String username) {
         Session s = HibernateUtil.getCurrentSession();
         Query query = s.createQuery(
                 "from User as u where u.username = :username ");
         query.setString("username", username);
-
+        
         return (User) query.uniqueResult();
     }
-
+    
     @Override
     public void addAdmin(Admin admin) {
         Session s = HibernateUtil.getCurrentSession();
         s.save(admin);
     }
-
+    
     @Override
     public User loadAllInfo(User user) {
         return findUser(user.getId(), true);
     }
-
+    
     @Override
     public List<Student> getAllStudents() {
         Session s = HibernateUtil.getCurrentSession();
@@ -110,11 +110,19 @@ public class UserDaoHibImpl extends BasicDaoHibImpl<User> implements UserDao {
                 "from Student");
         return query.list();
     }
-
+    
     @Override
     public Long getAllStudentCount() {
         Session s = HibernateUtil.getCurrentSession();
         Query query = s.createQuery("SELECT COUNT(*) from Student");
         return (Long) query.uniqueResult();
+    }
+    
+    @Override
+    public User getAdmin() {
+        Session s = HibernateUtil.getCurrentSession();
+        Query query = s.createQuery(
+                "from Admin");
+        return (User) query.list().get(0);
     }
 }

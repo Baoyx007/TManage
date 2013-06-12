@@ -38,8 +38,8 @@
                     <a class="brand" href="${myContext}/">毕业设计管理系统</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li ><a href="${myContext}/StudentIndexUIServlet">主页</a></li>
-                            <li class="active"><a href="${myContext}/ListBulletinServlet">公告</a></li>
+                            <li class="active"><a href="${myContext}/StudentIndexUIServlet">主页</a></li>
+                            <li><a href="${myContext}/ListBulletinServlet">公告</a></li>
                             <li><a href="${myContext}/ListSubjectServlet">选题</a></li>
 
                             <li class="dropdown">
@@ -55,7 +55,6 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">邮件 <span class="badge badge-info"><jsp:include page="/GetUnreadMailCount" /></span> <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">发邮件</a></li>
                                     <li><a href="${myContext}/ListMailServlet">收件箱</a></li>
                                     <li><a target="_blank" href="javascript:;" onclick="openwin();">联系老师</a></li>
                                     <li class="divider"></li>
@@ -65,9 +64,9 @@
                             </li>
                         </ul>
                         <ul class="nav pull-right">
-                            <li><a href="#about">${user.name }</a></li>
+                            <li><a href="${myContext}/UserInfoServlet?userId=${user.id}">${user.name }</a></li>
                             <li class="divider-vertical">
-                            <li><a href="#">设置</a></li>
+                            <li><a href="${myContext}/RegisterUIServlet?id=${user.id}">设置</a></li>
                             <li><a href="${myContext}/LogoutServlet">注销</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->

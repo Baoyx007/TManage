@@ -4,11 +4,15 @@
  */
 package edu.ahut.web.controller;
 
+import edu.ahut.domain.Student;
+import edu.ahut.domain.Teacher;
 import edu.ahut.domain.User;
 import edu.ahut.exceptions.NotConnectException;
+import edu.ahut.service.SubjectService;
 import edu.ahut.service.impl.ServiceFactory;
 import edu.ahut.utils.ServiceUtils;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,10 +44,11 @@ public class MailToUserServlet extends HttpServlet {
             }
             User toUser = null;
             //发给自己老师
+            SubjectService subjectService = ServiceFactory.getSubjectService();
             if ("MyTeacher".equals(toWho)) {
                 User user = (User) request.getSession(false).getAttribute("user");
                 //找到自己老师
-                toUser = ServiceFactory.getSubjectService().getTeacherByStudent(user);
+                toUser = subjectService.getTeacherByStudent(user);
                 if (toUser == null) {
                     throw new NotConnectException("尚未选择老师!");
                 }
@@ -51,6 +56,9 @@ public class MailToUserServlet extends HttpServlet {
             } else if ("any".equals(toWho)) {
                 String id = request.getParameter("id");
                 toUser = ServiceFactory.getUserService().getById(Integer.parseInt(id));
+            } else if ("MyStudents".equals(toWho)) {
+                List<Student> studentsByTeacher = subjectService.getStudentsByTeacher((Teacher) request.getSession(false).getAttribute("user"));
+                request.setAttribute("students", studentsByTeacher);
             }
             request.setAttribute("toUser", toUser);
             request.getRequestDispatcher("/WEB-INF/jsp/SendMail.jsp").forward(request, response);

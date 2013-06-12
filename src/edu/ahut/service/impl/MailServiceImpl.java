@@ -27,7 +27,7 @@ public class MailServiceImpl extends BasicServiceImpl<Mail> implements MailServi
 
     @Override
     public void saveMail(Mail mail, User revcUser, User sendUser) {
-        if (mail == null || sendUser == null || revcUser == null) {
+        if (mail == null  || revcUser == null) {
             throw new IllegalArgumentException("别瞎点");
         }
         mail.setSendUser(sendUser);

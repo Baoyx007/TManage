@@ -2,16 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.ahut.web.controller;
+package edu.ahut.web.UI;
 
-import edu.ahut.domain.Mail;
-import edu.ahut.domain.Student;
-import edu.ahut.domain.Teacher;
 import edu.ahut.domain.User;
-import edu.ahut.service.MailService;
 import edu.ahut.service.impl.ServiceFactory;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author Haven
- * @date May 19, 2013
+ * @date Jun 13, 2013
  */
-public class ListMailServlet extends HttpServlet {
+public class ConnectAdminByMailUIServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -37,33 +32,12 @@ public class ListMailServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            MailService mailService = ServiceFactory.getMailService();
-            User user = (User) request.getSession(false).getAttribute("user");
-            List<Mail> readedMail = mailService.getReadedMail(user);
-            List<Mail> unreadMail = mailService.getUnreadMail(user);
-            if (readedMail.size() <= 0) {
-                readedMail = null;
-            }
-            if (unreadMail.size() <= 0) {
-                unreadMail = null;
-            }
-            request.setAttribute("readedMailList", readedMail);
-            request.setAttribute("unreadMailList", unreadMail);
-            if (user instanceof Student) {
-                request.getRequestDispatcher("/WEB-INF/jsp/student/InBoxMail.jsp")
-                        .forward(request, response);
-            } else if (user instanceof Teacher) {
-                request.getRequestDispatcher("/WEB-INF/jsp/teacher/InBoxMail.jsp")
-                        .forward(request, response);
-            } else {
-                request.getRequestDispatcher("/WEB-INF/jsp/admin/InBoxMail.jsp")
-                        .forward(request, response);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("message", "列出邮件出错");
-            request.setAttribute("error", "error");
-            request.getRequestDispatcher("message.jsp").forward(request,
+            User admin = ServiceFactory.getUserService().getAdmin();
+            request.setAttribute("toUser", admin);
+            request.getRequestDispatcher("/WEB-INF/jsp/SendMail.jsp").forward(request, response);
+        } catch (IllegalArgumentException e) {
+            request.setAttribute("message", e.getMessage());
+            request.getRequestDispatcher("/message.jsp").forward(request,
                     response);
         }
     }

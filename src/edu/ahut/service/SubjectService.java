@@ -46,4 +46,6 @@ public interface SubjectService extends BasicService<Subject> {
     public List<Subject> getCheckedSubjects();
 
     public void markAsChoosen(String subjectId);
+
+    public List<Student> getStudentsByTeacher(Teacher teacher);
 }

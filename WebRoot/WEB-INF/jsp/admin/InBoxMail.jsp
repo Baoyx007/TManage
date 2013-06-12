@@ -1,18 +1,15 @@
 <%-- 
-    Document   : list_bulletin
-    Created on : May 14, 2013, 9:57:38 PM
+    Document   : InBoxMail
+    Created on : May 19, 2013, 10:55:31 PM
     Author     : Haven
 --%>
-
-<%@page contentType="text/html" pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@page contentType="text/html" pageEncoding="utf-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>所有公告</title>
+        <title>我的邮箱</title>
         <meta charset="utf-8">
         <meta name="description" content="毕设">
         <meta name="author" content="haven">
@@ -26,9 +23,8 @@
         </style>
         <link href="./css/bootstrap-responsive.css" rel="stylesheet">
     </head>
-    <body >
-
-         <!--header导航栏-->
+    <body>
+        <!--header导航栏-->
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -75,6 +71,12 @@
                                 </ul>
                             </li>
                             <li><a href="${myContext}/SystemConfigUIServlet">系统设置</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">邮件 <span class="badge badge-info"><jsp:include page="/GetUnreadMailCount" /></span> <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="${myContext}/ListMailServlet">收件箱</a></li>
+                                </ul>
+                            </li>                        
                         </ul>
                         <ul class="nav pull-right">
                             <li><a href="${myContext}/UserInfoServlet?userId=${user.id}">${user.name }</a></li>
@@ -87,76 +89,52 @@
                 </div><!--/.nav-collapse -->
             </div>
         </div>
-        <div class="container " >
-            <div class="row " >
-                <div class="span8 offset2"  >
-                    <h3 class="text-center">
-                        公告列表
-                    </h3>
-                    <table class="table table-striped table-hover text-center ">
-                        <thead>
+        <!--container-->
+        <div class="container">
+            <div class="page-header"><h1 >我的邮箱</h1></div>
+
+            <!--Body content-->
+            <span class="label label-important">未读</span>
+            <br><br>
+            <c:choose >
+                <c:when test="${requestScope.unreadMailList==null}">没有未读邮件</c:when>
+                <c:otherwise >
+                    <table class="table table-hover">
+                        <c:forEach items="${requestScope.unreadMailList}" var="unreadMail">
                             <tr>
-                                <th>
-                                    编号
-                                </th>
-                                <th>
-                                    主题
-                                </th>
-                                <th>
-                                    时间
-                                </th>
-                                <th>
-                                    操作
-                                </th>
+                                <td><a href="${pageContext.servletContext.contextPath}/ShowMailInfoServlet?mailId=${unreadMail.id}">    
+                                        ${unreadMail.topic} </a>
+                                </td>
+                                <td>
+                                    ${unreadMail.sendTime}
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${requestScope.bulletins }" var="bulletin" varStatus="status">
-                                <tr >
-                                    <td >${status.count}</td> 
-                                    <td><a href="${pageContext.servletContext.contextPath}/ShowBulletionUIServlet?id=${bulletin.id}"> ${bulletin.topic}</a></td> 
-                                    <td> <fmt:formatDate type="date"   value="${bulletin.time}" /></td>
-                                    <td> <div class="btn-group">
-                                            <a  class="btn  btn-warning" data-trigger="confirm" data-content="是否确认删除此公告!" href="${myContext}/DeleteBulletinServlet?id=${bulletin.id}">删除</a><a class="btn btn-primary" href="${myContext}/PublishBulletinUIServlet?id=${bulletin.id}">修改</a></div></td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
+                        </c:forEach>
                     </table>
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="pagination pagination-right">
-                        <ul>
-                            <li>
-                                <a href="#">上一页</a>
-                            </li>
-                            <li>
-                                <a href="#">1</a>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#">5</a>
-                            </li>
-                            <li>
-                                <a href="#">下一页</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+                </c:otherwise>
+            </c:choose>
+
+            <br>
+            <br>
+            <span class="label label-success">已读</span>
+            <br><br>
+            <c:choose >
+                <c:when test="${requestScope.readedMailList==null}">没有已读邮件</c:when>
+                <c:otherwise > 
+                    <table class="table table-hover">
+                        <c:forEach items="${readedMailList}" var="readedMail">
+                            <tr>  <td> <a href="${pageContext.servletContext.contextPath}/ShowMailInfoServlet?mailId=${readedMail.id}">    
+                                        ${readedMail.topic}</a> 
+                                </td><td>
+                                    ${readedMail.sendTime}
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:otherwise>
+            </c:choose>
         </div>
         <script src="./js/jquery.js"></script>
         <script src="./js/bootstrap.js"></script>
-        <script src="./js/sco.modal.js"></script>
-        <script src="./js/sco.confirm.js"></script>
     </body>
 </html>

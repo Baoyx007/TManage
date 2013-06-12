@@ -81,4 +81,9 @@ public class UserServiceImpl extends BasicServiceImpl<User> implements UserServi
         long i = userDao.getAllStudentCount();
         return (int) i;
     }
+
+    @Override
+    public User getAdmin() {
+        return userDao.getAdmin();
+    }
 }

@@ -61,8 +61,8 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">用户管理 <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="${myContext}/PublishBulletinUIServlet">注册用户</a></li>
-                                    <li><a href="${myContext}/ListBulletinServlet">所有用户</a></li>
+                                    <li><a href="${myContext}/RegisterUIServlet">注册用户</a></li>
+                                    <li><a href="${myContext}/ListUserUIServlet">所有用户</a></li>
                                     <li><a href="${myContext}/ListBulletinServlet">查找用户</a></li>
                                 </ul>
                             </li>
@@ -77,9 +77,9 @@
                             <li><a href="${myContext}/SystemConfigUIServlet">系统设置</a></li>
                         </ul>
                         <ul class="nav pull-right">
-                            <li><a href="#about">${user.name }</a></li>
+                            <li><a href="${myContext}/UserInfoServlet?userId=${user.id}">${user.name }</a></li>
                             <li class="divider-vertical">
-                            <li><a href="#">设置</a></li>
+                            <li><a href="${myContext}/RegisterUIServlet?id=${user.id}">设置</a></li>
                             <li><a href="${myContext}/LogoutServlet">注销</a></li>
                         </ul>
                     </div>
@@ -155,15 +155,15 @@
                         <div class="controls">
                             <!-- Inline Radios -->
                             <label class="radio inline">
-                                <input type="radio" value="student" name="userType" ${form.userType== 'student'?'checked':''}>
+                                <input type="radio" value="student" name="userType" ${form.userType== 'Student'?'checked':''}>
                                 学生
                             </label>
                             <label class="radio inline">
-                                <input type="radio" value="teacher" name="userType"  ${form.userType=='teacher'?'checked':''}>
+                                <input type="radio" value="teacher" name="userType"  ${form.userType=='Teacher'?'checked':''}>
                                 老师
                             </label>
                             <label class="radio inline">
-                                <input type="radio" value="admin" name="userType" ${form.userType=='admin'?'checked':''}>
+                                <input type="radio" value="admin" name="userType" ${form.userType=='Admin'?'checked':''}>
                                 管理员
                             </label>
                         </div>

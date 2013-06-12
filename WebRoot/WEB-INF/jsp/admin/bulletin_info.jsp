@@ -26,7 +26,7 @@
         <link href="./css/bootstrap-responsive.css" rel="stylesheet">
     </head>
     <body >
-        <!--header导航栏-->
+           <!--header导航栏-->
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
@@ -42,25 +42,25 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">论题管理<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="${myContext}/PublishBulletinUIServlet">审核论题</a></li>
+                                    <li><a href="${myContext}/CheckSubjectServlet">审核论题</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="${myContext}/ListBulletinServlet">已通过的论题</a></li>
+                                    <li><a href="${myContext}/ListSubjectServlet">已通过的论题</a></li>
                                     <li><a href="${myContext}/ListBulletinServlet">查找论题</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">答辩 <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="${myContext}/PublishBulletinUIServlet">安排答辩</a></li>
+                                    <li><a href="${myContext}/AnswerManageServlet">安排答辩</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="${myContext}/ListBulletinServlet">所有答辩论文</a></li>
+                                    <li><a href="${myContext}/ListArchiveUIServlet">所有答辩论文</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">用户管理 <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="${myContext}/PublishBulletinUIServlet">注册用户</a></li>
-                                    <li><a href="${myContext}/ListBulletinServlet">所有用户</a></li>
+                                    <li><a href="${myContext}/RegisterUIServlet">注册用户</a></li>
+                                    <li><a href="${myContext}/ListUserUIServlet">所有用户</a></li>
                                     <li><a href="${myContext}/ListBulletinServlet">查找用户</a></li>
                                 </ul>
                             </li>
@@ -75,9 +75,9 @@
                             <li><a href="${myContext}/SystemConfigUIServlet">系统设置</a></li>
                         </ul>
                         <ul class="nav pull-right">
-                            <li><a href="#about">${user.name }</a></li>
+                            <li><a href="${myContext}/UserInfoServlet?userId=${user.id}">${user.name }</a></li>
                             <li class="divider-vertical">
-                            <li><a href="#">设置</a></li>
+                            <li><a href="${myContext}/RegisterUIServlet?id=${user.id}">设置</a></li>
                             <li><a href="${myContext}/LogoutServlet">注销</a></li>
                         </ul>
                     </div>

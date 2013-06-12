@@ -111,4 +111,9 @@ public class SubjectServiceImpl extends BasicServiceImpl<Subject> implements Sub
         byId.setChoosened(true);
         subjectdao.update(byId);
     }
+
+    @Override
+    public List<Student> getStudentsByTeacher(Teacher teacher) {
+        return subjectdao.getStudentsByTeacher(teacher);
+    }
 }

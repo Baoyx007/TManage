@@ -36,13 +36,19 @@ public class SendMailServlet extends HttpServlet {
         String toUserId = request.getParameter("toUserId");
         String content = request.getParameter("content");
         String topic = request.getParameter("topic");
+        String toStudent = request.getParameter("toStudent");
         Mail mail = new Mail();
         mail.setContent(content);
         mail.setTopic(topic);
         mail.setSendTime(new Date());
         try {
-            User userById = ServiceFactory.getUserService().getUserById(Integer.parseInt(toUserId));
-            ServiceFactory.getMailService().saveMail(mail, userById, (User) request.getSession(false).getAttribute("user"));
+            User u = null;
+            if (toStudent != null) {
+                u = ServiceFactory.getUserService().getUserById(Integer.parseInt(toStudent));
+            } else if (toUserId != null) {
+                u = ServiceFactory.getUserService().getUserById(Integer.parseInt(toUserId));
+            }
+            ServiceFactory.getMailService().saveMail(mail, u, (User) request.getSession(false).getAttribute("user"));
             request.setAttribute("message", "发送成功 ,3秒后自动关闭<script>\n"
                     + "setTimeout(\"window.close()\",3000);\n"
                     + "</script>");

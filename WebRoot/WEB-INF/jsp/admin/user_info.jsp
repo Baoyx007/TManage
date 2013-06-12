@@ -61,8 +61,8 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">用户管理 <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="${myContext}/PublishBulletinUIServlet">注册用户</a></li>
-                                    <li><a href="${myContext}/ListBulletinServlet">所有用户</a></li>
+                                    <li><a href="${myContext}/RegisterUIServlet">注册用户</a></li>
+                                    <li><a href="${myContext}/ListUserUIServlet">所有用户</a></li>
                                     <li><a href="${myContext}/ListBulletinServlet">查找用户</a></li>
                                 </ul>
                             </li>
@@ -77,9 +77,9 @@
                             <li><a href="${myContext}/SystemConfigUIServlet">系统设置</a></li>
                         </ul>
                         <ul class="nav pull-right">
-                            <li><a href="#about">${user.name }</a></li>
+                            <li><a href="${myContext}/UserInfoServlet?userId=${user.id}">${user.name }</a></li>
                             <li class="divider-vertical">
-                            <li><a href="#">设置</a></li>
+                            <li><a href="${myContext}/RegisterUIServlet?id=${user.id}">设置</a></li>
                             <li><a href="${myContext}/LogoutServlet">注销</a></li>
                         </ul>
                     </div>
@@ -87,6 +87,7 @@
                 </div><!--/.nav-collapse -->
             </div>
         </div>
+        <!--container-->
         <div class="container">
             <div id="legend" class="">
                 <legend class="">基本信息</legend>
@@ -97,16 +98,17 @@
                 <!-- Text input-->
                 <label class="control-label" for="input01">用户名：</label>
                 <div class="controls">
-                    <input type="text" name="username" disabled="true"  value="${user.username }"class="input-xlarge">
+                    <input type="text" name="username" disabled="true"  value="${thisUser.username }"class="input-xlarge">
+                    <a class="btn btn-success" href="javascript:;" onclick="openwin();" >发送站内信</a>
                 </div>
             </div>
 
             <div class="control-group">
 
                 <!-- Text input-->
-                <label class="control-label" for="input01">密码：</label>
+                <label class="control-label"  for="input01">密码：</label>
                 <div class="controls">
-                    <input type="password" name="password" value="${user.password }" placeholder="3到50位字符" class="input-xlarge">
+                    <input type="password" name="password" disabled="true" value="${thisUser.password }" class="input-xlarge">
                 </div>
             </div>
 
@@ -115,21 +117,21 @@
                 <!-- Text input-->
                 <label class="control-label" for="input01">姓名：</label>
                 <div class="controls">
-                    <input type="text" name="name"  value="${user.name}"  class="input-xlarge">
+                    <input type="text" name="name" disabled="true"  value="${thisUser.name}"  class="input-xlarge">
                 </div>
             </div><div class="control-group">
 
                 <!-- Text input-->
                 <label class="control-label" for="input01">邮件：</label>
                 <div class="controls">
-                    <input type="email" name="email" value="${user.email }"  class="input-xlarge">
+                    <input type="email" name="email" disabled="true" value="${thisUser.email }"  class="input-xlarge">
                 </div>
             </div><div class="control-group">
 
                 <!-- Text input-->
                 <label class="control-label" for="input01">电话：</label>
                 <div class="controls">
-                    <input type="tel" name="phone" value="${user.phone }"  class="input-xlarge">
+                    <input type="tel" name="phone" disabled="true" value="${thisUser.phone }"  class="input-xlarge">
                 </div>
             </div>
 
@@ -139,11 +141,11 @@
                 <label class="control-label">自我介绍：</label>
                 <div class="controls">
                     <div class="textarea">
-                        <textarea type=""  name="comment" class="" style="margin: 0px; width: 275px; height: 69px;">${user.comment } </textarea>
+                        <textarea type=""  name="comment" disabled="true" class="" style="margin: 0px; width: 275px; height: 69px;">${thisUser.comment } </textarea>
                     </div>
                 </div>
             </div>
-            <c:if test="${user.getClass().simpleName != 'Admin' }">
+            <c:if test="${thisUser.getClass().simpleName != 'Admin' }">
                 <div class="accordion" id="accordion2">
                     <div class="accordion-group">
                         <div class="accordion-heading">
@@ -161,7 +163,7 @@
                                     <!-- Text input-->
                                     <label class="control-label" for="input01">学号:</label>
                                     <div class="controls">
-                                        <input type="text" name="schoolNumber" value="${user.schoolNumber }"  class="input-xlarge">
+                                        <input type="text" disabled="true" name="schoolNumber" value="${thisUser.schoolNumber }"  class="input-xlarge">
                                     </div>
                                 </div>
 
@@ -169,10 +171,8 @@
 
                                     <!-- Text input-->
                                     <label class="control-label" for="input01">生日：</label>
-                                    <div class="input-append date form_datetime input-xlarge"  >
-                                        <input class="span2" size="16" type="text" name="birthday" value="${user.birthday }" >
-                                        <span class="add-on"><i class="icon-remove"></i></span>
-                                        <span class="add-on"><i class="icon-th"></i></span>
+                                    <div class="icontrols"  >
+                                        <input class="span2" disabled="true" size="16" type="text" name="birthday" value="${thisUser.birthday }" >
                                     </div>       
                                 </div>
 
@@ -181,11 +181,11 @@
                                     <div class="controls">
                                         <!-- Inline Radios -->
                                         <label class="radio inline">
-                                            <input type="radio" name="gender" ${user.gender== 'MALE'?'checked':''}  value="MALE">
+                                            <input type="radio" name="gender" ${thisUser.gender== 'MALE'?'checked':''}  value="MALE">
                                             男
                                         </label>
                                         <label class="radio inline">
-                                            <input type="radio" name="gender" ${user.gender=='FEMALE'?'checked':''} value="FEMALE">
+                                            <input type="radio" name="gender" ${thisUser.gender=='FEMALE'?'checked':''} value="FEMALE">
                                             女
                                         </label>
                                     </div>
@@ -196,7 +196,7 @@
                                     <!-- Text input-->
                                     <label class="control-label" for="input01">地址：</label>
                                     <div class="controls">
-                                        <input type="text" name="address" value="${user.address }" placeholder="输入寝室地址" class="input-xlarge">
+                                        <input type="text" disabled="true" name="address" value="${thisUser.address }" placeholder="输入寝室地址" class="input-xlarge">
                                         <p class="help-block"></p>
                                     </div>
                                 </div>
@@ -207,7 +207,7 @@
                                     <!-- Select Basic -->
                                     <label class="control-label">学历：</label>
                                     <div class="controls">
-                                        ${user.qualification}
+                                        ${thisUser.qualification}
                                     </div>
 
                                 </div>
@@ -217,7 +217,7 @@
                                     <!-- Select Basic -->
                                     <label class="control-label">所属院系：</label>
                                     <div class="controls">
-                                        ${user.unit}
+                                        ${thisUser.unit}
                                     </div>
 
                                 </div>
@@ -232,14 +232,20 @@
         <script src="./js/bootstrap-datetimepicker.js"></script>
         <script src="./js/bootstrap-datetimepicker.zh-CN.js"></script>
         <script>
-            $(".form_datetime").datetimepicker({
-                format: "yyyy-mm-dd",
-                autoclose: true,
-                todayBtn: true,
-                startDate: "2013-02-14 10:00",
-                minuteStep: 10,
-                language: "zh-CN"
-            });
+                        $(".form_datetime").datetimepicker({
+                            format: "yyyy-mm-dd",
+                            autoclose: true,
+                            todayBtn: true,
+                            startDate: "2013-02-14 10:00",
+                            minuteStep: 10,
+                            language: "zh-CN"
+                        });
+        </script>
+        <script type="text/javascript">
+            function openwin() {
+                window.open("${myContext}/MailToUserServlet?toWho=any&id=${thisUser.id}", "mail", "height=600, width=800, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
+
+            }
         </script>
     </body>
 </html>

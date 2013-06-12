@@ -44,4 +44,6 @@ public interface UserDao extends BasicDao<User> {
     public List<Student> getAllStudents();
 
     public Long getAllStudentCount();
+
+    public User getAdmin();
 }

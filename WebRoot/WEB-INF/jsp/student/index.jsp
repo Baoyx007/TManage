@@ -68,14 +68,6 @@
         <!--container-->
         <div class="container">
 
-            <hr>测试区<br>
-            user=${user }
-            <br>
-            <a
-                href="${myContext}/servlet/ListSubjectServlet">查看所有论文</a>
-            <br />
-            <hr>
-            <hr>
         </div>
         <script src="./js/jquery.js"></script>
         <script src="./js/bootstrap.js"></script>

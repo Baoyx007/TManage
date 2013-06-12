@@ -54,4 +54,6 @@ public interface SubjectDao extends BasicDao<Subject> {
     public List<Teacher> getTeachersByStudents(List<Student> students);
 
     public List<Subject> getSubjectsByName(String name);
+
+    public List<Student> getStudentsByTeacher(Teacher teacher);
 }
