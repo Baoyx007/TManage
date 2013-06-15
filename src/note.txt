@@ -1,0 +1,2 @@
+1、cookie没设置
+2、li 的class 的active没修改
