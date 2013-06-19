@@ -88,7 +88,7 @@
             <c:choose>
                 <c:when  test="${empty requestScope.unreadedThesises}">
                     占无未审阅的论文!<br>
-                    <a href="${pageContext.servletContext.contextPath }/">返回首页</a>
+                    <a class="btn btn-primary" href="${pageContext.servletContext.contextPath }/">返回首页</a>
                 </c:when>
                 <c:otherwise>
                     <div class="accordion" id="accordion2">

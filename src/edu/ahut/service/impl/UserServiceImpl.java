@@ -17,9 +17,9 @@ import java.util.List;
  *
  */
 public class UserServiceImpl extends BasicServiceImpl<User> implements UserService {
-
+    
     private UserDao userDao = null;
-
+    
     public UserServiceImpl() {
         userDao = DaoFactory.getUserDao();
         basicDao = userDao;
@@ -52,36 +52,37 @@ public class UserServiceImpl extends BasicServiceImpl<User> implements UserServi
             if (findUser != null) {
                 throw new IllegalArgumentException("用户名重复");
             }
+            user.setPassword(ServiceUtils.md5(user.getPassword()));
             userDao.addUser(user);
         }
     }
-
+    
     @Override
     public User getUserFullInfo(int id) {
         return userDao.findUser(id, true);
     }
-
+    
     @Override
     public void update(User user) {
         userDao.update(user);
     }
-
+    
     @Override
     public User getUserById(int id) {
         return userDao.getById(id);
     }
-
+    
     @Override
     public List<Student> getAllStudents() {
         return userDao.getAllStudents();
     }
-
+    
     @Override
     public int getAllStudentCount() {
         long i = userDao.getAllStudentCount();
         return (int) i;
     }
-
+    
     @Override
     public User getAdmin() {
         return userDao.getAdmin();

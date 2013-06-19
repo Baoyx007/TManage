@@ -72,14 +72,14 @@
 
             <!-- Main hero unit for a primary marketing message or call to action -->
             <div class="hero-unit ">
-                <h1>当前进度 </h1>
+                <h1>毕业设计管理系统 </h1>
                 <script src="./js/jquery.js"></script>
                 <script>
                     $(function() {
                         var tt = ${remain};
                         $('#countdowner').scojs_countdown({until: tt});
                     });</script>
-                还剩： <div id="countdowner" ></div>
+                <br>还剩： <span id="countdowner" ></span><br><br>
                 <div id="begin" data-toggle="tooltip" data-placement="left" data-original-title="${thesisStart}" class="span1">开始</div>
                 <div class="progress progress-striped active span8 ">
                     <div class="bar" style="width: ${percentage}%;">${percentage}% </div>
@@ -87,7 +87,7 @@
                 </div>
                 <div id="end" data-toggle="tooltip" data-placement="top" data-original-title="${thesisEnd}" class="span1">结束</div>
                 <div class="clearfix"></div>
-                <p><a href="#" class="btn btn-primary btn-large">详情 &raquo;</a></p>
+               
             </div>
 
             <!-- Example row of columns -->

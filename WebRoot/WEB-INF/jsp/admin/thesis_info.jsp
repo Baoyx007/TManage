@@ -82,7 +82,7 @@
         <!--container-->
         <div class="container">
             <div class="page-header">
-                <h1>${subject.title}</h1>
+                <h1>${subject.title}<small>任务书</small></h1>
             </div>
             <div class="hero-unit span7">${subject.description}</div>
             <div class="span3" >
